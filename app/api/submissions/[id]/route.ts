@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
-import Vehicle from '@/models/Vehicle';
+import Submission from '@/models/Submission';
 import { requireAdmin } from '@/lib/auth';
 
 export async function GET(
@@ -9,33 +9,22 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    
     const { id } = await params;
 
-    const vehicle = await Vehicle.findById(id)
-      .select('-purchasePrice') // Don't send purchase price to frontend
-      .lean();
+    const submission = await Submission.findById(id).lean();
 
-    if (!vehicle) {
+    if (!submission) {
       return NextResponse.json(
-        { error: 'Vehicle not found' },
+        { error: 'Submission not found' },
         { status: 404 }
       );
     }
 
-    // Don't show draft vehicles to public
-    if (vehicle.status === 'draft') {
-      return NextResponse.json(
-        { error: 'Vehicle not found' },
-        { status: 404 }
-      );
-    }
-
-    return NextResponse.json(vehicle, { status: 200 });
-  } catch (error: any) {
-    console.error('Error fetching vehicle:', error);
+    return NextResponse.json(submission);
+  } catch (error) {
+    console.error('Error fetching submission:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch vehicle', message: error.message },
+      { error: 'Failed to fetch submission' },
       { status: 500 }
     );
   }
@@ -48,31 +37,30 @@ export async function PATCH(
   try {
     await requireAdmin();
     await connectDB();
-    
     const { id } = await params;
     const body = await request.json();
 
-    const vehicle = await Vehicle.findByIdAndUpdate(
+    const submission = await Submission.findByIdAndUpdate(
       id,
       { $set: body },
       { new: true, runValidators: true }
     );
 
-    if (!vehicle) {
+    if (!submission) {
       return NextResponse.json(
-        { error: 'Vehicle not found' },
+        { error: 'Submission not found' },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      vehicle,
+      submission,
     });
-  } catch (error: any) {
-    console.error('Error updating vehicle:', error);
+  } catch (error) {
+    console.error('Error updating submission:', error);
     return NextResponse.json(
-      { error: 'Failed to update vehicle', message: error.message },
+      { error: 'Failed to update submission' },
       { status: 500 }
     );
   }
@@ -85,26 +73,25 @@ export async function DELETE(
   try {
     await requireAdmin();
     await connectDB();
-    
     const { id } = await params;
 
-    const vehicle = await Vehicle.findByIdAndDelete(id);
+    const submission = await Submission.findByIdAndDelete(id);
 
-    if (!vehicle) {
+    if (!submission) {
       return NextResponse.json(
-        { error: 'Vehicle not found' },
+        { error: 'Submission not found' },
         { status: 404 }
       );
     }
 
     return NextResponse.json({
       success: true,
-      message: 'Vehicle deleted successfully',
+      message: 'Submission deleted successfully',
     });
-  } catch (error: any) {
-    console.error('Error deleting vehicle:', error);
+  } catch (error) {
+    console.error('Error deleting submission:', error);
     return NextResponse.json(
-      { error: 'Failed to delete vehicle', message: error.message },
+      { error: 'Failed to delete submission' },
       { status: 500 }
     );
   }
