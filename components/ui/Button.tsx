@@ -4,6 +4,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 export default function Button({
@@ -11,6 +12,7 @@ export default function Button({
   size = 'md',
   className = '',
   children,
+  icon,
   ...props
 }: ButtonProps) {
   const baseStyles = 'font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
@@ -29,9 +31,10 @@ export default function Button({
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className} ${icon ? 'flex items-center gap-2' : ''}`}
       {...props}
     >
+      {icon}
       {children}
     </button>
   );
