@@ -54,7 +54,6 @@ const SubmissionSchema = new Schema<ISubmission>(
     description: { type: String },
     // Meta
     status: { type: String, enum: ['pending', 'contacted', 'approved', 'rejected'], default: 'pending' },
-    adminNotes: { type: String },
     adminNotes: { type: String, default: '' },
   },
   {

@@ -20,7 +20,7 @@ if (fs.existsSync(envPath)) {
 const vehicleSchema = new mongoose.Schema({
   category: { type: String, enum: ['bike', 'car'], required: true },
   brand: { type: String, required: true },
-  model: { type: String, required: true },
+  vehicleModel: { type: String, required: true },
   year: { type: Number, required: true },
   sellingPrice: { type: Number, required: true },
   purchasePrice: { type: Number },
@@ -48,7 +48,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Honda',
-    model: 'Activa 6G',
+    vehicleModel: 'Activa 6G',
     year: 2023,
     purchasePrice: 45000,
     sellingPrice: 52000,
@@ -66,7 +66,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Yamaha',
-    model: 'FZ S V3',
+    vehicleModel: 'FZ S V3',
     year: 2022,
     purchasePrice: 65000,
     sellingPrice: 75000,
@@ -83,7 +83,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Royal Enfield',
-    model: 'Classic 350',
+    vehicleModel: 'Classic 350',
     year: 2021,
     purchasePrice: 120000,
     sellingPrice: 140000,
@@ -103,7 +103,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Bajaj',
-    model: 'Pulsar NS200',
+    vehicleModel: 'Pulsar NS200',
     year: 2023,
     purchasePrice: 95000,
     sellingPrice: 110000,
@@ -120,7 +120,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'TVS',
-    model: 'Apache RTR 160',
+    vehicleModel: 'Apache RTR 160',
     year: 2022,
     purchasePrice: 70000,
     sellingPrice: 82000,
@@ -139,7 +139,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'KTM',
-    model: 'Duke 390',
+    vehicleModel: 'Duke 390',
     year: 2021,
     purchasePrice: 180000,
     sellingPrice: 210000,
@@ -156,7 +156,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Hero',
-    model: 'Splendor Plus',
+    vehicleModel: 'Splendor Plus',
     year: 2023,
     purchasePrice: 40000,
     sellingPrice: 48000,
@@ -173,7 +173,7 @@ const sampleVehicles = [
   {
     category: 'bike',
     brand: 'Suzuki',
-    model: 'Gixxer SF',
+    vehicleModel: 'Gixxer SF',
     year: 2022,
     purchasePrice: 95000,
     sellingPrice: 115000,
@@ -192,7 +192,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Maruti Suzuki',
-    model: 'Swift VXI',
+    vehicleModel: 'Swift VXI',
     year: 2022,
     purchasePrice: 450000,
     sellingPrice: 520000,
@@ -210,7 +210,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Hyundai',
-    model: 'i20 Sportz',
+    vehicleModel: 'i20 Sportz',
     year: 2021,
     purchasePrice: 520000,
     sellingPrice: 600000,
@@ -227,7 +227,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Tata',
-    model: 'Nexon XZ+',
+    vehicleModel: 'Nexon XZ+',
     year: 2023,
     purchasePrice: 850000,
     sellingPrice: 950000,
@@ -247,7 +247,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Mahindra',
-    model: 'Scorpio S11',
+    vehicleModel: 'Scorpio S11',
     year: 2020,
     purchasePrice: 950000,
     sellingPrice: 1100000,
@@ -264,7 +264,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Honda',
-    model: 'City VX',
+    vehicleModel: 'City VX',
     year: 2022,
     purchasePrice: 850000,
     sellingPrice: 980000,
@@ -281,7 +281,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Toyota',
-    model: 'Fortuner 4x4',
+    vehicleModel: 'Fortuner 4x4',
     year: 2021,
     purchasePrice: 2800000,
     sellingPrice: 3200000,
@@ -300,7 +300,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Maruti Suzuki',
-    model: 'Baleno Alpha',
+    vehicleModel: 'Baleno Alpha',
     year: 2023,
     purchasePrice: 700000,
     sellingPrice: 780000,
@@ -317,7 +317,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Volkswagen',
-    model: 'Polo GT TSI',
+    vehicleModel: 'Polo GT TSI',
     year: 2022,
     purchasePrice: 650000,
     sellingPrice: 750000,
@@ -334,7 +334,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Hyundai',
-    model: 'Creta SX',
+    vehicleModel: 'Creta SX',
     year: 2022,
     purchasePrice: 1100000,
     sellingPrice: 1280000,
@@ -352,7 +352,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Tata',
-    model: 'Altroz XZ',
+    vehicleModel: 'Altroz XZ',
     year: 2023,
     purchasePrice: 600000,
     sellingPrice: 680000,
@@ -369,7 +369,7 @@ const sampleVehicles = [
   {
     category: 'car',
     brand: 'Mahindra',
-    model: 'XUV700 AX7',
+    vehicleModel: 'XUV700 AX7',
     year: 2023,
     purchasePrice: 1850000,
     sellingPrice: 2050000,

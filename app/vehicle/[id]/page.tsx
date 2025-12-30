@@ -12,7 +12,7 @@ interface Vehicle {
   _id: string;
   category: 'bike' | 'car';
   brand: string;
-  model: string;
+  vehicleModel: string;
   year: number;
   sellingPrice: number;
   images: string[];
@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     };
   }
 
-  const title = `${vehicle.brand} ${vehicle.model} ${vehicle.year}`;
+  const title = `${vehicle.brand} ${vehicle.vehicleModel} ${vehicle.year}`;
   const description = vehicle.description || `${title} - ₹${vehicle.sellingPrice.toLocaleString('en-IN')} | ${vehicle.kilometers.toLocaleString('en-IN')} km | ${vehicle.fuelType} | ${vehicle.city || 'India'}`;
 
   return {
@@ -114,7 +114,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
   // Get similar vehicles
   const similarVehicles = await getSimilarVehicles(id);
 
-  const title = `${vehicle.brand} ${vehicle.model} ${vehicle.year}`;
+  const title = `${vehicle.brand} ${vehicle.vehicleModel} ${vehicle.year}`;
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
   
   // Construct the full vehicle URL for sharing
@@ -169,7 +169,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
             {/* Specifications */}
             <SpecsTable
               brand={vehicle.brand}
-              model={vehicle.model}
+              model={vehicle.vehicleModel}
               year={vehicle.year}
               kilometers={vehicle.kilometers}
               fuelType={vehicle.fuelType}
@@ -212,7 +212,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                 <VehicleCard
                   key={vehicle._id}
                   id={vehicle._id}
-                  title={`${vehicle.brand} ${vehicle.model}`}
+                  title={`${vehicle.brand} ${vehicle.vehicleModel}`}
                   price={vehicle.sellingPrice}
                   image={vehicle.images[0]}
                   year={vehicle.year}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Filter, Search, X } from 'lucide-react';
 import FilterSidebar, { FilterValues } from '@/components/filters/FilterSidebar';
@@ -13,7 +13,7 @@ interface Vehicle {
   _id: string;
   category: 'bike' | 'car';
   brand: string;
-  model: string;
+  vehicleModel: string;
   year: number;
   sellingPrice: number;
   images: string[];
@@ -32,7 +32,7 @@ interface VehicleResponse {
   hasMore: boolean;
 }
 
-export default function BuyPage() {
+function BrowsePage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -260,7 +260,7 @@ export default function BuyPage() {
                     <VehicleCard
                       key={vehicle._id}
                       id={vehicle._id}
-                      title={`${vehicle.brand} ${vehicle.model}`}
+                      title={`${vehicle.brand} ${vehicle.vehicleModel}`}
                       price={vehicle.sellingPrice}
                       image={vehicle.images[0]}
                       year={vehicle.year}
@@ -287,3 +287,13 @@ export default function BuyPage() {
     </div>
   );
 }
+
+function BuyPageContent() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <BrowsePage />
+    </Suspense>
+  );
+}
+
+export default BuyPageContent;

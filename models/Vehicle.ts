@@ -8,7 +8,7 @@ export interface IVehicle extends Document {
   images: string[];
   category: 'bike' | 'car';
   brand: string;
-  model: string;
+  vehicleModel: string;
   year: number;
   kilometers: number;
   fuelType: 'petrol' | 'diesel' | 'electric' | 'cng';
@@ -37,7 +37,7 @@ const VehicleSchema = new Schema<IVehicle>(
     images: [{ type: String }],
     category: { type: String, enum: ['bike', 'car'], required: true },
     brand: { type: String, required: true },
-    model: { type: String, required: true },
+    vehicleModel: { type: String, required: true },
     year: { type: Number, required: true },
     kilometers: { type: Number, required: true },
     fuelType: { type: String, enum: ['petrol', 'diesel', 'electric', 'cng'], required: true },

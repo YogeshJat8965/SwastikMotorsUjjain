@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Filter, Search, X } from 'lucide-react';
 import RentalCard from '@/components/rental/RentalCard';
@@ -38,7 +38,7 @@ interface RentalResponse {
   };
 }
 
-export default function RentalsPage() {
+function RentalsPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -370,3 +370,13 @@ export default function RentalsPage() {
     </div>
   );
 }
+
+function RentalsPageContent() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <RentalsPage />
+    </Suspense>
+  );
+}
+
+export default RentalsPageContent;
