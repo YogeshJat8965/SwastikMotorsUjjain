@@ -11,7 +11,7 @@ export interface ISubmission extends Document {
   // Vehicle Details
   category: 'bike' | 'car';
   brand: string;
-  model: string;
+  vehicleModel: string;
   year: number;
   kilometers: number;
   fuelType: 'Petrol' | 'Diesel' | 'Electric' | 'CNG' | 'Hybrid';
@@ -41,7 +41,7 @@ const SubmissionSchema = new Schema<ISubmission>(
     // Vehicle Details
     category: { type: String, enum: ['bike', 'car'], required: true },
     brand: { type: String, required: true },
-    model: { type: String, required: true },
+    vehicleModel: { type: String, required: true },
     year: { type: Number, required: true },
     kilometers: { type: Number, required: true },
     fuelType: { type: String, enum: ['Petrol', 'Diesel', 'Electric', 'CNG', 'Hybrid'], required: true },

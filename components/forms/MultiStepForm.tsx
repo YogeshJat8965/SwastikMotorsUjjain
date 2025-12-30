@@ -44,7 +44,7 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
   const [formData, setFormData] = useState<Partial<SubmissionData>>({
     category: undefined,
     brand: '',
-    model: '',
+    vehicleModel: '',
     year: new Date().getFullYear(),
     kilometers: 0,
     fuelType: undefined,
@@ -105,7 +105,7 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
       case 1: // Vehicle Type
         if (!formData.category) newErrors.category = 'Category is required';
         if (!formData.brand) newErrors.brand = 'Brand is required';
-        if (!formData.model) newErrors.model = 'Model is required';
+        if (!formData.vehicleModel) newErrors.vehicleModel = 'Model is required';
         if (!formData.year || formData.year < 1990) newErrors.year = 'Valid year is required';
         break;
 
@@ -277,9 +277,9 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
 
             <Input
               label="Model *"
-              value={formData.model}
-              onChange={(e) => updateField('model', e.target.value)}
-              error={errors.model}
+              value={formData.vehicleModel}
+              onChange={(e) => updateField('vehicleModel', e.target.value)}
+              error={errors.vehicleModel}
               placeholder="e.g., Classic 350, Swift"
             />
 
@@ -428,7 +428,7 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
               <div>
                 <h3 className="font-semibold text-gray-900 mb-2">Vehicle Details</h3>
                 <p className="text-gray-600">Category: {formData.category}</p>
-                <p className="text-gray-600">{formData.brand} {formData.model} ({formData.year})</p>
+                <p className="text-gray-600">{formData.brand} {formData.vehicleModel} ({formData.year})</p>
                 <p className="text-gray-600">{formData.kilometers?.toLocaleString('en-IN')} km</p>
                 <p className="text-gray-600">{formData.fuelType} • {formData.transmission}</p>
                 <p className="text-gray-600">Color: {formData.color}</p>

@@ -13,7 +13,7 @@ export const submissionSchema = z.object({
     required_error: 'Please select a category',
   }),
   brand: z.string().min(2, 'Brand is required').max(50),
-  model: z.string().min(1, 'Model is required').max(100),
+  vehicleModel: z.string().min(1, 'Model is required').max(100),
   year: z.number().min(1990, 'Year must be 1990 or later').max(new Date().getFullYear() + 1),
   
   // Condition (Step 3)
