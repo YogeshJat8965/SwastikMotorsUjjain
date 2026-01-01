@@ -13,6 +13,8 @@ export interface IVehicle extends Document {
   kilometers: number;
   fuelType: 'petrol' | 'diesel' | 'electric' | 'cng';
   transmission: 'manual' | 'automatic';
+  color?: string;
+  owners?: number;
   location: {
     city: string;
     state: string;
@@ -24,6 +26,8 @@ export interface IVehicle extends Document {
   isFeatured: boolean;
   views: number;
   contacts: number;
+  adminNotes?: string;
+  sourceSubmissionId?: mongoose.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -42,6 +46,8 @@ const VehicleSchema = new Schema<IVehicle>(
     kilometers: { type: Number, required: true },
     fuelType: { type: String, enum: ['petrol', 'diesel', 'electric', 'cng'], required: true },
     transmission: { type: String, enum: ['manual', 'automatic'], required: true },
+    color: { type: String },
+    owners: { type: Number },
     location: {
       city: { type: String, required: true },
       state: { type: String, required: true },
@@ -53,6 +59,8 @@ const VehicleSchema = new Schema<IVehicle>(
     isFeatured: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     contacts: { type: Number, default: 0 },
+    adminNotes: { type: String },
+    sourceSubmissionId: { type: Schema.Types.ObjectId, ref: 'Submission' },
   },
   {
     timestamps: true,

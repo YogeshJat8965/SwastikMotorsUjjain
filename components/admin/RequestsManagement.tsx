@@ -10,6 +10,8 @@ import {
   XCircle,
   Filter,
   Search,
+  Eye,
+  ShoppingCart,
 } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
@@ -35,7 +37,7 @@ interface Submission {
   images: string[];
   expectedPrice: number;
   description?: string;
-  status: 'pending' | 'contacted' | 'approved' | 'rejected';
+  status: 'pending' | 'contacted' | 'approved' | 'rejected' | 'purchased';
   adminNotes?: string;
   createdAt: string;
 }
@@ -111,6 +113,7 @@ export default function RequestsManagement() {
       pending: { color: 'bg-orange-100 text-orange-700', label: '🟠 New' },
       contacted: { color: 'bg-blue-100 text-blue-700', label: '💬 Contacted' },
       approved: { color: 'bg-green-100 text-green-700', label: '✅ Approved' },
+      purchased: { color: 'bg-purple-100 text-purple-700', label: '🛒 Purchased' },
       rejected: { color: 'bg-red-100 text-red-700', label: '❌ Rejected' },
     };
 
@@ -138,6 +141,7 @@ export default function RequestsManagement() {
     { key: 'pending', label: 'New', count: submissions.filter((s) => s.status === 'pending').length },
     { key: 'contacted', label: 'Contacted', count: submissions.filter((s) => s.status === 'contacted').length },
     { key: 'approved', label: 'Approved', count: submissions.filter((s) => s.status === 'approved').length },
+    { key: 'purchased', label: 'Purchased', count: submissions.filter((s) => s.status === 'purchased').length },
     { key: 'rejected', label: 'Rejected', count: submissions.filter((s) => s.status === 'rejected').length },
   ];
 
@@ -155,7 +159,7 @@ export default function RequestsManagement() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-white border-b border-gray-200 sticky top-0 lg:top-0 top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-4">
@@ -218,21 +222,42 @@ export default function RequestsManagement() {
                 key={submission._id}
                 className="bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow"
               >
-                {/* Image */}
-                <div className="relative h-48 bg-gray-200">
-                  {submission.images[0] ? (
-                    <img
-                      src={submission.images[0]}
-                      alt={`${submission.brand} ${submission.vehicleModel}`}
-                      className="w-full h-full object-cover"
-                    />
+                {/* Images Gallery */}
+                <div className="relative bg-gray-200">
+                  {submission.images && submission.images.length > 0 ? (
+                    <div className="grid grid-cols-2 gap-1 p-1">
+                      {submission.images.slice(0, 4).map((image, idx) => (
+                        <div
+                          key={idx}
+                          className={`relative ${
+                            submission.images.length === 1
+                              ? 'col-span-2 h-64'
+                              : idx === 0
+                              ? 'col-span-2 h-48'
+                              : 'h-32'
+                          }`}
+                        >
+                          <img
+                            src={image}
+                            alt={`${submission.brand} ${submission.vehicleModel} - Image ${idx + 1}`}
+                            className="w-full h-full object-contain bg-white rounded-lg"
+                            onClick={() => window.open(image, '_blank')}
+                          />
+                        </div>
+                      ))}
+                      {submission.images.length > 4 && (
+                        <div className="absolute bottom-2 right-2 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                          +{submission.images.length - 4} more
+                        </div>
+                      )}
+                    </div>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      No Image
+                    <div className="h-48 flex items-center justify-center text-gray-400">
+                      No Images
                     </div>
                   )}
-                  <div className="absolute top-3 right-3">{getStatusBadge(submission.status)}</div>
-                  <div className="absolute bottom-3 left-3">
+                  <div className="absolute top-3 right-3 z-10">{getStatusBadge(submission.status)}</div>
+                  <div className="absolute top-3 left-3 z-10">
                     <span className="bg-black/70 text-white px-3 py-1 rounded-full text-sm font-medium">
                       {submission.referenceNumber}
                     </span>
@@ -321,16 +346,35 @@ export default function RequestsManagement() {
 
                   {/* Actions */}
                   <div className="flex flex-wrap gap-2">
+                    {submission.status !== 'purchased' && (
+                      <button
+                        onClick={() => router.push(`/admin/requests/${submission._id}`)}
+                        className="flex-1 min-w-[120px] bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                      >
+                        <ShoppingCart className="w-4 h-4" />
+                        I Want to Buy
+                      </button>
+                    )}
+                    <button
+                      onClick={() => router.push(`/admin/requests/${submission._id}`)}
+                      className="flex-1 min-w-[120px] bg-gray-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                    >
+                      <Eye className="w-4 h-4" />
+                      View Details
+                    </button>
+                  </div>
+
+                  <div className="flex gap-2 mt-2">
                     <button
                       onClick={() => handleWhatsApp(submission)}
-                      className="flex-1 min-w-[120px] bg-green-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 bg-green-50 text-green-700 px-3 py-2 rounded-lg font-medium hover:bg-green-100 transition-colors flex items-center justify-center gap-2 text-sm"
                     >
                       <MessageCircle className="w-4 h-4" />
                       WhatsApp
                     </button>
                     <button
                       onClick={() => handleCall(submission.phone)}
-                      className="flex-1 min-w-[120px] bg-blue-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2"
+                      className="flex-1 bg-blue-50 text-blue-700 px-3 py-2 rounded-lg font-medium hover:bg-blue-100 transition-colors flex items-center justify-center gap-2 text-sm"
                     >
                       <Phone className="w-4 h-4" />
                       Call

@@ -1,9 +1,9 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
-import InventoryManagement from '@/components/admin/InventoryManagement';
+import AddVehicleForm from '@/components/admin/AddVehicleForm';
 import AdminLayout from '@/components/admin/AdminLayout';
 
-export default async function AdminInventoryPage() {
+export default async function AddVehiclePage() {
   const session = await getSession();
 
   if (!session) {
@@ -12,7 +12,7 @@ export default async function AdminInventoryPage() {
 
   return (
     <AdminLayout>
-      <InventoryManagement />
+      <AddVehicleForm />
     </AdminLayout>
   );
 }

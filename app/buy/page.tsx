@@ -19,8 +19,10 @@ interface Vehicle {
   images: string[];
   fuelType: string;
   kilometers: number;
-  location?: string;
-  city?: string;
+  location: {
+    city: string;
+    state: string;
+  };
   featured?: boolean;
 }
 
@@ -266,7 +268,7 @@ function BrowsePage() {
                       year={vehicle.year}
                       kilometers={vehicle.kilometers}
                       fuelType={vehicle.fuelType}
-                      location={vehicle.city || vehicle.location}
+                      location={`${vehicle.location?.city || ''}, ${vehicle.location?.state || ''}`}
                       featured={vehicle.featured}
                       category={vehicle.category}
                     />

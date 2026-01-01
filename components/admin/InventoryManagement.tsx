@@ -12,6 +12,9 @@ import {
   Search,
   Filter,
   Home,
+  Star,
+  ExternalLink,
+  MessageCircle,
 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
@@ -82,9 +85,9 @@ export default function InventoryManagement() {
     if (searchQuery) {
       filtered = filtered.filter(
         (v) =>
-          v.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          v.vehicleModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          v.title.toLowerCase().includes(searchQuery.toLowerCase())
+          (v.brand || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (v.vehicleModel || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+          (v.title || '').toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
@@ -92,13 +95,13 @@ export default function InventoryManagement() {
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'latest':
-          return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+          return new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime();
         case 'oldest':
-          return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
+          return new Date(a.createdAt || 0).getTime() - new Date(b.createdAt || 0).getTime();
         case 'views':
-          return b.views - a.views;
+          return (b.views || 0) - (a.views || 0);
         case 'profit':
-          return (b.sellingPrice - b.purchasePrice) - (a.sellingPrice - a.purchasePrice);
+          return ((b.sellingPrice || 0) - (b.purchasePrice || 0)) - ((a.sellingPrice || 0) - (a.purchasePrice || 0));
         default:
           return 0;
       }
@@ -136,6 +139,40 @@ export default function InventoryManagement() {
       }
     } catch (error) {
       console.error('Error updating status:', error);
+    }
+  };
+
+  const toggleRental = async (id: string, currentStatus: boolean) => {
+    try {
+      const response = await fetch(`/api/admin/vehicles/${id}/rental`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ availableForRent: !currentStatus }),
+      });
+
+      if (response.ok) {
+        fetchVehicles();
+        alert(`Rental availability ${!currentStatus ? 'enabled' : 'disabled'}`);
+      }
+    } catch (error) {
+      console.error('Error toggling rental:', error);
+    }
+  };
+
+  const toggleFeatured = async (id: string, currentStatus: boolean) => {
+    try {
+      const response = await fetch(`/api/admin/vehicles/${id}/featured`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isFeatured: !currentStatus }),
+      });
+
+      if (response.ok) {
+        fetchVehicles();
+        alert(`Featured status ${!currentStatus ? 'enabled' : 'disabled'}`);
+      }
+    } catch (error) {
+      console.error('Error toggling featured:', error);
     }
   };
 
@@ -263,8 +300,10 @@ export default function InventoryManagement() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredVehicles.map((vehicle) => {
-              const profit = calculateProfit(vehicle.sellingPrice, vehicle.purchasePrice);
-              const profitPercentage = ((profit / vehicle.purchasePrice) * 100).toFixed(1);
+              const purchasePrice = vehicle.purchasePrice || 0;
+              const sellingPrice = vehicle.sellingPrice || 0;
+              const profit = calculateProfit(sellingPrice, purchasePrice);
+              const profitPercentage = purchasePrice > 0 ? ((profit / purchasePrice) * 100).toFixed(1) : '0.0';
 
               return (
                 <div
@@ -273,10 +312,10 @@ export default function InventoryManagement() {
                 >
                   {/* Image */}
                   <div className="relative h-48 bg-gray-200">
-                    {vehicle.images[0] ? (
+                    {vehicle.images?.[0] ? (
                       <img
                         src={vehicle.images[0]}
-                        alt={vehicle.title}
+                        alt={vehicle.title || 'Vehicle'}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -284,7 +323,7 @@ export default function InventoryManagement() {
                         No Image
                       </div>
                     )}
-                    <div className="absolute top-3 right-3">{getStatusBadge(vehicle.status)}</div>
+                    <div className="absolute top-3 right-3">{getStatusBadge(vehicle.status || 'for_sale')}</div>
                     {vehicle.isFeatured && (
                       <div className="absolute top-3 left-3">
                         <span className="bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-bold">
@@ -297,22 +336,22 @@ export default function InventoryManagement() {
                   {/* Content */}
                   <div className="p-4">
                     <h3 className="font-bold text-lg text-gray-900 mb-2 line-clamp-1">
-                      {vehicle.brand} {vehicle.vehicleModel}
+                      {vehicle.brand || 'Unknown'} {vehicle.vehicleModel || 'Model'}
                     </h3>
                     <p className="text-sm text-gray-600 mb-3">
-                      {vehicle.year} • {vehicle.kilometers.toLocaleString('en-IN')} km
+                      {vehicle.year || 'N/A'} • {(vehicle.kilometers || 0).toLocaleString('en-IN')} km
                     </p>
 
                     {/* Pricing */}
                     <div className="space-y-2 mb-3">
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Bought For:</span>
-                        <span className="font-medium">₹{vehicle.purchasePrice.toLocaleString('en-IN')}</span>
+                        <span className="font-medium">₹{purchasePrice.toLocaleString('en-IN')}</span>
                       </div>
                       <div className="flex justify-between text-sm">
                         <span className="text-gray-600">Selling For:</span>
                         <span className="font-semibold text-blue-600">
-                          ₹{vehicle.sellingPrice.toLocaleString('en-IN')}
+                          ₹{sellingPrice.toLocaleString('en-IN')}
                         </span>
                       </div>
                       <div className="flex justify-between text-sm pt-2 border-t border-gray-200">
@@ -329,6 +368,10 @@ export default function InventoryManagement() {
                         <Eye className="w-4 h-4" />
                         {vehicle.views || 0}
                       </div>
+                      <div className="flex items-center gap-1">
+                        <MessageCircle className="w-4 h-4" />
+                        {vehicle.contacts || 0}
+                      </div>
                       {vehicle.availableForRent && (
                         <div className="flex items-center gap-1">
                           <Home className="w-4 h-4" />
@@ -338,30 +381,63 @@ export default function InventoryManagement() {
                     </div>
 
                     {/* Actions */}
-                    <div className="grid grid-cols-3 gap-2">
-                      <button
-                        onClick={() => router.push(`/admin/inventory/edit/${vehicle._id}`)}
-                        className="flex items-center justify-center gap-1 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
-                      >
-                        <Edit className="w-4 h-4" />
-                        Edit
-                      </button>
+                    <div className="space-y-2">
+                      <div className="grid grid-cols-3 gap-2">
+                        <button
+                          onClick={() => router.push(`/admin/inventory/edit/${vehicle._id}`)}
+                          className="flex items-center justify-center gap-1 px-3 py-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition-colors text-sm font-medium"
+                        >
+                          <Edit className="w-4 h-4" />
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => window.open(`/vehicle/${vehicle._id}`, '_blank')}
+                          className="flex items-center justify-center gap-1 px-3 py-2 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition-colors text-sm font-medium"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          Preview
+                        </button>
+                        <button
+                          onClick={() => deleteVehicle(vehicle._id)}
+                          className="flex items-center justify-center gap-1 px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                          Delete
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          onClick={() => toggleRental(vehicle._id, vehicle.availableForRent)}
+                          className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+                            vehicle.availableForRent
+                              ? 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          <Home className="w-4 h-4" />
+                          {vehicle.availableForRent ? 'Rental ON' : 'Rental OFF'}
+                        </button>
+                        <button
+                          onClick={() => toggleFeatured(vehicle._id, vehicle.isFeatured)}
+                          className={`flex items-center justify-center gap-1 px-3 py-2 rounded-lg transition-colors text-sm font-medium ${
+                            vehicle.isFeatured
+                              ? 'bg-yellow-100 text-yellow-700 hover:bg-yellow-200'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          }`}
+                        >
+                          <Star className="w-4 h-4" />
+                          {vehicle.isFeatured ? 'Featured' : 'Feature'}
+                        </button>
+                      </div>
                       {vehicle.status === 'for_sale' && (
                         <button
                           onClick={() => updateStatus(vehicle._id, 'sold')}
-                          className="flex items-center justify-center gap-1 px-3 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium"
+                          className="w-full flex items-center justify-center gap-1 px-3 py-2 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition-colors text-sm font-medium"
                         >
                           <CheckCircle className="w-4 h-4" />
-                          Sold
+                          Mark as Sold
                         </button>
                       )}
-                      <button
-                        onClick={() => deleteVehicle(vehicle._id)}
-                        className="flex items-center justify-center gap-1 px-3 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                        Delete
-                      </button>
                     </div>
                   </div>
                 </div>

@@ -1,18 +1,18 @@
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
-import InventoryManagement from '@/components/admin/InventoryManagement';
+import SettingsManagement from '@/components/admin/SettingsManagement';
 import AdminLayout from '@/components/admin/AdminLayout';
 
-export default async function AdminInventoryPage() {
+export default async function AdminSettingsPage() {
   const session = await getSession();
-
+  
   if (!session) {
     redirect('/admin/login');
   }
 
   return (
     <AdminLayout>
-      <InventoryManagement />
+      <SettingsManagement />
     </AdminLayout>
   );
 }

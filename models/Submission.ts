@@ -23,7 +23,7 @@ export interface ISubmission extends Document {
   expectedPrice: number;
   description?: string;
   // Meta
-  status: 'pending' | 'contacted' | 'approved' | 'rejected';
+  status: 'pending' | 'contacted' | 'approved' | 'rejected' | 'purchased';
   adminNotes?: string;
   createdAt: Date;
   updatedAt: Date;
@@ -53,7 +53,7 @@ const SubmissionSchema = new Schema<ISubmission>(
     expectedPrice: { type: Number, required: true },
     description: { type: String },
     // Meta
-    status: { type: String, enum: ['pending', 'contacted', 'approved', 'rejected'], default: 'pending' },
+    status: { type: String, enum: ['pending', 'contacted', 'approved', 'rejected', 'purchased'], default: 'pending' },
     adminNotes: { type: String, default: '' },
   },
   {
