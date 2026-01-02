@@ -160,21 +160,21 @@ function RentalsPage() {
     searchQuery !== '';
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20 pb-16 md:pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen bg-gray-50 pt-16 md:pt-20 pb-16 md:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-6 md:py-8">
         
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+        <div className="mb-5 md:mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 mb-2">
             Rent a Vehicle
           </h1>
-          <p className="text-gray-600">
+          <p className="text-base text-gray-600">
             Choose from our collection of bikes and cars available for rent
           </p>
         </div>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="mb-6">
+        <form onSubmit={handleSearch} className="mb-5 md:mb-6">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
@@ -182,7 +182,7 @@ function RentalsPage() {
               placeholder="Search by brand, model, or location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-12 py-3 md:py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base"
+              className="w-full pl-12 pr-12 py-3.5 md:py-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-base shadow-sm"
             />
             {searchQuery && (
               <button
@@ -197,16 +197,16 @@ function RentalsPage() {
         </form>
 
         {/* Filters and Sort Row */}
-        <div className="flex flex-wrap items-center gap-3 mb-6 overflow-x-hidden">
+        <div className="flex flex-wrap items-center gap-2.5 md:gap-3 mb-5 md:mb-6">
           {/* Mobile Filter Button */}
           <button
             onClick={() => setIsFilterOpen(!isFilterOpen)}
-            className="md:hidden flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+            className="md:hidden flex items-center gap-2 px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl hover:bg-gray-50 shadow-sm active:scale-95 transition-all"
           >
-            <Filter className="w-4 h-4" />
-            <span className="text-sm font-medium">Filters</span>
+            <Filter className="w-5 h-5" />
+            <span className="text-base font-semibold">Filters</span>
             {hasActiveFilters && (
-              <Badge color="blue" className="ml-1">
+              <Badge color="blue" className="ml-1 text-xs px-2 py-0.5">
                 Active
               </Badge>
             )}
@@ -216,30 +216,30 @@ function RentalsPage() {
           <div className="flex gap-2 flex-shrink-0">
             <button
               onClick={() => setCategory('all')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm active:scale-95 ${
                 category === 'all'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md'
+                  : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50'
               }`}
             >
               All
             </button>
             <button
               onClick={() => setCategory('bike')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm active:scale-95 ${
                 category === 'bike'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md'
+                  : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50'
               }`}
             >
               🏍️ Bikes
             </button>
             <button
               onClick={() => setCategory('car')}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all shadow-sm active:scale-95 ${
                 category === 'car'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                  ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md'
+                  : 'bg-white border-2 border-gray-200 text-gray-700 hover:bg-gray-50'
               }`}
             >
               🚗 Cars
@@ -250,7 +250,7 @@ function RentalsPage() {
           <select
             value={transmission}
             onChange={(e) => setTransmission(e.target.value as 'all' | 'manual' | 'automatic')}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm min-w-[140px] max-w-[180px] focus:ring-2 focus:ring-blue-500"
+            className="hidden md:block px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="all">All Transmission</option>
             <option value="manual">Manual</option>
@@ -261,7 +261,7 @@ function RentalsPage() {
           <select
             value={fuelType}
             onChange={(e) => setFuelType(e.target.value)}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm min-w-[140px] max-w-[180px] focus:ring-2 focus:ring-blue-500"
+            className="hidden md:block px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="all">All Fuel Types</option>
             <option value="petrol">Petrol</option>
@@ -274,7 +274,7 @@ function RentalsPage() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="px-3 py-2 bg-white border border-gray-300 rounded-lg text-sm min-w-[140px] max-w-[180px] focus:ring-2 focus:ring-blue-500 ml-auto"
+            className="hidden md:block px-4 py-2.5 bg-white border-2 border-gray-200 rounded-xl text-sm font-medium shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ml-auto"
           >
             <option value="latest">Latest First</option>
             <option value="oldest">Oldest First</option>
@@ -294,9 +294,113 @@ function RentalsPage() {
 
         {/* Mobile Filter Panel */}
         {isFilterOpen && (
-          <div className="md:hidden mb-6 p-4 bg-white rounded-xl border border-gray-200 space-y-4">
+          <div className="md:hidden mb-5 p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-lg space-y-5">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900">Filter Options</h3>
+              <button
+                onClick={() => setIsFilterOpen(false)}
+                className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-500" />
+              </button>
+            </div>
+            
+            {/* Transmission */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Transmission
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  type="button"
+                  onClick={() => setTransmission('all')}
+                  className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all ${
+                    transmission === 'all'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 border border-gray-200 active:scale-95'
+                  }`}
+                >
+                  All
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTransmission('manual')}
+                  className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all ${
+                    transmission === 'manual'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 border border-gray-200 active:scale-95'
+                  }`}
+                >
+                  Manual
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTransmission('automatic')}
+                  className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all ${
+                    transmission === 'automatic'
+                      ? 'bg-blue-600 text-white shadow-md'
+                      : 'bg-gray-100 text-gray-700 border border-gray-200 active:scale-95'
+                  }`}
+                >
+                  Auto
+                </button>
+              </div>
+            </div>
+
+            {/* Fuel Type */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Fuel Type
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {['all', 'petrol', 'diesel', 'electric'].map((fuel) => (
+                  <button
+                    key={fuel}
+                    type="button"
+                    onClick={() => setFuelType(fuel)}
+                    className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all capitalize ${
+                      fuelType === fuel
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 border border-gray-200 active:scale-95'
+                    }`}
+                  >
+                    {fuel === 'all' ? 'All Types' : fuel}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Sort */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
+                Sort By
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { value: 'latest', label: 'Latest' },
+                  { value: 'price_low', label: 'Price Low' },
+                  { value: 'price_high', label: 'Price High' },
+                  { value: 'popular', label: 'Popular' }
+                ].map((sortOption) => (
+                  <button
+                    key={sortOption.value}
+                    type="button"
+                    onClick={() => setSort(sortOption.value)}
+                    className={`py-2.5 px-3 rounded-xl text-sm font-semibold transition-all ${
+                      sort === sortOption.value
+                        ? 'bg-blue-600 text-white shadow-md'
+                        : 'bg-gray-100 text-gray-700 border border-gray-200 active:scale-95'
+                    }`}
+                  >
+                    {sortOption.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Daily Rate Range */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Daily Rate Range
               </label>
               <div className="flex items-center gap-3">
@@ -305,24 +409,33 @@ function RentalsPage() {
                   value={minPrice}
                   onChange={(e) => setMinPrice(Number(e.target.value))}
                   placeholder="Min"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl text-base font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
-                <span className="text-gray-500">-</span>
+                <span className="text-gray-400 font-medium">-</span>
                 <input
                   type="number"
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(Number(e.target.value))}
                   placeholder="Max"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm"
+                  className="w-full px-4 py-2.5 border-2 border-gray-200 rounded-xl text-base font-medium focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
             </div>
+
+            {/* Apply Button */}
+            <button
+              type="button"
+              onClick={() => setIsFilterOpen(false)}
+              className="w-full py-3.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-xl shadow-md active:scale-95 transition-all"
+            >
+              Apply Filters
+            </button>
           </div>
         )}
 
         {/* Results Count */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-sm text-gray-600">
+        <div className="flex items-center justify-between mb-5 md:mb-6">
+          <p className="text-base md:text-sm font-semibold text-gray-700">
             {loading ? (
               'Loading...'
             ) : (
