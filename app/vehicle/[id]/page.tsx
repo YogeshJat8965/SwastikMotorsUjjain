@@ -8,6 +8,10 @@ import StickyActionBar from '@/components/vehicle/StickyActionBar';
 import VehicleCard from '@/components/ui/VehicleCard';
 import Badge from '@/components/ui/Badge';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface Vehicle {
   _id: string;
   category: 'bike' | 'car';
