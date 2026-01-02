@@ -6,7 +6,6 @@ import { requireAdmin } from '@/lib/auth';
 
 export async function GET(request: NextRequest) {
   try {
-    console.log('🔍 Vehicles API: Request received');
     const { searchParams } = new URL(request.url);
 
     // Parse query parameters
@@ -26,16 +25,11 @@ export async function GET(request: NextRequest) {
       includeAll: searchParams.get('includeAll') === 'true' ? true : undefined,
     };
 
-    console.log('🔍 Vehicles API: Fetching with filters:', JSON.stringify(filters, null, 2));
-
     const result = await getVehicles(filters);
-    
-    console.log(`✅ Vehicles API: Found ${result.vehicles.length} vehicles out of ${result.total} total`);
 
     return NextResponse.json(result, { status: 200 });
   } catch (error: any) {
     console.error('❌ Vehicles API Error:', error);
-    console.error('Error stack:', error.stack);
     
     return NextResponse.json(
       { 

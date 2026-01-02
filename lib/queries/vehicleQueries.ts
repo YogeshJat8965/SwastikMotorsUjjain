@@ -65,7 +65,6 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
   // Available for rent filter
   if (availableForRent !== undefined) {
     query.availableForRent = availableForRent;
-    console.log('Applied availableForRent filter:', availableForRent);
   }
 
   // Price range
@@ -124,8 +123,6 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
 
   // Calculate pagination
   const skip = (page - 1) * limit;
-
-  console.log('Final MongoDB query:', JSON.stringify(query, null, 2));
 
   // Execute query
   const [vehicles, total] = await Promise.all([

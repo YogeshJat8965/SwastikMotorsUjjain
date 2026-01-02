@@ -3,15 +3,50 @@ import { Instagram, MessageCircle, Shield, Search, Car, DollarSign, CheckCircle,
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import VehicleCard from '@/components/ui/VehicleCard';
-import { getFeaturedVehicles, getLatestBikes, getLatestCars } from '@/lib/mockData';
 
-export default function Home() {
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
+// Fetch featured vehicles from API
+async function getFeaturedVehicles() {
+  try {
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || `${protocol}://localhost:3000`;
+    
+    const res = await fetch(`${baseUrl}/api/vehicles?category=all&limit=12&sort=latest`, {
+      cache: 'no-store',
+    });
+
+    if (!res.ok) return [];
+    const data = await res.json();
+    const vehicles = data.vehicles || [];
+    
+    // Transform vehicles to match VehicleCard props
+    return vehicles.map((vehicle: any) => ({
+      id: vehicle._id,
+      title: `${vehicle.brand || ''} ${vehicle.model || vehicle.vehicleModel || ''} ${vehicle.year || ''}`.trim() || 'Vehicle',
+      price: vehicle.sellingPrice || vehicle.price || 0,
+      image: vehicle.images?.[0] || '',
+      year: vehicle.year || new Date().getFullYear(),
+      kilometers: vehicle.odometer || vehicle.kilometers || 0,
+      location: vehicle.city || vehicle.location || 'Ujjain',
+      fuelType: vehicle.fuelType || 'Petrol',
+      category: vehicle.category || 'bike',
+      featured: vehicle.featured || false,
+    }));
+  } catch (error) {
+    console.error('Error fetching featured vehicles:', error);
+    return [];
+  }
+}
+
+export default async function Home() {
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi, I want to know more about your bikes/cars`;
   
-  const featuredVehicles = getFeaturedVehicles();
-  const latestBikes = getLatestBikes();
-  const latestCars = getLatestCars();
+  const vehicles = await getFeaturedVehicles();
 
   return (
     <div>
@@ -119,7 +154,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredVehicles.map((vehicle) => (
+            {vehicles.slice(0, 6).map((vehicle: any) => (
               <VehicleCard key={vehicle.id} {...vehicle} />
             ))}
           </div>
@@ -136,7 +171,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestBikes.map((vehicle) => (
+            {vehicles.filter((v: any) => v.category === 'bike').slice(0, 6).map((vehicle: any) => (
               <VehicleCard key={vehicle.id} {...vehicle} />
             ))}
           </div>
@@ -153,7 +188,7 @@ export default function Home() {
             </Link>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {latestCars.map((vehicle) => (
+            {vehicles.filter((v: any) => v.category === 'car').slice(0, 6).map((vehicle: any) => (
               <VehicleCard key={vehicle.id} {...vehicle} />
             ))}
           </div>

@@ -99,7 +99,7 @@ export default function VehicleCard({
         {/* Price */}
         <div className="mb-4">
           <span className="text-2xl font-bold text-green-600">
-            ₹{price.toLocaleString('en-IN')}
+            ₹{price ? price.toLocaleString('en-IN') : '0'}
           </span>
         </div>
 
@@ -107,11 +107,11 @@ export default function VehicleCard({
         <div className="grid grid-cols-2 gap-3 mb-4 pb-4 border-b border-gray-100">
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Calendar className="w-4 h-4 text-gray-400" />
-            <span>{year}</span>
+            <span>{year || 'N/A'}</span>
           </div>
           <div className="flex items-center gap-2 text-sm text-gray-600">
             <Route className="w-4 h-4 text-gray-400" />
-            <span>{kilometers.toLocaleString('en-IN')} km</span>
+            <span>{kilometers ? kilometers.toLocaleString('en-IN') : '0'} km</span>
           </div>
           {fuelType && (
             <div className="flex items-center gap-2 text-sm text-gray-600">
