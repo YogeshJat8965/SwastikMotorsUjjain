@@ -26,7 +26,12 @@ export interface VehicleQueryResult {
 }
 
 export async function getVehicles(filters: VehicleFilters = {}): Promise<VehicleQueryResult> {
-  await connectDB();
+  try {
+    await connectDB();
+  } catch (error: any) {
+    console.error('Database connection failed in getVehicles:', error);
+    throw new Error(`Database connection failed: ${error.message}`);
+  }
 
   const {
     category = 'all',

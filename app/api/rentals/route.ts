@@ -4,7 +4,15 @@ import Vehicle from '@/models/Vehicle';
 
 export async function GET(request: Request) {
   try {
-    await connectDB();
+    console.log('🔍 Rentals API: Request received');
+    
+    try {
+      await connectDB();
+      console.log('✅ Rentals API: Database connected');
+    } catch (dbError: any) {
+      console.error('❌ Rentals API: Database connection failed:', dbError);
+      throw new Error(`Database connection failed: ${dbError.message}`);
+    }
 
     const { searchParams } = new URL(request.url);
     
@@ -19,6 +27,8 @@ export async function GET(request: Request) {
     const page = parseInt(searchParams.get('page') || '1');
     const limit = parseInt(searchParams.get('limit') || '20');
     const featured = searchParams.get('featured');
+
+    console.log('🔍 Rentals API: Query params:', { category, search, minPrice, maxPrice, page, limit });
 
     // Build query - MUST have availableForRent = true
     const query: any = {
@@ -111,6 +121,8 @@ export async function GET(request: Request) {
     // Get total count for pagination
     const total = await Vehicle.countDocuments(query);
 
+    console.log(`✅ Rentals API: Found ${rentals.length} rentals out of ${total} total`);
+
     return NextResponse.json({
       rentals,
       pagination: {
@@ -121,7 +133,9 @@ export async function GET(request: Request) {
       },
     });
   } catch (error: any) {
-    console.error('Error fetching rentals:', error);
+    console.error('❌ Rentals API Error:', error);
+    console.error('Error stack:', error.stack);
+    
     return NextResponse.json(
       { 
         rentals: [],
@@ -132,7 +146,8 @@ export async function GET(request: Request) {
           limit: 20,
         },
         error: 'Failed to fetch rentals',
-        message: error.message 
+        message: error.message,
+        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
       },
       { status: 500 }
     );
