@@ -31,7 +31,7 @@ async function getFeaturedVehicles() {
       image: vehicle.images?.[0] || '',
       year: vehicle.year || new Date().getFullYear(),
       kilometers: vehicle.odometer || vehicle.kilometers || 0,
-      location: vehicle.city || vehicle.location || 'Ujjain',
+      location: vehicle.location?.city || vehicle.city || 'Ujjain',
       fuelType: vehicle.fuelType || 'Petrol',
       category: vehicle.category || 'bike',
       featured: vehicle.featured || false,
