@@ -46,24 +46,37 @@ function BrowsePage() {
   const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Parse filters from URL
+  // Parse filters from URL with safe defaults
   const getFiltersFromURL = (): FilterValues => {
-    const brandsParam = searchParams.get('brands');
-    const brands = brandsParam ? brandsParam.split(',').filter(Boolean) : [];
-    
-    return {
-      category: (searchParams.get('category') as 'all' | 'bike' | 'car') || 'all',
-      minPrice: Number(searchParams.get('minPrice')) || 0,
-      maxPrice: Number(searchParams.get('maxPrice')) || 1000000,
-      brands: brands,
-      year: searchParams.get('year') ? Number(searchParams.get('year')) : undefined,
-      fuelType: searchParams.get('fuelType') || undefined,
-      location: searchParams.get('location') || undefined,
-    };
+    try {
+      const brandsParam = searchParams?.get('brands');
+      const brands = brandsParam ? brandsParam.split(',').filter(Boolean) : [];
+      
+      return {
+        category: (searchParams?.get('category') as 'all' | 'bike' | 'car') || 'all',
+        minPrice: Number(searchParams?.get('minPrice')) || 0,
+        maxPrice: Number(searchParams?.get('maxPrice')) || 1000000,
+        brands: brands,
+        year: searchParams?.get('year') ? Number(searchParams.get('year')) : undefined,
+        fuelType: searchParams?.get('fuelType') || undefined,
+        location: searchParams?.get('location') || undefined,
+      };
+    } catch (error) {
+      console.error('Error parsing URL params:', error);
+      return {
+        category: 'all',
+        minPrice: 0,
+        maxPrice: 1000000,
+        brands: [],
+        year: undefined,
+        fuelType: undefined,
+        location: undefined,
+      };
+    }
   };
 
-  const [filters, setFilters] = useState<FilterValues>(getFiltersFromURL());
-  const [sort, setSort] = useState(searchParams.get('sort') || 'latest');
+  const [filters, setFilters] = useState<FilterValues>(() => getFiltersFromURL());
+  const [sort, setSort] = useState(() => searchParams?.get('sort') || 'latest');
 
   // Fetch vehicles
   const fetchVehicles = async () => {

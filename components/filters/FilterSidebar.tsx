@@ -49,17 +49,26 @@ export default function FilterSidebar({
   onFilterChange,
   initialFilters,
 }: FilterSidebarProps) {
-  const [filters, setFilters] = useState<FilterValues>(
-    initialFilters || {
-      category: 'all',
+  const [filters, setFilters] = useState<FilterValues>(() => {
+    const defaults = {
+      category: 'all' as 'all' | 'bike' | 'car',
       minPrice: 0,
       maxPrice: 1000000,
       brands: [],
       year: undefined,
       fuelType: undefined,
       location: undefined,
-    }
-  );
+    };
+    
+    if (!initialFilters) return defaults;
+    
+    // Ensure brands is always an array
+    return {
+      ...defaults,
+      ...initialFilters,
+      brands: Array.isArray(initialFilters.brands) ? initialFilters.brands : [],
+    };
+  });
 
   const availableBrands = filters.category === 'bike' ? BIKE_BRANDS : 
                           filters.category === 'car' ? CAR_BRANDS : 
@@ -70,9 +79,10 @@ export default function FilterSidebar({
   };
 
   const handleBrandToggle = (brand: string) => {
-    const newBrands = filters.brands.includes(brand)
-      ? filters.brands.filter((b) => b !== brand)
-      : [...filters.brands, brand];
+    const currentBrands = Array.isArray(filters.brands) ? filters.brands : [];
+    const newBrands = currentBrands.includes(brand)
+      ? currentBrands.filter((b) => b !== brand)
+      : [...currentBrands, brand];
     setFilters({ ...filters, brands: newBrands });
   };
 
@@ -169,7 +179,7 @@ export default function FilterSidebar({
                 <label key={brand} className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={filters.brands.includes(brand)}
+                    checked={Array.isArray(filters.brands) && filters.brands.includes(brand)}
                     onChange={() => handleBrandToggle(brand)}
                     className="w-4 h-4 text-blue-600 rounded"
                   />

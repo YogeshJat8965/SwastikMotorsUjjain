@@ -50,17 +50,25 @@ function RentalsPage() {
   const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Filters
+  // Filters with safe defaults
   const [category, setCategory] = useState<'all' | 'bike' | 'car'>(
-    (searchParams.get('category') as 'all' | 'bike' | 'car') || 'all'
+    () => (searchParams?.get('category') as 'all' | 'bike' | 'car') || 'all'
   );
   const [transmission, setTransmission] = useState<'all' | 'manual' | 'automatic'>(
-    (searchParams.get('transmission') as 'all' | 'manual' | 'automatic') || 'all'
+    () => (searchParams?.get('transmission') as 'all' | 'manual' | 'automatic') || 'all'
   );
-  const [fuelType, setFuelType] = useState<string>(searchParams.get('fuelType') || 'all');
-  const [sort, setSort] = useState(searchParams.get('sort') || 'latest');
-  const [minPrice, setMinPrice] = useState(Number(searchParams.get('minPrice')) || 0);
-  const [maxPrice, setMaxPrice] = useState(Number(searchParams.get('maxPrice')) || 10000);
+  const [fuelType, setFuelType] = useState<string>(
+    () => searchParams?.get('fuelType') || 'all'
+  );
+  const [sort, setSort] = useState(
+    () => searchParams?.get('sort') || 'latest'
+  );
+  const [minPrice, setMinPrice] = useState(
+    () => Number(searchParams?.get('minPrice')) || 0
+  );
+  const [maxPrice, setMaxPrice] = useState(
+    () => Number(searchParams?.get('maxPrice')) || 10000
+  );
 
   // Fetch rentals
   const fetchRentals = async () => {
