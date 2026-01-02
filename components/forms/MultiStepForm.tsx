@@ -28,9 +28,60 @@ const categories = [
 
 // Popular brands
 const brands = {
-  bike: ['Royal Enfield', 'Honda', 'Bajaj', 'TVS', 'Yamaha', 'KTM', 'Suzuki', 'Hero'],
-  car: ['Maruti Suzuki', 'Hyundai', 'Tata', 'Honda', 'Mahindra', 'Toyota', 'Kia', 'Ford'],
+  bike: ['Royal Enfield', 'Honda', 'Bajaj', 'TVS', 'Yamaha', 'KTM', 'Suzuki', 'Hero', 'Kawasaki', 'Harley-Davidson', 'Ducati', 'BMW', 'Triumph', 'Jawa', 'Benelli', 'Aprilia', 'Vespa'],
+  car: ['Maruti Suzuki', 'Hyundai', 'Tata', 'Honda', 'Mahindra', 'Toyota', 'Kia', 'Ford', 'Volkswagen', 'Skoda', 'Renault', 'Nissan', 'BMW', 'Mercedes-Benz', 'Audi', 'Jeep', 'MG', 'Chevrolet', 'Fiat'],
 };
+
+// Popular models by brand
+const popularModels: Record<string, string[]> = {
+  // Bikes
+  'Royal Enfield': ['Classic 350', 'Meteor 350', 'Himalayan', 'Interceptor 650', 'Continental GT 650', 'Hunter 350', 'Bullet 350'],
+  'Honda': ['Activa', 'Shine', 'Unicorn', 'CB350', 'Hornet 2.0', 'SP 125', 'Dio', 'CBR', 'Africa Twin'],
+  'Bajaj': ['Pulsar', 'Pulsar NS200', 'Pulsar RS200', 'Dominar 400', 'Avenger', 'CT 100', 'Platina'],
+  'TVS': ['Apache RTR 160', 'Apache RTR 200', 'Jupiter', 'Ntorq', 'Raider', 'Sport', 'XL100'],
+  'Yamaha': ['FZ', 'FZ-S', 'MT-15', 'R15', 'Fascino', 'Ray ZR', 'Aerox'],
+  'KTM': ['Duke 200', 'Duke 250', 'Duke 390', 'RC 200', 'RC 390', 'Adventure 390'],
+  'Suzuki': ['Access 125', 'Gixxer', 'Gixxer SF', 'Burgman Street', 'Avenis', 'Intruder', 'V-Strom'],
+  'Hero': ['Splendor', 'HF Deluxe', 'Passion', 'Glamour', 'Xtreme', 'XPulse 200', 'Destini 125'],
+  
+  // Cars
+  'Maruti Suzuki': ['Swift', 'Baleno', 'Wagon R', 'Alto', 'Dzire', 'Vitara Brezza', 'Ertiga', 'Celerio', 'S-Presso', 'Eeco', 'Grand Vitara'],
+  'Hyundai': ['i20', 'Creta', 'Venue', 'Verna', 'Grand i10 Nios', 'Aura', 'Alcazar', 'Tucson', 'Exter'],
+  'Tata': ['Nexon', 'Harrier', 'Safari', 'Punch', 'Altroz', 'Tiago', 'Tigor', 'Nexon EV'],
+  'Mahindra': ['Scorpio', 'XUV700', 'Thar', 'Bolero', 'XUV300', 'Scorpio N', 'XUV400'],
+  'Toyota': ['Fortuner', 'Innova Crysta', 'Urban Cruiser Hyryder', 'Glanza', 'Camry', 'Vellfire'],
+  'Kia': ['Seltos', 'Sonet', 'Carens', 'EV6'],
+  'Volkswagen': ['Polo', 'Vento', 'Virtus', 'Taigun', 'Tiguan'],
+  'Skoda': ['Rapid', 'Kushaq', 'Slavia', 'Superb', 'Octavia'],
+  'Honda': ['City', 'Amaze', 'Elevate', 'City e:HEV'],
+  'Renault': ['Kwid', 'Triber', 'Kiger'],
+  'MG': ['Hector', 'Astor', 'Gloster', 'ZS EV', 'Comet EV'],
+};
+
+const popularColors = [
+  'Black', 'White', 'Red', 'Blue', 'Silver', 'Grey', 'Green',
+  'Yellow', 'Orange', 'Brown', 'Beige', 'Gold', 'Maroon'
+];
+
+const indianCities = [
+  'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata',
+  'Pune', 'Ahmedabad', 'Surat', 'Jaipur', 'Lucknow', 'Kanpur',
+  'Nagpur', 'Indore', 'Thane', 'Bhopal', 'Visakhapatnam', 'Patna',
+  'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik', 'Faridabad',
+  'Meerut', 'Rajkot', 'Varanasi', 'Srinagar', 'Aurangabad', 'Dhanbad',
+  'Amritsar', 'Allahabad', 'Ranchi', 'Howrah', 'Coimbatore', 'Jabalpur',
+  'Gwalior', 'Vijayawada', 'Jodhpur', 'Madurai', 'Raipur', 'Kota',
+  'Chandigarh', 'Guwahati', 'Solapur', 'Hubli', 'Mysore', 'Ujjain'
+];
+
+const indianStates = [
+  'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+  'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand',
+  'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+  'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+  'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+  'Uttar Pradesh', 'Uttarakhand', 'West Bengal'
+];
 
 interface MultiStepFormProps {
   onSuccess: (referenceNumber: string) => void;
@@ -209,20 +260,42 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
               placeholder="9876543210"
             />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label="City *"
-                value={formData.city}
-                onChange={(e) => updateField('city', e.target.value)}
-                error={errors.city}
-                placeholder="Pune"
-              />
-              <Input
-                label="State *"
-                value={formData.state}
-                onChange={(e) => updateField('state', e.target.value)}
-                error={errors.state}
-                placeholder="Maharashtra"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  City *
+                </label>
+                <input
+                  list="sell-city-suggestions"
+                  value={formData.city}
+                  onChange={(e) => updateField('city', e.target.value)}
+                  placeholder="Select or type city name"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <datalist id="sell-city-suggestions">
+                  {indianCities.map((city) => (
+                    <option key={city} value={city} />
+                  ))}
+                </datalist>
+                {errors.city && <p className="text-sm text-red-600 mt-1">{errors.city}</p>}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  State *
+                </label>
+                <input
+                  list="sell-state-suggestions"
+                  value={formData.state}
+                  onChange={(e) => updateField('state', e.target.value)}
+                  placeholder="Select or type state name"
+                  className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <datalist id="sell-state-suggestions">
+                  {indianStates.map((state) => (
+                    <option key={state} value={state} />
+                  ))}
+                </datalist>
+                {errors.state && <p className="text-sm text-red-600 mt-1">{errors.state}</p>}
+              </div>
             </div>
           </div>
         );
@@ -262,26 +335,39 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Brand *
               </label>
-              <select
+              <input
+                list="sell-brand-suggestions"
                 value={formData.brand}
                 onChange={(e) => updateField('brand', e.target.value)}
+                placeholder="Select or type brand name"
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              >
-                <option value="">Select Brand</option>
+              />
+              <datalist id="sell-brand-suggestions">
                 {formData.category && brands[formData.category as 'bike' | 'car'].map((brand) => (
-                  <option key={`${formData.category}-${brand}`} value={brand}>{brand}</option>
+                  <option key={`${formData.category}-${brand}`} value={brand} />
                 ))}
-              </select>
+              </datalist>
               {errors.brand && <p className="text-sm text-red-600 mt-1">{errors.brand}</p>}
             </div>
 
-            <Input
-              label="Model *"
-              value={formData.vehicleModel}
-              onChange={(e) => updateField('vehicleModel', e.target.value)}
-              error={errors.vehicleModel}
-              placeholder="e.g., Classic 350, Swift"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Model *
+              </label>
+              <input
+                list="sell-model-suggestions"
+                value={formData.vehicleModel}
+                onChange={(e) => updateField('vehicleModel', e.target.value)}
+                placeholder="Select or type model name (e.g., Classic 350, Swift)"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <datalist id="sell-model-suggestions">
+                {formData.brand && popularModels[formData.brand]?.map((model) => (
+                  <option key={`${formData.brand}-${model}`} value={model} />
+                ))}
+              </datalist>
+              {errors.vehicleModel && <p className="text-sm text-red-600 mt-1">{errors.vehicleModel}</p>}
+            </div>
 
             <Input
               label="Year *"
@@ -351,13 +437,24 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
               {errors.transmission && <p className="text-sm text-red-600 mt-1">{errors.transmission}</p>}
             </div>
 
-            <Input
-              label="Color *"
-              value={formData.color}
-              onChange={(e) => updateField('color', e.target.value)}
-              error={errors.color}
-              placeholder="Black"
-            />
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Color *
+              </label>
+              <input
+                list="sell-color-suggestions"
+                value={formData.color}
+                onChange={(e) => updateField('color', e.target.value)}
+                placeholder="Select or type color"
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              />
+              <datalist id="sell-color-suggestions">
+                {popularColors.map((color) => (
+                  <option key={color} value={color} />
+                ))}
+              </datalist>
+              {errors.color && <p className="text-sm text-red-600 mt-1">{errors.color}</p>}
+            </div>
 
             <Input
               label="Number of Owners *"

@@ -25,13 +25,14 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(bytes);
     const base64File = `data:${file.type};base64,${buffer.toString('base64')}`;
 
-    // Upload to Cloudinary
+    // Upload to Cloudinary with optimized settings
     const result = await cloudinary.uploader.upload(base64File, {
       folder: 'swastik-bikes/submissions',
       resource_type: 'auto',
       transformation: [
-        { width: 1200, height: 900, crop: 'limit', quality: 'auto:good' },
+        { width: 1200, crop: 'limit', quality: 'auto:low', fetch_format: 'auto' },
       ],
+      eager_async: true, // Process transformations in background
     });
 
     return NextResponse.json({

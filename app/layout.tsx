@@ -3,6 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
+import NavigationProgress from "@/components/ui/NavigationProgress";
+import { Suspense } from "react";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -63,6 +65,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <Navbar />
         <main className="min-h-screen pb-20 md:pb-0">
           {children}

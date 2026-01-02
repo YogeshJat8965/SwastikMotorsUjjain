@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Instagram, MessageCircle, Shield, Search, Car, DollarSign, CheckCircle, TrendingUp, Users, Clock } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import VehicleCard from '@/components/ui/VehicleCard';
@@ -27,14 +28,17 @@ export default function Home() {
             
             {/* Trust Badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge color="blue" className="text-sm py-2 px-4">
-                �� 35,000+ Instagram Followers
+              <Badge color="blue" className="text-sm py-2 px-4 flex items-center gap-2">
+                <Instagram className="w-4 h-4" />
+                35,000+ Instagram Followers
               </Badge>
-              <Badge color="green" className="text-sm py-2 px-4">
-                👥 3,000+ WhatsApp Members
+              <Badge color="green" className="text-sm py-2 px-4 flex items-center gap-2">
+                <MessageCircle className="w-4 h-4" />
+                3,000+ WhatsApp Members
               </Badge>
-              <Badge color="yellow" className="text-sm py-2 px-4">
-                ⭐ 100% Trusted
+              <Badge color="yellow" className="text-sm py-2 px-4 flex items-center gap-2">
+                <Shield className="w-4 h-4" />
+                100% Trusted
               </Badge>
             </div>
 
@@ -46,8 +50,8 @@ export default function Home() {
                   placeholder="Search for bikes or cars..."
                   className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none"
                 />
-                <Button variant="primary" size="lg" className="whitespace-nowrap">
-                  🔍 Search
+                <Button variant="primary" size="lg" className="whitespace-nowrap" icon={<Search className="w-5 h-5" />}>
+                  Search
                 </Button>
               </div>
             </div>
@@ -55,13 +59,13 @@ export default function Home() {
             {/* CTA Buttons */}
             <div className="flex flex-wrap justify-center gap-4">
               <Link href="/buy">
-                <Button variant="primary" size="lg" className="bg-white text-primary-600 hover:bg-gray-100">
+                <Button variant="secondary" size="lg" className="!bg-white !text-primary-600 hover:!bg-gray-100 font-semibold">
                   Browse Vehicles
                 </Button>
               </Link>
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary-600">
-                  💬 Contact on WhatsApp
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary-600" icon={<MessageCircle className="w-5 h-5" />}>
+                  Contact on WhatsApp
                 </Button>
               </a>
             </div>
@@ -76,7 +80,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">🚗</span>
+                <Car className="w-8 h-8 text-primary-600" />
               </div>
               <h3 className="text-xl font-bold mb-2">Wide Selection</h3>
               <p className="text-gray-600">
@@ -85,7 +89,7 @@ export default function Home() {
             </div>
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">💰</span>
+                <DollarSign className="w-8 h-8 text-primary-600" />
               </div>
               <h3 className="text-xl font-bold mb-2">Best Prices</h3>
               <p className="text-gray-600">
@@ -94,7 +98,7 @@ export default function Home() {
             </div>
             <div className="text-center p-6">
               <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-3xl">✅</span>
+                <CheckCircle className="w-8 h-8 text-primary-600" />
               </div>
               <h3 className="text-xl font-bold mb-2">Trusted Platform</h3>
               <p className="text-gray-600">
@@ -160,20 +164,24 @@ export default function Home() {
       <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
         <div className="container text-center">
           <div className="max-w-2xl mx-auto">
-            <div className="text-6xl mb-4">📸</div>
+            <div className="mb-4 flex justify-center">
+              <Instagram className="w-16 h-16" />
+            </div>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Follow Us on Instagram</h2>
             <p className="text-xl mb-8 text-purple-100">
               Join our community of 35,000+ followers for daily updates on new bikes & cars!
             </p>
-            <a
-              href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button variant="primary" size="lg" className="bg-white text-purple-600 hover:bg-gray-100">
-                📱 Follow @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}
-              </Button>
-            </a>
+            <div className="flex justify-center">
+              <a
+                href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button variant="secondary" size="lg" className="!bg-white !text-purple-600 hover:!bg-gray-100 font-semibold" icon={<Instagram className="w-5 h-5" />}>
+                  Follow @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}
+                </Button>
+              </a>
+            </div>
           </div>
         </div>
       </section>

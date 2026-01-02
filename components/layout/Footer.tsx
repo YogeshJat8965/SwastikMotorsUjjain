@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Instagram, MessageCircle, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -13,11 +14,11 @@ export default function Footer() {
             </p>
             <div className="mt-4 space-y-2">
               <div className="flex items-center space-x-2 text-sm">
-                <span className="text-primary-400">��</span>
+                <Instagram className="w-4 h-4 text-primary-400" />
                 <span>35,000+ Instagram Followers</span>
               </div>
               <div className="flex items-center space-x-2 text-sm">
-                <span className="text-primary-400">👥</span>
+                <MessageCircle className="w-4 h-4 text-primary-400" />
                 <span>3,000+ WhatsApp Members</span>
               </div>
             </div>
@@ -49,18 +50,25 @@ export default function Footer() {
           <div>
             <h3 className="text-lg font-bold mb-4">Contact Us</h3>
             <ul className="space-y-2 text-sm text-gray-400">
-              <li>WhatsApp: +91 {process.env.NEXT_PUBLIC_ADMIN_WHATSAPP?.slice(2) || '8965900973'}</li>
+              <li className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4" />
+                <span>WhatsApp: +91 {process.env.NEXT_PUBLIC_ADMIN_WHATSAPP?.slice(2) || '8965900973'}</span>
+              </li>
               <li>
                 <a 
                   href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors flex items-center gap-2"
                 >
-                  Instagram: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}
+                  <Instagram className="w-4 h-4" />
+                  <span>Instagram: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}</span>
                 </a>
               </li>
-              <li>Email: info@swastikbikes.com</li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4" />
+                <span>Email: info@swastikbikes.com</span>
+              </li>
             </ul>
           </div>
         </div>

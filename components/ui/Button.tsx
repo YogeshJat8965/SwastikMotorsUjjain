@@ -5,6 +5,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
   icon?: React.ReactNode;
+  loading?: boolean;
 }
 
 export default function Button({
@@ -13,9 +14,11 @@ export default function Button({
   className = '',
   children,
   icon,
+  loading = false,
+  disabled,
   ...props
 }: ButtonProps) {
-  const baseStyles = 'font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'font-medium rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed relative';
   
   const variants = {
     primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800',
@@ -31,11 +34,23 @@ export default function Button({
 
   return (
     <button
-      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className} ${icon ? 'flex items-center gap-2' : ''}`}
+      className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className} ${icon || loading ? 'flex items-center justify-center gap-2' : ''}`}
+      disabled={disabled || loading}
       {...props}
     >
-      {icon}
-      {children}
+      {loading ? (
+        <>
+          <div className="relative w-4 h-4">
+            <div className="absolute inset-0 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+          </div>
+          <span>Loading...</span>
+        </>
+      ) : (
+        <>
+          {icon}
+          {children}
+        </>
+      )}
     </button>
   );
 }

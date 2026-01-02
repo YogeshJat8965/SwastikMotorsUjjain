@@ -342,7 +342,9 @@ function RentalsPage() {
                   title={rental.title}
                   dailyRate={rental.dailyRate}
                   weeklyRate={rental.weeklyRate}
-                  image={rental.images[0]}
+                  image={rental.images?.[0] || (rental.category === 'bike' 
+                    ? 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' 
+                    : 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80')}
                   year={rental.year}
                   transmission={rental.transmission}
                   fuelType={rental.fuelType}

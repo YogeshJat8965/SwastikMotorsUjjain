@@ -48,11 +48,14 @@ function BrowsePage() {
 
   // Parse filters from URL
   const getFiltersFromURL = (): FilterValues => {
+    const brandsParam = searchParams.get('brands');
+    const brands = brandsParam ? brandsParam.split(',').filter(Boolean) : [];
+    
     return {
       category: (searchParams.get('category') as 'all' | 'bike' | 'car') || 'all',
       minPrice: Number(searchParams.get('minPrice')) || 0,
       maxPrice: Number(searchParams.get('maxPrice')) || 1000000,
-      brands: searchParams.get('brands')?.split(',').filter(Boolean) || [],
+      brands: brands,
       year: searchParams.get('year') ? Number(searchParams.get('year')) : undefined,
       fuelType: searchParams.get('fuelType') || undefined,
       location: searchParams.get('location') || undefined,
@@ -70,7 +73,7 @@ function BrowsePage() {
       params.set('category', filters.category);
       params.set('minPrice', filters.minPrice.toString());
       params.set('maxPrice', filters.maxPrice.toString());
-      if (filters.brands.length > 0) {
+      if (filters.brands && filters.brands.length > 0) {
         params.set('brand', filters.brands.join(','));
       }
       if (filters.year) params.set('year', filters.year.toString());
@@ -82,13 +85,20 @@ function BrowsePage() {
       params.set('limit', '20');
 
       const response = await fetch(`/api/vehicles?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch vehicles');
+      }
+      
       const data: VehicleResponse = await response.json();
 
-      setVehicles(data.vehicles);
-      setTotalPages(data.totalPages);
-      setTotal(data.total);
+      setVehicles(Array.isArray(data.vehicles) ? data.vehicles : []);
+      setTotalPages(data.totalPages || 1);
+      setTotal(data.total || 0);
     } catch (error) {
       console.error('Error fetching vehicles:', error);
+      setVehicles([]);
+      setTotalPages(1);
+      setTotal(0);
     } finally {
       setLoading(false);
     }
@@ -136,7 +146,7 @@ function BrowsePage() {
     let count = 0;
     if (filters.category !== 'all') count++;
     if (filters.minPrice > 0 || filters.maxPrice < 1000000) count++;
-    if (filters.brands.length > 0) count += filters.brands.length;
+    if (filters.brands && filters.brands.length > 0) count += filters.brands.length;
     if (filters.year) count++;
     if (filters.fuelType) count++;
     if (filters.location) count++;
@@ -264,7 +274,9 @@ function BrowsePage() {
                       id={vehicle._id}
                       title={`${vehicle.brand} ${vehicle.vehicleModel}`}
                       price={vehicle.sellingPrice}
-                      image={vehicle.images[0]}
+                      image={vehicle.images?.[0] || (vehicle.category === 'bike' 
+                        ? 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80' 
+                        : 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80')}
                       year={vehicle.year}
                       kilometers={vehicle.kilometers}
                       fuelType={vehicle.fuelType}

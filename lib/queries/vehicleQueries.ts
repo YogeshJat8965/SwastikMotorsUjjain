@@ -13,6 +13,8 @@ export interface VehicleFilters {
   sort?: 'latest' | 'price-low' | 'price-high' | 'views';
   page?: number;
   limit?: number;
+  availableForRent?: boolean;
+  includeAll?: boolean;
 }
 
 export interface VehicleQueryResult {
@@ -38,16 +40,27 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
     sort = 'latest',
     page = 1,
     limit = 20,
+    availableForRent,
+    includeAll,
   } = filters;
 
   // Build query
-  const query: any = {
-    status: 'for_sale', // Only show vehicles that are for sale
-  };
+  const query: any = {};
+  
+  // Only filter by status if includeAll is not true (for admin)
+  if (!includeAll) {
+    query.status = 'for_sale'; // Only show vehicles that are for sale
+  }
 
   // Category filter
   if (category && category !== 'all') {
     query.category = category;
+  }
+
+  // Available for rent filter
+  if (availableForRent !== undefined) {
+    query.availableForRent = availableForRent;
+    console.log('Applied availableForRent filter:', availableForRent);
   }
 
   // Price range
@@ -106,6 +119,8 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
 
   // Calculate pagination
   const skip = (page - 1) * limit;
+
+  console.log('Final MongoDB query:', JSON.stringify(query, null, 2));
 
   // Execute query
   const [vehicles, total] = await Promise.all([

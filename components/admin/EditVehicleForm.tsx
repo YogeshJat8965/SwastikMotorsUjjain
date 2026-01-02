@@ -42,6 +42,44 @@ export default function EditVehicleForm({ vehicleId }: EditVehicleFormProps) {
   const [deleting, setDeleting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   
+  // Brand suggestions
+  const bikeBrands = [
+    'Honda', 'Hero', 'Bajaj', 'TVS', 'Royal Enfield', 'Yamaha', 'Suzuki', 
+    'KTM', 'Kawasaki', 'Harley-Davidson', 'Ducati', 'BMW', 'Triumph',
+    'Jawa', 'Benelli', 'Aprilia', 'Vespa'
+  ];
+  
+  const carBrands = [
+    'Maruti Suzuki', 'Hyundai', 'Tata', 'Mahindra', 'Honda', 'Toyota', 
+    'Kia', 'Ford', 'Volkswagen', 'Skoda', 'Renault', 'Nissan', 'BMW',
+    'Mercedes-Benz', 'Audi', 'Jeep', 'MG', 'Chevrolet', 'Fiat'
+  ];
+  
+  const popularColors = [
+    'Black', 'White', 'Red', 'Blue', 'Silver', 'Grey', 'Green',
+    'Yellow', 'Orange', 'Brown', 'Beige', 'Gold', 'Maroon'
+  ];
+  
+  const indianCities = [
+    'Mumbai', 'Delhi', 'Bangalore', 'Hyderabad', 'Chennai', 'Kolkata',
+    'Pune', 'Ahmedabad', 'Surat', 'Jaipur', 'Lucknow', 'Kanpur',
+    'Nagpur', 'Indore', 'Thane', 'Bhopal', 'Visakhapatnam', 'Patna',
+    'Vadodara', 'Ghaziabad', 'Ludhiana', 'Agra', 'Nashik', 'Faridabad',
+    'Meerut', 'Rajkot', 'Varanasi', 'Srinagar', 'Aurangabad', 'Dhanbad',
+    'Amritsar', 'Allahabad', 'Ranchi', 'Howrah', 'Coimbatore', 'Jabalpur',
+    'Gwalior', 'Vijayawada', 'Jodhpur', 'Madurai', 'Raipur', 'Kota',
+    'Chandigarh', 'Guwahati', 'Solapur', 'Hubli', 'Mysore', 'Ujjain'
+  ];
+  
+  const indianStates = [
+    'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+    'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand',
+    'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur',
+    'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Punjab',
+    'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura',
+    'Uttar Pradesh', 'Uttarakhand', 'West Bengal'
+  ];
+  
   const [formData, setFormData] = useState<VehicleFormData>({
     category: '',
     brand: '',
@@ -325,13 +363,28 @@ export default function EditVehicleForm({ vehicleId }: EditVehicleFormProps) {
                 <p className="text-gray-600">Enter the vehicle information</p>
               </div>
 
-              <Input
-                label="Brand *"
-                value={formData.brand}
-                onChange={(e) => updateField('brand', e.target.value)}
-                placeholder="e.g., Honda, Maruti, Royal Enfield"
-                error={errors.brand}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Brand *
+                </label>
+                <input
+                  list="edit-brand-suggestions"
+                  value={formData.brand}
+                  onChange={(e) => updateField('brand', e.target.value)}
+                  placeholder="e.g., Honda, Maruti, Royal Enfield"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.brand ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                />
+                <datalist id="edit-brand-suggestions">
+                  {(formData.category === 'bike' ? bikeBrands : carBrands).map((brand) => (
+                    <option key={brand} value={brand} />
+                  ))}
+                </datalist>
+                {errors.brand && (
+                  <p className="text-red-600 text-sm mt-1">{errors.brand}</p>
+                )}
+              </div>
 
               <Input
                 label="Model *"
@@ -351,13 +404,28 @@ export default function EditVehicleForm({ vehicleId }: EditVehicleFormProps) {
                 error={errors.year}
               />
 
-              <Input
-                label="Color *"
-                value={formData.color}
-                onChange={(e) => updateField('color', e.target.value)}
-                placeholder="e.g., Black, White, Red"
-                error={errors.color}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Color *
+                </label>
+                <input
+                  list="edit-color-suggestions"
+                  value={formData.color}
+                  onChange={(e) => updateField('color', e.target.value)}
+                  placeholder="e.g., Black, White, Red"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.color ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                />
+                <datalist id="edit-color-suggestions">
+                  {popularColors.map((color) => (
+                    <option key={color} value={color} />
+                  ))}
+                </datalist>
+                {errors.color && (
+                  <p className="text-red-600 text-sm mt-1">{errors.color}</p>
+                )}
+              </div>
             </div>
           )}
 
@@ -453,21 +521,51 @@ export default function EditVehicleForm({ vehicleId }: EditVehicleFormProps) {
                 <p className="text-gray-600">Where is the vehicle located?</p>
               </div>
 
-              <Input
-                label="City *"
-                value={formData.city}
-                onChange={(e) => updateField('city', e.target.value)}
-                placeholder="e.g., Ujjain"
-                error={errors.city}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  City *
+                </label>
+                <input
+                  list="edit-city-suggestions"
+                  value={formData.city}
+                  onChange={(e) => updateField('city', e.target.value)}
+                  placeholder="e.g., Ujjain, Mumbai, Delhi"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.city ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                />
+                <datalist id="edit-city-suggestions">
+                  {indianCities.map((city) => (
+                    <option key={city} value={city} />
+                  ))}
+                </datalist>
+                {errors.city && (
+                  <p className="text-red-600 text-sm mt-1">{errors.city}</p>
+                )}
+              </div>
 
-              <Input
-                label="State *"
-                value={formData.state}
-                onChange={(e) => updateField('state', e.target.value)}
-                placeholder="e.g., Madhya Pradesh"
-                error={errors.state}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  State *
+                </label>
+                <input
+                  list="edit-state-suggestions"
+                  value={formData.state}
+                  onChange={(e) => updateField('state', e.target.value)}
+                  placeholder="e.g., Madhya Pradesh, Maharashtra"
+                  className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                    errors.state ? 'border-red-500' : 'border-gray-300'
+                  }`}
+                />
+                <datalist id="edit-state-suggestions">
+                  {indianStates.map((state) => (
+                    <option key={state} value={state} />
+                  ))}
+                </datalist>
+                {errors.state && (
+                  <p className="text-red-600 text-sm mt-1">{errors.state}</p>
+                )}
+              </div>
             </div>
           )}
 

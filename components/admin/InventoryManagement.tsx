@@ -52,6 +52,9 @@ export default function InventoryManagement() {
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [sortBy, setSortBy] = useState<string>('latest');
+  const [showRentalModal, setShowRentalModal] = useState(false);
+  const [selectedVehicleId, setSelectedVehicleId] = useState<string>('');
+  const [rentalPricePerDay, setRentalPricePerDay] = useState<string>('');
 
   useEffect(() => {
     fetchVehicles();
@@ -135,27 +138,71 @@ export default function InventoryManagement() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        console.log('Status updated successfully:', data);
         fetchVehicles();
+        alert(`Vehicle marked as ${status === 'sold' ? 'Sold' : 'For Sale'}`);
+      } else {
+        const error = await response.json();
+        console.error('Failed to update status:', error);
+        alert(`Failed to update status: ${error.message || 'Unknown error'}`);
       }
     } catch (error) {
       console.error('Error updating status:', error);
+      alert('Error updating status. Please try again.');
     }
   };
 
   const toggleRental = async (id: string, currentStatus: boolean) => {
+    // If turning rental ON, show modal to input price
+    if (!currentStatus) {
+      setSelectedVehicleId(id);
+      setRentalPricePerDay('');
+      setShowRentalModal(true);
+      return;
+    }
+
+    // If turning rental OFF, directly update
     try {
       const response = await fetch(`/api/admin/vehicles/${id}/rental`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ availableForRent: !currentStatus }),
+        body: JSON.stringify({ availableForRent: false, rentalPricePerDay: 0 }),
       });
 
       if (response.ok) {
         fetchVehicles();
-        alert(`Rental availability ${!currentStatus ? 'enabled' : 'disabled'}`);
+        alert('Rental availability disabled');
       }
     } catch (error) {
       console.error('Error toggling rental:', error);
+    }
+  };
+
+  const confirmRentalPrice = async () => {
+    const price = parseFloat(rentalPricePerDay);
+    
+    if (!price || price <= 0) {
+      alert('Please enter a valid rental price per day');
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/admin/vehicles/${selectedVehicleId}/rental`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ availableForRent: true, rentalPricePerDay: price }),
+      });
+
+      if (response.ok) {
+        fetchVehicles();
+        setShowRentalModal(false);
+        setSelectedVehicleId('');
+        setRentalPricePerDay('');
+        alert('Rental availability enabled');
+      }
+    } catch (error) {
+      console.error('Error enabling rental:', error);
     }
   };
 
@@ -438,6 +485,15 @@ export default function InventoryManagement() {
                           Mark as Sold
                         </button>
                       )}
+                      {vehicle.status === 'sold' && (
+                        <button
+                          onClick={() => updateStatus(vehicle._id, 'for_sale')}
+                          className="w-full flex items-center justify-center gap-1 px-3 py-2 bg-orange-50 text-orange-600 rounded-lg hover:bg-orange-100 transition-colors text-sm font-medium"
+                        >
+                          <CheckCircle className="w-4 h-4" />
+                          Mark as Unsold
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -446,6 +502,51 @@ export default function InventoryManagement() {
           </div>
         )}
       </div>
+
+      {/* Rental Price Modal */}
+      {showRentalModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 max-w-md w-full">
+            <h3 className="text-xl font-bold text-gray-900 mb-4">Set Rental Price</h3>
+            <p className="text-gray-600 mb-4">
+              Enter the rental price per day for this vehicle
+            </p>
+            <div className="mb-6">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Rental Price Per Day (₹)
+              </label>
+              <Input
+                type="number"
+                placeholder="e.g., 500"
+                value={rentalPricePerDay}
+                onChange={(e) => setRentalPricePerDay(e.target.value)}
+                min="0"
+                step="50"
+              />
+            </div>
+            <div className="flex gap-3">
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  setShowRentalModal(false);
+                  setSelectedVehicleId('');
+                  setRentalPricePerDay('');
+                }}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="primary"
+                onClick={confirmRentalPrice}
+                className="flex-1"
+              >
+                Confirm
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

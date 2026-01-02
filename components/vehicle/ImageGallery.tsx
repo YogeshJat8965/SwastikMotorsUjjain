@@ -12,6 +12,18 @@ interface ImageGalleryProps {
 export default function ImageGallery({ images, alt }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [imageErrors, setImageErrors] = useState<{ [key: number]: boolean }>({});
+
+  // Fallback image
+  const fallbackImage = 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80';
+
+  const handleImageError = (index: number) => {
+    setImageErrors(prev => ({ ...prev, [index]: true }));
+  };
+
+  const getImageSrc = (index: number) => {
+    return imageErrors[index] ? fallbackImage : images[index];
+  };
 
   const goToPrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -45,13 +57,14 @@ export default function ImageGallery({ images, alt }: ImageGalleryProps) {
       {/* Main Image */}
       <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden group">
         <Image
-          src={images[currentIndex]}
+          src={getImageSrc(currentIndex)}
           alt={`${alt} - Image ${currentIndex + 1}`}
           fill
           className="object-cover cursor-zoom-in"
           priority
           onClick={openFullScreen}
           sizes="(max-width: 768px) 100vw, 60vw"
+          onError={() => handleImageError(currentIndex)}
         />
 
         {/* Navigation Arrows */}
@@ -94,11 +107,12 @@ export default function ImageGallery({ images, alt }: ImageGalleryProps) {
               }`}
             >
               <Image
-                src={image}
+                src={getImageSrc(index)}
                 alt={`${alt} thumbnail ${index + 1}`}
                 fill
                 className="object-cover"
                 sizes="80px"
+                onError={() => handleImageError(index)}
               />
             </button>
           ))}
@@ -155,12 +169,13 @@ export default function ImageGallery({ images, alt }: ImageGalleryProps) {
           >
             <div className="relative w-full h-full">
               <Image
-                src={images[currentIndex]}
+                src={getImageSrc(currentIndex)}
                 alt={`${alt} - Full screen`}
                 fill
                 className="object-contain"
                 priority
                 sizes="100vw"
+                onError={() => handleImageError(currentIndex)}
               />
             </div>
           </div>

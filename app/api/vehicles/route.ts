@@ -21,6 +21,8 @@ export async function GET(request: NextRequest) {
       sort: searchParams.get('sort') as 'latest' | 'price-low' | 'price-high' | 'views' || 'latest',
       page: searchParams.get('page') ? Number(searchParams.get('page')) : 1,
       limit: searchParams.get('limit') ? Number(searchParams.get('limit')) : 20,
+      availableForRent: searchParams.get('availableForRent') === 'true' ? true : undefined,
+      includeAll: searchParams.get('includeAll') === 'true' ? true : undefined,
     };
 
     const result = await getVehicles(filters);

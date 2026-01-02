@@ -21,6 +21,52 @@ export default function ImageUpload({
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Compress image before upload
+  const compressImage = (file: File): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = new Image();
+        img.src = e.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          // Resize if image is too large
+          const maxDimension = 1920;
+          if (width > maxDimension || height > maxDimension) {
+            if (width > height) {
+              height = (height / width) * maxDimension;
+              width = maxDimension;
+            } else {
+              width = (width / height) * maxDimension;
+              height = maxDimension;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx?.drawImage(img, 0, 0, width, height);
+          
+          // Convert to blob with reduced quality
+          canvas.toBlob(
+            (blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error('Canvas to Blob failed'));
+            },
+            'image/jpeg',
+            0.85 // 85% quality
+          );
+        };
+        img.onerror = reject;
+      };
+      reader.onerror = reject;
+    });
+  };
+
   const handleFileSelect = async (files: FileList | null) => {
     if (!files || files.length === 0) return;
 
@@ -35,39 +81,52 @@ export default function ImageUpload({
     setUploadProgress(0);
 
     try {
-      const uploadedUrls: string[] = [];
-
-      for (let i = 0; i < filesToUpload.length; i++) {
-        const file = filesToUpload[i];
-        
+      // Upload all images in parallel
+      const uploadPromises = filesToUpload.map(async (file, index) => {
         // Validate file type
         if (!file.type.startsWith('image/')) {
-          continue;
+          return null;
         }
 
         // Validate file size (max 10MB)
         if (file.size > 10 * 1024 * 1024) {
           alert(`${file.name} is too large. Maximum file size is 10MB`);
-          continue;
+          return null;
         }
 
-        const formData = new FormData();
-        formData.append('file', file);
+        try {
+          // Compress image before upload
+          const compressedBlob = await compressImage(file);
+          const compressedFile = new File([compressedBlob], file.name, {
+            type: 'image/jpeg',
+          });
 
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
+          const formData = new FormData();
+          formData.append('file', compressedFile);
 
-        if (response.ok) {
-          const data = await response.json();
-          uploadedUrls.push(data.url);
+          const response = await fetch('/api/upload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            return data.url;
+          }
+        } catch (err) {
+          console.error(`Failed to upload ${file.name}:`, err);
         }
+        return null;
+      });
 
-        setUploadProgress(Math.round(((i + 1) / filesToUpload.length) * 100));
+      const results = await Promise.all(uploadPromises);
+      const uploadedUrls = results.filter((url): url is string => url !== null);
+
+      if (uploadedUrls.length > 0) {
+        onImagesChange([...images, ...uploadedUrls]);
       }
-
-      onImagesChange([...images, ...uploadedUrls]);
+      
+      setUploadProgress(100);
     } catch (error) {
       console.error('Upload error:', error);
       alert('Failed to upload images. Please try again.');
