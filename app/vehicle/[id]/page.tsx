@@ -35,9 +35,9 @@ interface Vehicle {
 
 async function getVehicle(id: string): Promise<Vehicle | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     const res = await fetch(`${baseUrl}/api/vehicles/${id}`, {
       cache: 'no-store',
     });
@@ -55,9 +55,9 @@ async function getVehicle(id: string): Promise<Vehicle | null> {
 
 async function getSimilarVehicles(id: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     const res = await fetch(`${baseUrl}/api/vehicles/${id}/similar`, {
       cache: 'no-store',
     });
@@ -73,9 +73,9 @@ async function getSimilarVehicles(id: string) {
 
 async function incrementViews(id: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     await fetch(`${baseUrl}/api/vehicles/${id}/view`, {
       method: 'POST',
       cache: 'no-store',

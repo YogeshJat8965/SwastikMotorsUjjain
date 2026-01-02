@@ -42,9 +42,9 @@ interface Rental {
 
 async function getRental(id: string): Promise<Rental | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     const res = await fetch(`${baseUrl}/api/rentals/${id}`, {
       cache: 'no-store',
     });
@@ -62,9 +62,9 @@ async function getRental(id: string): Promise<Rental | null> {
 
 async function incrementViews(id: string) {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000';
+      : 'http://localhost:3000');
     await fetch(`${baseUrl}/api/rentals/${id}/view`, {
       method: 'POST',
       cache: 'no-store',
