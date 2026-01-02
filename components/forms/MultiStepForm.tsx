@@ -33,8 +33,7 @@ const brands = {
 };
 
 // Popular models by brand
-const popularModels: Record<string, string[]> = {
-  // Bikes
+const bikeModels: Record<string, string[]> = {
   'Royal Enfield': ['Classic 350', 'Meteor 350', 'Himalayan', 'Interceptor 650', 'Continental GT 650', 'Hunter 350', 'Bullet 350'],
   'Honda': ['Activa', 'Shine', 'Unicorn', 'CB350', 'Hornet 2.0', 'SP 125', 'Dio', 'CBR', 'Africa Twin'],
   'Bajaj': ['Pulsar', 'Pulsar NS200', 'Pulsar RS200', 'Dominar 400', 'Avenger', 'CT 100', 'Platina'],
@@ -43,8 +42,9 @@ const popularModels: Record<string, string[]> = {
   'KTM': ['Duke 200', 'Duke 250', 'Duke 390', 'RC 200', 'RC 390', 'Adventure 390'],
   'Suzuki': ['Access 125', 'Gixxer', 'Gixxer SF', 'Burgman Street', 'Avenis', 'Intruder', 'V-Strom'],
   'Hero': ['Splendor', 'HF Deluxe', 'Passion', 'Glamour', 'Xtreme', 'XPulse 200', 'Destini 125'],
-  
-  // Cars
+};
+
+const carModels: Record<string, string[]> = {
   'Maruti Suzuki': ['Swift', 'Baleno', 'Wagon R', 'Alto', 'Dzire', 'Vitara Brezza', 'Ertiga', 'Celerio', 'S-Presso', 'Eeco', 'Grand Vitara'],
   'Hyundai': ['i20', 'Creta', 'Venue', 'Verna', 'Grand i10 Nios', 'Aura', 'Alcazar', 'Tucson', 'Exter'],
   'Tata': ['Nexon', 'Harrier', 'Safari', 'Punch', 'Altroz', 'Tiago', 'Tigor', 'Nexon EV'],
@@ -362,9 +362,15 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
               <datalist id="sell-model-suggestions">
-                {formData.brand && popularModels[formData.brand]?.map((model) => (
-                  <option key={`${formData.brand}-${model}`} value={model} />
-                ))}
+                {formData.brand && formData.category && (
+                  formData.category === 'bike' 
+                    ? bikeModels[formData.brand]?.map((model) => (
+                        <option key={`${formData.brand}-${model}`} value={model} />
+                      ))
+                    : carModels[formData.brand]?.map((model) => (
+                        <option key={`${formData.brand}-${model}`} value={model} />
+                      ))
+                )}
               </datalist>
               {errors.vehicleModel && <p className="text-sm text-red-600 mt-1">{errors.vehicleModel}</p>}
             </div>

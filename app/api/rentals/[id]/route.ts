@@ -37,7 +37,6 @@ export async function GET(
       fuelType: vehicle.fuelType,
       transmission: vehicle.transmission,
       color: vehicle.color,
-      registrationNumber: vehicle.registrationNumber || 'N/A',
       city: vehicle.location?.city || '',
       state: vehicle.location?.state || '',
       dailyRate: vehicle.rentalPricePerDay || 0,
