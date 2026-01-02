@@ -161,11 +161,11 @@ function RentalsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16 md:pt-20 pb-16 md:pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 pb-6 md:py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 md:py-8">
         
         {/* Header */}
-        <div className="mb-5 md:mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 mb-2">
+        <div className="mb-3 md:mb-8">
+          <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 mb-1.5">
             Rent a Vehicle
           </h1>
           <p className="text-base text-gray-600">
@@ -174,7 +174,7 @@ function RentalsPage() {
         </div>
 
         {/* Search Bar */}
-        <form onSubmit={handleSearch} className="mb-5 md:mb-6">
+        <form onSubmit={handleSearch} className="mb-4 md:mb-6">
           <div className="relative">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
             <input
