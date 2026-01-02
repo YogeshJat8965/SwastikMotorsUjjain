@@ -42,15 +42,27 @@ interface Rental {
 
 async function getRental(id: string): Promise<Rental | null> {
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000');
+    // For server-side rendering, use absolute URL
+    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || `${protocol}://localhost:3000`;
+    
+    console.log('Fetching rental from:', `${baseUrl}/api/rentals/${id}`);
+    
     const res = await fetch(`${baseUrl}/api/rentals/${id}`, {
       cache: 'no-store',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+
+    console.log('Rental fetch response:', res.status, res.statusText);
 
     if (!res.ok) {
       console.error(`Failed to fetch rental ${id}:`, res.status, res.statusText);
+      const errorText = await res.text();
+      console.error('Error response:', errorText);
       return null;
     }
     return res.json();
