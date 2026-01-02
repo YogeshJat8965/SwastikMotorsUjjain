@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Calendar, Settings, Fuel, Users, MapPin, Star, Bike, Car as CarIcon } from 'lucide-react';
 import Button from '../ui/Button';
 import Badge from '../ui/Badge';
@@ -38,8 +39,15 @@ export default function RentalCard({
   status = 'available',
   rating,
 }: RentalCardProps) {
+  const router = useRouter();
   const isAvailable = status === 'available';
   const [imageError, setImageError] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+
+  const handleCardClick = () => {
+    setIsNavigating(true);
+    router.push(`/rentals/${id}`);
+  };
 
   // Fallback image based on category
   const fallbackImage = category === 'bike' 
@@ -47,9 +55,21 @@ export default function RentalCard({
     : 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80';
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all duration-300 group">
+    <div onClick={handleCardClick} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all duration-300 group cursor-pointer relative">
+      {/* Loading Overlay */}
+      {isNavigating && (
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin" style={{ padding: '3px' }}>
+              <div className="w-full h-full rounded-full bg-white"></div>
+            </div>
+            <p className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Loading...</p>
+          </div>
+        </div>
+      )}
+      
       {/* Image */}
-      <Link href={`/rentals/${id}`} className="block">
+      <div className="block">
         <div className="relative h-56 w-full bg-gray-100 overflow-hidden">
           <Image
             src={imageError ? fallbackImage : image}
@@ -92,15 +112,13 @@ export default function RentalCard({
             </div>
           )}
         </div>
-      </Link>
+      </div>
 
       {/* Content */}
       <div className="p-5">
-        <Link href={`/rentals/${id}`}>
-          <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
-            {title}
-          </h3>
-        </Link>
+        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 hover:text-blue-600 transition-colors">
+          {title}
+        </h3>
         
         {/* Pricing */}
         <div className="mb-4 pb-4 border-b border-gray-100">
@@ -140,16 +158,18 @@ export default function RentalCard({
         </div>
 
         {/* Actions */}
-        <Link href={`/rentals/${id}`} className="block">
-          <Button 
-            variant={isAvailable ? "primary" : "outline"} 
-            size="sm" 
-            className={`w-full ${isAvailable ? 'bg-blue-600 hover:bg-blue-700' : 'cursor-not-allowed opacity-60'}`}
-            disabled={!isAvailable}
-          >
-            {isAvailable ? 'Book Now' : 'Currently Rented'}
-          </Button>
-        </Link>
+        <Button 
+          variant={isAvailable ? "primary" : "outline"} 
+          size="sm" 
+          className={`w-full ${isAvailable ? 'bg-blue-600 hover:bg-blue-700' : 'cursor-not-allowed opacity-60'}`}
+          disabled={!isAvailable}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleCardClick();
+          }}
+        >
+          {isAvailable ? 'Book Now' : 'Currently Rented'}
+        </Button>
       </div>
     </div>
   );

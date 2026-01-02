@@ -37,6 +37,7 @@ export default function VehicleCard({
 }: VehicleCardProps) {
   const router = useRouter();
   const [imageError, setImageError] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
   
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
   const whatsappMessage = encodeURIComponent(
@@ -50,14 +51,27 @@ export default function VehicleCard({
     : 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80';
 
   const handleCardClick = () => {
+    setIsNavigating(true);
     router.push(`/vehicle/${id}`);
   };
 
   return (
     <div 
       onClick={handleCardClick}
-      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all duration-300 group cursor-pointer"
+      className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg hover:border-blue-200 transition-all duration-300 group cursor-pointer relative"
     >
+      {/* Loading Overlay */}
+      {isNavigating && (
+        <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin" style={{ padding: '3px' }}>
+              <div className="w-full h-full rounded-full bg-white"></div>
+            </div>
+            <p className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Loading...</p>
+          </div>
+        </div>
+      )}
+      
       {/* Image */}
       <div className="block">
         <div className="relative h-56 w-full bg-gray-100 overflow-hidden">

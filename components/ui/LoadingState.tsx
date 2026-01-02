@@ -1,50 +1,46 @@
 interface LoadingStateProps {
   message?: string;
   size?: 'sm' | 'md' | 'lg';
+  fullScreen?: boolean;
 }
 
-export default function LoadingState({ message = 'Loading...', size = 'md' }: LoadingStateProps) {
+export default function LoadingState({ message = 'Loading...', size = 'md', fullScreen = false }: LoadingStateProps) {
   const sizeClasses = {
-    sm: 'w-12 h-12',
-    md: 'w-20 h-20',
-    lg: 'w-28 h-28',
+    sm: 'w-16 h-16',
+    md: 'w-24 h-24',
+    lg: 'w-32 h-32',
   };
 
-  const iconSizes = {
-    sm: 'text-xl',
-    md: 'text-3xl',
-    lg: 'text-5xl',
-  };
+  const containerClasses = fullScreen
+    ? 'fixed inset-0 bg-white/95 backdrop-blur-sm z-50 flex flex-col items-center justify-center'
+    : 'flex flex-col items-center justify-center py-16 px-4';
 
   return (
-    <div className="flex flex-col items-center justify-center py-16 px-4">
-      {/* Beautiful animated loader */}
+    <div className={containerClasses}>
+      {/* Modern gradient spinner */}
       <div className="relative">
-        {/* Outer spinning ring */}
-        <div className={`${sizeClasses[size]} border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin`}></div>
+        {/* Outer gradient ring */}
+        <div className={`${sizeClasses[size]} rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin`}
+          style={{ padding: '3px' }}>
+          <div className="w-full h-full rounded-full bg-white"></div>
+        </div>
         
-        {/* Middle spinning ring (reverse) */}
-        <div className={`absolute inset-3 border-4 border-green-200 border-b-green-600 rounded-full animate-spin-reverse`}></div>
-        
-        {/* Inner spinning ring */}
-        <div className={`absolute inset-6 border-4 border-orange-200 border-l-orange-600 rounded-full animate-spin`}></div>
-        
-        {/* Inner pulsing core */}
+        {/* Inner pulsing dot */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className={`${iconSizes[size]} animate-bounce-slow drop-shadow-lg`}>
-            🏍️
-          </div>
+          <div className="w-6 h-6 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full animate-pulse shadow-lg"></div>
         </div>
       </div>
 
-      {/* Loading message */}
-      <p className="mt-8 text-gray-700 font-semibold text-lg animate-pulse">{message}</p>
+      {/* Loading message with gradient text */}
+      <p className="mt-8 text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
+        {message}
+      </p>
       
-      {/* Animated dots */}
-      <div className="flex gap-2 mt-4">
-        <div className="w-2.5 h-2.5 bg-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-        <div className="w-2.5 h-2.5 bg-green-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-        <div className="w-2.5 h-2.5 bg-orange-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+      {/* Animated progress dots */}
+      <div className="flex gap-2 mt-6">
+        <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+        <div className="w-3 h-3 bg-gradient-to-r from-purple-500 to-purple-600 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+        <div className="w-3 h-3 bg-gradient-to-r from-pink-500 to-pink-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
       </div>
 
       {/* Progress bar */}
