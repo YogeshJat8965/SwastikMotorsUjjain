@@ -6,7 +6,6 @@ import {
   Car,
   Bell,
   DollarSign,
-  Eye,
   Plus,
   FileText,
   Calendar,
@@ -20,7 +19,6 @@ interface DashboardStats {
   totalVehicles: number;
   newRequests: number;
   profitThisMonth: number;
-  viewsToday: number;
   newBookings: number;
 }
 
@@ -30,7 +28,6 @@ export default function AdminDashboard() {
     totalVehicles: 0,
     newRequests: 0,
     profitThisMonth: 0,
-    viewsToday: 0,
     newBookings: 0,
   });
   const [loading, setLoading] = useState(true);
@@ -58,7 +55,6 @@ export default function AdminDashboard() {
         totalVehicles: vehiclesData.vehicles?.length || 0,
         newRequests: submissionsData.filter((s: any) => s.status === 'pending').length || 0,
         profitThisMonth: 0, // TODO: Calculate from sales data
-        viewsToday: 0, // TODO: Implement view tracking
         newBookings: Array.isArray(bookingsData) ? bookingsData.filter((b: any) => b.status === 'pending').length : 0,
       });
       setLoading(false);
@@ -104,14 +100,6 @@ export default function AdminDashboard() {
       color: 'bg-green-500',
       textColor: 'text-green-600',
       bgColor: 'bg-green-50',
-    },
-    {
-      title: 'Views Today',
-      value: stats.viewsToday,
-      icon: Eye,
-      color: 'bg-purple-500',
-      textColor: 'text-purple-600',
-      bgColor: 'bg-purple-50',
     },
   ];
 

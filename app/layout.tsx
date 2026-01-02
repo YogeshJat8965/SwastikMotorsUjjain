@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import BottomNav from "@/components/layout/BottomNav";
+import MainLayout from "@/components/layout/MainLayout";
 import NavigationProgress from "@/components/ui/NavigationProgress";
 import { Suspense } from "react";
 
@@ -68,12 +66,7 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <NavigationProgress />
         </Suspense>
-        <Navbar />
-        <main className="min-h-screen pb-20 md:pb-0">
-          {children}
-        </main>
-        <Footer />
-        <BottomNav />
+        <MainLayout>{children}</MainLayout>
       </body>
     </html>
   );
