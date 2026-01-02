@@ -35,11 +35,17 @@ interface Vehicle {
 
 async function getVehicle(id: string): Promise<Vehicle | null> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/vehicles/${id}`, {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/vehicles/${id}`, {
       cache: 'no-store',
     });
 
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.error(`Failed to fetch vehicle ${id}:`, res.status, res.statusText);
+      return null;
+    }
     return res.json();
   } catch (error) {
     console.error('Error fetching vehicle:', error);
@@ -49,7 +55,10 @@ async function getVehicle(id: string): Promise<Vehicle | null> {
 
 async function getSimilarVehicles(id: string) {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/vehicles/${id}/similar`, {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/vehicles/${id}/similar`, {
       cache: 'no-store',
     });
 
@@ -64,7 +73,10 @@ async function getSimilarVehicles(id: string) {
 
 async function incrementViews(id: string) {
   try {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/api/vehicles/${id}/view`, {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000';
+    await fetch(`${baseUrl}/api/vehicles/${id}/view`, {
       method: 'POST',
       cache: 'no-store',
     });
