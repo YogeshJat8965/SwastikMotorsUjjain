@@ -21,6 +21,7 @@ interface DashboardStats {
   newRequests: number;
   profitThisMonth: number;
   viewsToday: number;
+  newBookings: number;
 }
 
 export default function AdminDashboard() {
@@ -30,6 +31,7 @@ export default function AdminDashboard() {
     newRequests: 0,
     profitThisMonth: 0,
     viewsToday: 0,
+    newBookings: 0,
   });
   const [loading, setLoading] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -41,13 +43,15 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     try {
       // Fetch stats from API endpoints
-      const [vehiclesRes, submissionsRes] = await Promise.all([
+      const [vehiclesRes, submissionsRes, bookingsRes] = await Promise.all([
         fetch('/api/vehicles'),
         fetch('/api/submissions'),
+        fetch('/api/bookings'),
       ]);
 
       const vehiclesData = await vehiclesRes.json();
       const submissionsData = await submissionsRes.json();
+      const bookingsData = await bookingsRes.json();
 
       // Calculate stats
       setStats({
@@ -55,6 +59,7 @@ export default function AdminDashboard() {
         newRequests: submissionsData.filter((s: any) => s.status === 'pending').length || 0,
         profitThisMonth: 0, // TODO: Calculate from sales data
         viewsToday: 0, // TODO: Implement view tracking
+        newBookings: Array.isArray(bookingsData) ? bookingsData.filter((b: any) => b.status === 'pending').length : 0,
       });
       setLoading(false);
     } catch (error) {
@@ -128,6 +133,7 @@ export default function AdminDashboard() {
       title: 'View Bookings',
       icon: Calendar,
       color: 'bg-purple-600',
+      badge: stats.newBookings,
       onClick: () => router.push('/admin/rentals'),
     },
   ];

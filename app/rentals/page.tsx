@@ -78,13 +78,20 @@ function RentalsPage() {
       params.set('limit', '20');
 
       const response = await fetch(`/api/rentals?${params.toString()}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch rentals');
+      }
+      
       const data: RentalResponse = await response.json();
 
-      setRentals(data.rentals);
-      setTotalPages(data.pagination.pages);
-      setTotal(data.pagination.total);
+      setRentals(Array.isArray(data.rentals) ? data.rentals : []);
+      setTotalPages(data.pagination?.pages || 1);
+      setTotal(data.pagination?.total || 0);
     } catch (error) {
       console.error('Error fetching rentals:', error);
+      setRentals([]);
+      setTotalPages(1);
+      setTotal(0);
     } finally {
       setLoading(false);
     }
@@ -312,7 +319,7 @@ function RentalsPage() {
               'Loading...'
             ) : (
               <>
-                Showing {rentals.length} of {total} vehicle{total !== 1 ? 's' : ''}
+                Showing {rentals?.length || 0} of {total} vehicle{total !== 1 ? 's' : ''}
               </>
             )}
           </p>
@@ -321,7 +328,7 @@ function RentalsPage() {
         {/* Rentals Grid */}
         {loading ? (
           <LoadingState message="Loading rental vehicles..." />
-        ) : rentals.length === 0 ? (
+        ) : !rentals || rentals.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-6xl mb-4">🚗</div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No rentals found</h3>
@@ -335,7 +342,7 @@ function RentalsPage() {
         ) : (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
-              {rentals.map((rental) => (
+              {rentals && rentals.map((rental) => (
                 <RentalCard
                   key={rental._id}
                   id={rental._id}

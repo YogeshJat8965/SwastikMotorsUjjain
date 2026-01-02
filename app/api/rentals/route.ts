@@ -123,7 +123,17 @@ export async function GET(request: Request) {
   } catch (error: any) {
     console.error('Error fetching rentals:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch rentals', details: error.message },
+      { 
+        rentals: [],
+        pagination: {
+          total: 0,
+          page: 1,
+          pages: 0,
+          limit: 20,
+        },
+        error: 'Failed to fetch rentals',
+        message: error.message 
+      },
       { status: 500 }
     );
   }

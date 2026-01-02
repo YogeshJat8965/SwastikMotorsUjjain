@@ -31,7 +31,15 @@ export async function GET(request: NextRequest) {
   } catch (error: any) {
     console.error('Error fetching vehicles:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch vehicles', message: error.message },
+      { 
+        vehicles: [],
+        total: 0,
+        page: 1,
+        totalPages: 0,
+        hasMore: false,
+        error: 'Failed to fetch vehicles', 
+        message: error.message 
+      },
       { status: 500 }
     );
   }
