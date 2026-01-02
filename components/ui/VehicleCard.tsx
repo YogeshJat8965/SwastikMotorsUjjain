@@ -63,7 +63,7 @@ export default function VehicleCard({
         <div className="relative h-56 w-full bg-gray-100 overflow-hidden">
           <Image
             src={imageError ? fallbackImage : image}
-            alt={title}
+            alt={title || `${category === 'bike' ? 'Bike' : 'Car'} for sale`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"

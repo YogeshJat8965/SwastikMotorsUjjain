@@ -53,7 +53,7 @@ export default function RentalCard({
         <div className="relative h-56 w-full bg-gray-100 overflow-hidden">
           <Image
             src={imageError ? fallbackImage : image}
-            alt={title}
+            alt={title || `${category === 'bike' ? 'Bike' : 'Car'} available for rent`}
             fill
             className="object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
