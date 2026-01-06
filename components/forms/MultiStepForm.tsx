@@ -552,7 +552,7 @@ export default function MultiStepForm({ onSuccess }: MultiStepFormProps) {
             </div>
 
             <p className="text-sm text-gray-500">
-              By submitting, you agree to be contacted by Swastik Bikes regarding your vehicle.
+              By submitting, you agree to be contacted by Swastik Motors regarding your vehicle.
             </p>
           </div>
         );

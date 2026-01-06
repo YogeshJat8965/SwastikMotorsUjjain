@@ -8,12 +8,12 @@ import { Suspense } from "react";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  title: "Swastik Bikes - Buy, Sell & Rent Bikes & Cars | 35k+ Instagram Followers",
+  title: "Swastik Motors - Buy, Sell & Rent Bikes & Cars | 35k+ Instagram Followers",
   description: "Your trusted partner for buying, selling, and renting bikes & cars. 35k+ Instagram followers, 3k+ WhatsApp members. Best prices on quality vehicles in India.",
-  keywords: "bikes, cars, buy bikes, sell bikes, rent bikes, used bikes, used cars, second hand bikes, second hand cars, bike rental, car rental, swastik bikes, vehicle marketplace",
-  authors: [{ name: "Swastik Bikes" }],
-  creator: "Swastik Bikes",
-  publisher: "Swastik Bikes",
+  keywords: "bikes, cars, buy bikes, sell bikes, rent bikes, used bikes, used cars, second hand bikes, second hand cars, bike rental, car rental, swastik motors, vehicle marketplace",
+  authors: [{ name: "Swastik Motors" }],
+  creator: "Swastik Motors",
+  publisher: "Swastik Motors",
   metadataBase: new URL(siteUrl),
   alternates: {
     canonical: '/',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_IN',
     url: siteUrl,
-    siteName: 'Swastik Bikes',
+    siteName: 'Swastik Motors',
     title: 'Swastik Bikes - Buy, Sell & Rent Bikes & Cars',
     description: 'Your trusted partner for buying, selling, and renting bikes & cars. 35k+ Instagram followers, 3k+ WhatsApp members.',
     images: [
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Swastik Bikes - Vehicle Marketplace',
+        alt: 'Swastik Motors - Vehicle Marketplace',
       },
     ],
   },

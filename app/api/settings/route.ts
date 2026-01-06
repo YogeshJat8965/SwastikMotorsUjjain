@@ -7,7 +7,7 @@ import { requireAdmin } from '@/lib/auth';
 const DEFAULT_SETTINGS = {
   whatsappNumber: process.env.WHATSAPP_NUMBER || '+919876543210',
   instagramHandle: process.env.INSTAGRAM_HANDLE || '@swastik_bikes',
-  businessName: process.env.BUSINESS_NAME || 'Swastik Bikes',
+  businessName: process.env.BUSINESS_NAME || 'Swastik Motors',
   businessAddress: process.env.BUSINESS_ADDRESS || 'Ujjain, Madhya Pradesh',
   emailNotifications: true,
   smsNotifications: false,

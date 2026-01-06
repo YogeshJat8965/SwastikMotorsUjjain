@@ -318,11 +318,12 @@ export default function SuccessStoriesPage() {
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
               {regularVehicles.map((vehicle, index) => (
-                <Card
+                <div
                   key={vehicle._id}
-                  className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer transform active:scale-95 sm:hover:-translate-y-2 animate-fade-in"
+                  className="animate-fade-in"
                   style={{ animationDelay: `${index * 0.05}s` }}
                 >
+                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer transform active:scale-95 sm:hover:-translate-y-2">
                   <div className="relative aspect-square bg-gray-100 overflow-hidden">
                     <img
                       src={vehicle.image}
@@ -361,6 +362,7 @@ export default function SuccessStoriesPage() {
                     </div>
                   </div>
                 </Card>
+                </div>
               ))}
             </div>
           </div>

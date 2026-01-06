@@ -52,7 +52,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           >
             {sidebarOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
-          <h1 className="text-lg font-bold text-gray-900">Swastik Bikes Admin</h1>
+          <h1 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Swastik Motors Admin</h1>
           <button
             onClick={handleLogout}
             className="p-2 rounded-lg hover:bg-gray-100 text-gray-600"
@@ -76,7 +76,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
                 <span className="text-white font-bold text-xl">SB</span>
               </div>
               <div>
-                <h2 className="font-bold text-gray-900">Swastik Bikes</h2>
+                <h2 className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Swastik Motors</h2>
                 <p className="text-xs text-gray-500">Admin Panel</p>
               </div>
             </Link>

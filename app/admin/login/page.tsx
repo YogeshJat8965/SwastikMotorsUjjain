@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
             <Lock className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
-          <p className="text-gray-600 mt-2">Swastik Bikes & Cars</p>
+          <p className="text-gray-600 mt-2 font-semibold">Swastik Motors</p>
         </div>
 
         {/* Login Card */}

@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* About */}
           <div>
-            <h3 className="text-lg font-bold mb-4">Swastik Bikes</h3>
+            <h3 className="text-lg font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Swastik Motors</h3>
             <p className="text-gray-400 text-sm">
               Your trusted partner for buying, selling, and renting bikes & cars.
             </p>
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-gray-800 mt-8 pt-6 text-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Swastik Bikes. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Swastik Motors. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -22,7 +22,7 @@ export default function SettingsManagement() {
   const [settings, setSettings] = useState<Settings>({
     whatsappNumber: '+919876543210',
     instagramHandle: '@swastik_bikes',
-    businessName: 'Swastik Bikes',
+    businessName: 'Swastik Motors',
     businessAddress: 'Ujjain, Madhya Pradesh',
     emailNotifications: true,
     smsNotifications: false,
@@ -103,7 +103,7 @@ export default function SettingsManagement() {
                 label="Business Name"
                 value={settings.businessName}
                 onChange={(e) => updateField('businessName', e.target.value)}
-                placeholder="Swastik Bikes"
+                placeholder="Swastik Motors"
               />
 
               <Input

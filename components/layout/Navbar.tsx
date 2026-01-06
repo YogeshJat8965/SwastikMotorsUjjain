@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import Button from '../ui/Button';
 
 export default function Navbar() {
@@ -11,11 +12,17 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-primary-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">SB</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="relative w-12 h-12 flex-shrink-0">
+              <Image
+                src="/logo.png"
+                alt="Swastik Motors Logo"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-            <span className="text-xl font-bold text-gray-900 hidden sm:block">Swastik Bikes</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hidden sm:block">Swastik Motors</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -97,7 +97,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
   if (!vehicle) {
     return {
-      title: 'Vehicle Not Found | Swastik Bikes',
+      title: 'Vehicle Not Found | Swastik Motors',
     };
   }
 
