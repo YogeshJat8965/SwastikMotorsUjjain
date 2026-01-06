@@ -160,12 +160,12 @@ function RentalsPage() {
     searchQuery !== '';
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-16 md:pt-20 pb-16 md:pb-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-1 pb-6 md:py-8">
+    <div className="min-h-screen bg-gray-50 pb-16 md:pb-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 md:pt-6 pb-6 md:pb-8">
         
         {/* Header */}
-        <div className="mb-1 md:mb-8">
-          <h1 className="text-3xl sm:text-4xl md:text-4xl font-bold text-gray-900 mb-1">
+        <div className="mb-4 md:mb-6 text-center md:text-left">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
             Rent a Vehicle
           </h1>
           <p className="text-base text-gray-600">

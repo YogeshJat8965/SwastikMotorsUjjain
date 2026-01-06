@@ -170,8 +170,8 @@ function BrowsePage() {
     <div className="min-h-screen bg-gray-50 overflow-x-hidden">
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-30">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Browse Vehicles</h1>
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-4 text-center md:text-left">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 sm:mb-4">Browse Vehicles</h1>
 
           {/* Search Bar */}
           <form onSubmit={handleSearch} className="flex gap-2 mb-4">

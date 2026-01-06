@@ -69,9 +69,9 @@ export default async function Home() {
           <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-float-slow"></div>
         </div>
 
-        <div className="container relative z-10 py-12 md:py-16 lg:py-20">
+        <div className="container relative z-10 py-6 sm:py-12 md:py-16 lg:py-20">
           {/* Top Badge */}
-          <div className="flex justify-center mb-8 animate-fade-in-down">
+          <div className="flex justify-center mb-4 sm:mb-8 animate-fade-in-down">
             <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
@@ -83,10 +83,10 @@ export default async function Home() {
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-8 animate-fade-in-left">
+            <div className="space-y-4 sm:space-y-8 animate-fade-in-left">
               {/* Main Headline */}
               <div>
-                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 sm:mb-6">
                   <span className="block text-white">Find Your</span>
                   <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
                     Dream Ride

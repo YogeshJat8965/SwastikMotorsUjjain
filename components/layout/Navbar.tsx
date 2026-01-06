@@ -1,18 +1,31 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import Button from '../ui/Button';
 
 export default function Navbar() {
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi, I want to know more about your bikes/cars`;
+  const pathname = usePathname();
+
+  const navLinks = [
+    { href: '/buy', label: 'Buy' },
+    { href: '/rentals', label: 'Rentals' },
+    { href: '/sell-to-us', label: 'Sell to Us' },
+    { href: '/success-stories', label: 'Success Stories' },
+  ];
+
+  const isActive = (path: string) => {
+    return pathname === path || pathname?.startsWith(`${path}/`);
+  };
 
   return (
     <nav className="sticky md:fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo and Brand Name */}
-          <Link href="/" className="flex items-center gap-2 sm:gap-3 md:gap-1 flex-1 min-w-0">
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
             <div className="relative w-20 h-20 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 flex-shrink-0 mt-4">
               <Image
                 src="/1000152145-removebg-preview.png"
@@ -28,19 +41,23 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-6 mr-8">
-            <Link href="/buy" className="text-gray-700 hover:text-primary-600 font-medium">
-              Buy
-            </Link>
-            <Link href="/rentals" className="text-gray-700 hover:text-primary-600 font-medium">
-              Rentals
-            </Link>
-            <Link href="/sell-to-us" className="text-gray-700 hover:text-primary-600 font-medium">
-              Sell to Us
-            </Link>
-            <Link href="/success-stories" className="text-gray-700 hover:text-primary-600 font-medium">
-              Success Stories
-            </Link>
+          <div className="hidden md:flex items-center space-x-1 lg:space-x-2 mr-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`relative px-4 py-2 rounded-lg font-semibold text-sm lg:text-base transition-all duration-300 ${
+                  isActive(link.href)
+                    ? 'text-white bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg'
+                    : 'text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-purple-500 hover:shadow-md'
+                }`}
+              >
+                {link.label}
+                {isActive(link.href) && (
+                  <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-white rounded-full animate-pulse"></span>
+                )}
+              </Link>
+            ))}
           </div>
 
           {/* WhatsApp Button */}
