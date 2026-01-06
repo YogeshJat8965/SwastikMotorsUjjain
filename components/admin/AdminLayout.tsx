@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, FileText, Package, Calendar, BarChart3, Settings, LogOut, Menu, X } from 'lucide-react';
+import { Home, FileText, Package, Calendar, BarChart3, Settings, LogOut, Menu, X, Users } from 'lucide-react';
 import { useState } from 'react';
 
 interface AdminLayoutProps {
@@ -29,6 +29,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: 'Sell Requests', href: '/admin/requests', icon: FileText },
     { name: 'All Vehicles', href: '/admin/inventory', icon: Package },
     { name: 'Rentals', href: '/admin/rentals', icon: Calendar },
+    { name: 'Success Stories', href: '/admin/sold-vehicles', icon: Users },
     { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];

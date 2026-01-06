@@ -29,6 +29,9 @@ export default function Navbar() {
             <Link href="/sell-to-us" className="text-gray-700 hover:text-primary-600 font-medium">
               Sell to Us
             </Link>
+            <Link href="/success-stories" className="text-gray-700 hover:text-primary-600 font-medium">
+              Success Stories
+            </Link>
           </div>
 
           {/* WhatsApp Button */}

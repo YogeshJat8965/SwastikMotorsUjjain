@@ -60,10 +60,39 @@ export default function RentalCard({
       {isNavigating && (
         <div className="absolute inset-0 bg-white/90 backdrop-blur-sm z-50 flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 animate-spin" style={{ padding: '3px' }}>
-              <div className="w-full h-full rounded-full bg-white"></div>
+            {/* Enhanced Loader */}
+            <div className="relative">
+              {/* Outer glow effect */}
+              <div className="absolute inset-0 w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-20 blur-md animate-pulse"></div>
+              
+              {/* Spinning gradient ring */}
+              <div className="relative w-14 h-14 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 via-pink-500 to-blue-500 animate-spin" style={{ padding: '3px' }}>
+                <div className="w-full h-full rounded-full bg-white"></div>
+                
+                {/* Counter-rotating particles */}
+                <div className="absolute inset-1.5 animate-spin-slow-reverse">
+                  <div className="absolute top-0 left-1/2 w-1.5 h-1.5 -ml-0.75 rounded-full bg-blue-500"></div>
+                  <div className="absolute bottom-0 left-1/2 w-1.5 h-1.5 -ml-0.75 rounded-full bg-purple-500"></div>
+                </div>
+              </div>
+              
+              {/* Center bike icon */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-xl animate-pulse-gentle">🏍️</span>
+              </div>
             </div>
-            <p className="text-sm font-semibold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Loading...</p>
+            
+            {/* Loading text with gradient */}
+            <p className="text-sm font-semibold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient-text">
+              Loading...
+            </p>
+            
+            {/* Bouncing dots */}
+            <div className="flex gap-1">
+              <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0s' }}></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+            </div>
           </div>
         </div>
       )}

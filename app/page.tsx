@@ -50,95 +50,283 @@ export default async function Home() {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-12 md:py-20">
-        <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Buy, Sell & Rent Bikes & Cars
-            </h1>
-            <p className="text-xl mb-8 text-primary-100">
-              Your trusted partner with 35,000+ Instagram followers and 3,000+ WhatsApp members
-            </p>
-            
-            {/* Trust Badges */}
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Badge color="blue" className="text-sm py-2 px-4 flex items-center gap-2">
-                <Instagram className="w-4 h-4" />
-                35,000+ Instagram Followers
-              </Badge>
-              <Badge color="green" className="text-sm py-2 px-4 flex items-center gap-2">
-                <MessageCircle className="w-4 h-4" />
-                3,000+ WhatsApp Members
-              </Badge>
-              <Badge color="yellow" className="text-sm py-2 px-4 flex items-center gap-2">
-                <Shield className="w-4 h-4" />
-                100% Trusted
-              </Badge>
-            </div>
+      {/* Hero Section - Modern Split Design */}
+      <section className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
+            backgroundSize: '50px 50px',
+            animation: 'gridMove 20s linear infinite'
+          }}></div>
+        </div>
 
-            {/* Search Bar */}
-            <div className="bg-white rounded-lg shadow-lg p-2 max-w-2xl mx-auto mb-6">
-              <div className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="text"
-                  placeholder="Search for bikes or cars..."
-                  className="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none"
-                />
-                <Button variant="primary" size="lg" className="whitespace-nowrap" icon={<Search className="w-5 h-5" />}>
-                  Search
-                </Button>
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-blue-500/20 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute top-40 right-20 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-float-delayed"></div>
+          <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-float-slow"></div>
+        </div>
+
+        <div className="container relative z-10 py-12 md:py-16 lg:py-20">
+          {/* Top Badge */}
+          <div className="flex justify-center mb-8 animate-fade-in-down">
+            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              <span className="text-sm font-semibold">🔥 Trusted by 38,000+ Happy Customers</span>
+            </div>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left Content */}
+            <div className="space-y-8 animate-fade-in-left">
+              {/* Main Headline */}
+              <div>
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-6">
+                  <span className="block text-white">Find Your</span>
+                  <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
+                    Dream Ride
+                  </span>
+                  <span className="block text-white">Today</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                  Buy, Sell & Rent bikes and cars with the most trusted marketplace
+                </p>
+              </div>
+
+              {/* Stats Cards */}
+              <div className="grid grid-cols-3 gap-4">
+                <div className="relative bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-2xl p-4 border border-blue-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  <div className="relative">
+                    <div className="text-3xl font-bold text-blue-300 animate-pulse-slow">35K+</div>
+                    <div className="text-xs text-gray-300 mt-1">Instagram</div>
+                  </div>
+                </div>
+                <div className="relative bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm rounded-2xl p-4 border border-green-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 animation-delay-200"></div>
+                  <div className="relative">
+                    <div className="text-3xl font-bold text-green-300 animate-pulse-slow">3K+</div>
+                    <div className="text-xs text-gray-300 mt-1">WhatsApp</div>
+                  </div>
+                </div>
+                <div className="relative bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-4 border border-yellow-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 animation-delay-400"></div>
+                  <div className="relative">
+                    <div className="text-3xl font-bold text-yellow-300 animate-pulse-slow">100%</div>
+                    <div className="text-xs text-gray-300 mt-1">Trusted</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Search Box - Hidden on Mobile */}
+              <div className="relative group hidden md:block">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-2xl blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+                <div className="relative bg-white rounded-2xl p-2 shadow-2xl">
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <div className="flex-1 relative">
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <input
+                        type="text"
+                        placeholder="Search bikes, cars, scooters..."
+                        className="w-full pl-12 pr-4 py-4 rounded-xl text-gray-900 bg-gray-50 border-2 border-transparent focus:border-blue-500 focus:bg-white focus:outline-none transition-all text-lg font-medium"
+                      />
+                    </div>
+                    <Link href="/buy">
+                      <button className="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-bold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-2xl whitespace-nowrap flex items-center justify-center gap-2">
+                        <Search className="w-5 h-5" />
+                        Search
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap gap-4">
+                <Link href="/buy" className="flex-1 min-w-[200px]">
+                  <button className="w-full px-8 py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-bold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 group">
+                    <Car className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+                    <span>Browse Vehicles</span>
+                  </button>
+                </Link>
+                <Link href="/sell-to-us" className="flex-1 min-w-[200px]">
+                  <button className="w-full px-8 py-5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 group">
+                    <DollarSign className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                    <span>Sell Your Vehicle</span>
+                  </button>
+                </Link>
+              </div>
+
+              {/* Quick Features */}
+              <div className="flex flex-wrap gap-6 text-sm">
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                  </div>
+                  <span className="text-gray-300">Verified Vehicles</span>
+                </div>
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <Shield className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <span className="text-gray-300">Secure Deals</span>
+                </div>
+                <div className="flex items-center gap-2 group cursor-pointer">
+                  <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
+                    <Clock className="w-5 h-5 text-yellow-400" />
+                  </div>
+                  <span className="text-gray-300">Fast Response</span>
+                </div>
               </div>
             </div>
 
-            {/* CTA Buttons */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/buy">
-                <Button variant="secondary" size="lg" className="!bg-white !text-primary-600 hover:!bg-gray-100 font-semibold">
-                  Browse Vehicles
-                </Button>
-              </Link>
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-primary-600" icon={<MessageCircle className="w-5 h-5" />}>
-                  Contact on WhatsApp
-                </Button>
-              </a>
+            {/* Right Visual - Interactive Cards */}
+            <div className="relative hidden lg:block animate-fade-in-right">
+              <div className="relative h-[600px]">
+                {/* Main Featured Card */}
+                <div className="absolute top-0 right-0 w-80 h-96 bg-gradient-to-br from-blue-500/90 to-purple-600/90 backdrop-blur-xl rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 border border-white/20 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/0 to-black/50"></div>
+                  <div className="relative h-full p-6 flex flex-col justify-between">
+                    <div>
+                      <div className="inline-block px-3 py-1 bg-yellow-400 text-yellow-900 rounded-full text-xs font-bold mb-3">
+                        ⭐ FEATURED
+                      </div>
+                      <h3 className="text-2xl font-bold mb-2">Premium Bikes</h3>
+                      <p className="text-blue-100 text-sm">Starting from ₹45,000</p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                          <TrendingUp className="w-5 h-5" />
+                        </div>
+                        <span className="text-sm">200+ Available</span>
+                      </div>
+                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span className="text-xl">🏍️</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Secondary Card */}
+                <div className="absolute top-20 left-0 w-72 h-80 bg-gradient-to-br from-cyan-500/90 to-blue-600/90 backdrop-blur-xl rounded-3xl shadow-2xl transform -rotate-3 hover:rotate-0 transition-all duration-500 border border-white/20 overflow-hidden group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/0 to-black/50"></div>
+                  <div className="relative h-full p-6 flex flex-col justify-between">
+                    <div>
+                      <div className="inline-block px-3 py-1 bg-green-400 text-green-900 rounded-full text-xs font-bold mb-3">
+                        🚗 NEW ARRIVALS
+                      </div>
+                      <h3 className="text-2xl font-bold mb-2">Latest Cars</h3>
+                      <p className="text-cyan-100 text-sm">From ₹2,50,000</p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                          <Users className="w-5 h-5" />
+                        </div>
+                        <span className="text-sm">150+ Models</span>
+                      </div>
+                      <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <span className="text-xl">🚗</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* WhatsApp Float Button */}
+                <a href={whatsappLink} target="_blank" rel="noopener noreferrer" className="absolute bottom-0 right-10 w-64 h-24 bg-gradient-to-r from-green-500 to-green-600 backdrop-blur-xl rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 border border-green-400/30 overflow-hidden group">
+                  <div className="relative h-full p-5 flex items-center gap-4">
+                    <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform">
+                      <MessageCircle className="w-7 h-7 text-green-600" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-green-100 mb-1">Connect Now</div>
+                      <div className="font-bold">WhatsApp Us</div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile WhatsApp Button */}
+          <div className="lg:hidden mt-8 animate-fade-in-up animation-delay-600">
+            <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
+              <button className="w-full px-8 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
+                <MessageCircle className="w-6 h-6" />
+                <span>Chat on WhatsApp</span>
+              </button>
+            </a>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden lg:block">
+            <div className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-2">
+              <div className="w-1 h-3 bg-white/50 rounded-full"></div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Us?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Car className="w-8 h-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Wide Selection</h3>
-              <p className="text-gray-600">
-                Browse through our extensive collection of bikes and cars
-              </p>
+        {/* Scrolling Text Marquee */}
+        <div className="relative border-t border-white/10 bg-gradient-to-r from-blue-600/30 to-purple-600/30 backdrop-blur-sm overflow-hidden py-6">
+          <div className="flex animate-scroll-left md:animate-scroll-left-slow whitespace-nowrap">
+            <div className="flex items-center gap-12 px-6">
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                ⚡ Instant Verification
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🏆 Best Prices Guaranteed
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🚀 Quick Delivery
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                💯 100% Genuine Vehicles
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🔒 Secure Transactions
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                📱 24/7 Support
+              </span>
+              <span className="text-white/60">•</span>
             </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <DollarSign className="w-8 h-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Best Prices</h3>
-              <p className="text-gray-600">
-                Get the best deals on quality vehicles
-              </p>
-            </div>
-            <div className="text-center p-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <CheckCircle className="w-8 h-8 text-primary-600" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Trusted Platform</h3>
-              <p className="text-gray-600">
-                35k+ followers trust us for their vehicle needs
-              </p>
+            {/* Duplicate for seamless loop */}
+            <div className="flex items-center gap-12 px-6">
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                ⚡ Instant Verification
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🏆 Best Prices Guaranteed
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🚀 Quick Delivery
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                💯 100% Genuine Vehicles
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                🔒 Secure Transactions
+              </span>
+              <span className="text-white/60">•</span>
+              <span className="text-lg font-semibold text-white flex items-center gap-2">
+                📱 24/7 Support
+              </span>
+              <span className="text-white/60">•</span>
             </div>
           </div>
         </div>
@@ -196,43 +384,189 @@ export default async function Home() {
       </section>
 
       {/* Instagram CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
-        <div className="container text-center">
-          <div className="max-w-2xl mx-auto">
-            <div className="mb-4 flex justify-center">
-              <Instagram className="w-16 h-16" />
+      <section className="relative py-10 md:py-14 overflow-hidden bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
+        {/* Animated grid background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'linear-gradient(rgba(168, 85, 247, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(168, 85, 247, 0.3) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+
+        {/* Floating orbs */}
+        <div className="absolute top-10 left-10 w-24 h-24 bg-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-pink-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+
+        <div className="container relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-gray-200 p-5 md:p-10 hover:shadow-purple-200/50 transition-all duration-500 animate-fade-in-up">
+              {/* Mobile-First Layout */}
+              <div className="flex flex-col gap-5">
+                {/* Icon and Title - Stacked on Mobile, Inline on Desktop */}
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                  <div className="relative group flex-shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 animate-pulse transition-opacity"></div>
+                    <div className="relative bg-gradient-to-br from-purple-500 to-pink-600 p-3 md:p-4 rounded-2xl shadow-xl transform group-hover:scale-110 group-hover:rotate-6 transition-all">
+                      <Instagram className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                    </div>
+                  </div>
+                  
+                  <div className="flex-1 text-center sm:text-left">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-slate-800 via-purple-700 to-pink-700 bg-clip-text text-transparent mb-2">
+                      Follow Us on Instagram
+                    </h2>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-700 font-semibold">
+                      Join <span className="text-purple-600 font-black text-lg md:text-xl">35,000+</span> followers • Response in <span className="text-pink-600 font-black">24 Hours</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Feature tags */}
+                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                  <span className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <span>📱</span> Stories Daily
+                  </span>
+                  <span className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <span>🎥</span> Reels & Videos
+                  </span>
+                  <span className="bg-gradient-to-r from-rose-500 to-rose-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                    <span>💬</span> Active Community
+                  </span>
+                  <span className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                    <span>🎁</span> Giveaways
+                  </span>
+                </div>
+
+                {/* CTA Button - Full Width on Mobile */}
+                <a
+                  href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group w-full sm:w-auto"
+                >
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl md:rounded-2xl blur-xl opacity-60 group-hover:opacity-100 animate-pulse transition-opacity"></div>
+                    
+                    <button className="relative w-full bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 hover:from-purple-700 hover:via-pink-700 hover:to-rose-700 text-white px-6 py-4 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 border-2 border-white/20">
+                      <Instagram className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" />
+                      <div className="flex flex-col items-start">
+                        <span className="text-xs font-semibold opacity-90">Follow Now</span>
+                        <span className="text-sm md:text-base">@{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}</span>
+                      </div>
+                      <span className="text-xl md:text-2xl group-hover:translate-x-1 transition-transform flex-shrink-0">→</span>
+                    </button>
+                  </div>
+                </a>
+              </div>
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Follow Us on Instagram</h2>
-            <p className="text-xl mb-8 text-purple-100">
-              Join our community of 35,000+ followers for daily updates on new bikes & cars!
-            </p>
-            <div className="flex justify-center">
-              <a
-                href={`https://instagram.com/${process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button variant="secondary" size="lg" className="!bg-white !text-purple-600 hover:!bg-gray-100 font-semibold" icon={<Instagram className="w-5 h-5" />}>
-                  Follow @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}
-                </Button>
-              </a>
+
+            {/* Trust indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 md:mt-6 text-xs md:text-sm text-gray-600 font-semibold">
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>Daily Updates</span>
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>Exclusive Deals</span>
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>Behind Scenes</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gray-100">
-        <div className="container text-center">
-          <h2 className="text-3xl font-bold mb-4">Want to Sell Your Vehicle?</h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Get the best price for your bike or car. We'll contact you within 24 hours!
-          </p>
-          <Link href="/sell-to-us">
-            <Button variant="primary" size="lg">
-              💵 Sell to Us Now
-            </Button>
-          </Link>
+      <section className="relative py-10 md:py-14 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+        {/* Animated grid background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'linear-gradient(rgba(99, 102, 241, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(99, 102, 241, 0.3) 1px, transparent 1px)',
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+
+        {/* Floating orbs */}
+        <div className="absolute top-10 right-10 w-24 h-24 bg-blue-400/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 left-10 w-32 h-32 bg-purple-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+
+        <div className="container relative z-10">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-gray-200 p-5 md:p-10 hover:shadow-blue-200/50 transition-all duration-500 animate-fade-in-up">
+              {/* Mobile-First Layout */}
+              <div className="flex flex-col gap-5">
+                {/* Icon and Title - Stacked on Mobile, Inline on Desktop */}
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+                  <div className="relative group flex-shrink-0">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-500 rounded-2xl blur-lg opacity-60 group-hover:opacity-100 animate-pulse transition-opacity"></div>
+                    <div className="relative bg-gradient-to-br from-blue-500 to-purple-600 p-3 md:p-4 rounded-2xl shadow-xl transform group-hover:scale-110 group-hover:rotate-12 transition-all">
+                      <span className="text-3xl md:text-4xl">💰</span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex-1 text-center sm:text-left">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-slate-800 via-blue-700 to-purple-700 bg-clip-text text-transparent mb-2">
+                      Sell Your Vehicle
+                    </h2>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-700 font-semibold">
+                      Get <span className="text-blue-600 font-black text-lg md:text-xl">BEST PRICE</span> • Response in <span className="text-purple-600 font-black">24 Hours</span>
+                    </p>
+                  </div>
+                </div>
+
+                {/* Feature tags */}
+                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                  <span className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.1s' }}>
+                    <span>⚡</span> Quick Process
+                  </span>
+                  <span className="bg-gradient-to-r from-green-500 to-green-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                    <span>💯</span> Fair Value
+                  </span>
+                  <span className="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.3s' }}>
+                    <span>🔒</span> 100% Safe
+                  </span>
+                  <span className="bg-gradient-to-r from-orange-500 to-orange-600 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg flex items-center gap-1 hover:scale-105 transition-transform animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                    <span>✅</span> Instant Cash
+                  </span>
+                </div>
+
+                {/* CTA Button - Full Width on Mobile */}
+                <Link href="/sell-to-us" className="group w-full sm:w-auto">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl md:rounded-2xl blur-xl opacity-60 group-hover:opacity-100 animate-pulse transition-opacity"></div>
+                    
+                    <button className="relative w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white px-6 py-4 md:px-8 md:py-4 rounded-xl md:rounded-2xl font-black text-base md:text-lg shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 border-2 border-white/20">
+                      <span className="text-xl md:text-2xl animate-bounce flex-shrink-0">💵</span>
+                      <div className="flex flex-col items-start">
+                        <span className="text-xs font-semibold opacity-90">Get Started</span>
+                        <span className="text-sm md:text-base">Sell Now</span>
+                      </div>
+                      <span className="text-xl md:text-2xl group-hover:translate-x-1 transition-transform flex-shrink-0">→</span>
+                    </button>
+                  </div>
+                </Link>
+              </div>
+            </div>
+
+            {/* Trust indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 md:mt-6 text-xs md:text-sm text-gray-600 font-semibold">
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.5s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>Free Evaluation</span>
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>No Hidden Charges</span>
+              </div>
+              <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.7s' }}>
+                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span>Expert Team</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

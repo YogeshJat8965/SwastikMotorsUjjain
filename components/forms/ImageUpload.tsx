@@ -6,16 +6,26 @@ import Button from '../ui/Button';
 import Spinner from '../ui/Spinner';
 
 interface ImageUploadProps {
-  images: string[];
-  onImagesChange: (images: string[]) => void;
+  images?: string[];
+  onImagesChange?: (images: string[]) => void;
   maxImages?: number;
+  // Single image mode props
+  label?: string;
+  onImageUpload?: (url: string) => void;
+  currentImage?: string;
 }
 
 export default function ImageUpload({
-  images,
+  images: imagesProp,
   onImagesChange,
   maxImages = 10,
+  label,
+  onImageUpload,
+  currentImage,
 }: ImageUploadProps) {
+  // Support both multi-image and single-image mode
+  const isSingleMode = onImageUpload !== undefined;
+  const images = isSingleMode ? (currentImage ? [currentImage] : []) : (imagesProp || []);
   const [uploading, setUploading] = useState(false);
   const [dragActive, setDragActive] = useState(false);
   const [uploadProgress, setUploadProgress] = useState<number | null>(null);
@@ -123,7 +133,13 @@ export default function ImageUpload({
       const uploadedUrls = results.filter((url): url is string => url !== null);
 
       if (uploadedUrls.length > 0) {
-        onImagesChange([...images, ...uploadedUrls]);
+        if (isSingleMode && onImageUpload) {
+          // Single image mode - just call with first URL
+          onImageUpload(uploadedUrls[0]);
+        } else if (onImagesChange) {
+          // Multi-image mode
+          onImagesChange([...images, ...uploadedUrls]);
+        }
       }
       
       setUploadProgress(100);
@@ -152,8 +168,14 @@ export default function ImageUpload({
   };
 
   const removeImage = (index: number) => {
-    const newImages = images.filter((_, i) => i !== index);
-    onImagesChange(newImages);
+    if (isSingleMode && onImageUpload) {
+      // Single image mode - clear the image
+      onImageUpload('');
+    } else if (onImagesChange) {
+      // Multi-image mode
+      const newImages = images.filter((_, i) => i !== index);
+      onImagesChange(newImages);
+    }
   };
 
   return (
@@ -172,17 +194,17 @@ export default function ImageUpload({
               ? 'border-blue-500 bg-blue-50'
               : 'border-gray-300 hover:border-gray-400 hover:bg-gray-50'
           }
-          ${images.length >= maxImages ? 'opacity-50 cursor-not-allowed' : ''}
+          ${!isSingleMode && images.length >= maxImages ? 'opacity-50 cursor-not-allowed' : ''}
         `}
       >
         <input
           ref={fileInputRef}
           type="file"
-          multiple
+          multiple={!isSingleMode}
           accept="image/*"
           onChange={(e) => handleFileSelect(e.target.files)}
           className="hidden"
-          disabled={images.length >= maxImages}
+          disabled={!isSingleMode && images.length >= maxImages}
         />
 
         {uploading ? (
@@ -202,13 +224,16 @@ export default function ImageUpload({
                 Drop images here or click to upload
               </p>
               <p className="text-sm text-gray-500 mt-1">
-                {images.length}/{maxImages} images • Max 10MB per image
+                {isSingleMode 
+                  ? 'Upload 1 image • Max 10MB' 
+                  : `${images.length}/${maxImages} images • Max 10MB per image`
+                }
               </p>
             </div>
             <Button
               type="button"
               variant="outline"
-              disabled={images.length >= maxImages}
+              disabled={!isSingleMode && images.length >= maxImages}
               onClick={(e) => {
                 e.stopPropagation();
                 fileInputRef.current?.click();
@@ -244,7 +269,7 @@ export default function ImageUpload({
               >
                 <X className="w-4 h-4" />
               </button>
-              {index === 0 && (
+              {!isSingleMode && index === 0 && (
                 <div className="absolute bottom-2 left-2 px-2 py-1 bg-blue-600 text-white text-xs rounded">
                   Main Image
                 </div>

@@ -88,6 +88,16 @@ export async function requireAdmin(): Promise<AdminUser> {
   return session;
 }
 
+// Validate admin session for API routes
+export async function validateAdminSession(req?: Request): Promise<boolean> {
+  try {
+    const session = await getSession();
+    return session !== null && session.isAdmin === true;
+  } catch (error) {
+    return false;
+  }
+}
+
 // Utility to generate password hash (run this once to generate hash)
 export async function generatePasswordHash(password: string): Promise<string> {
   return bcrypt.hash(password, 10);
