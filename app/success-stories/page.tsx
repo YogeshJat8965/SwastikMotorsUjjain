@@ -19,8 +19,19 @@ interface SoldVehicle {
   featured: boolean;
 }
 
+interface Review {
+  _id: string;
+  customerName: string;
+  vehicleName: string;
+  testimonial: string;
+  rating: number;
+  isActive: boolean;
+  order: number;
+}
+
 export default function SuccessStoriesPage() {
   const [soldVehicles, setSoldVehicles] = useState<SoldVehicle[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'bike' | 'car'>('all');
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -31,6 +42,7 @@ export default function SuccessStoriesPage() {
 
   useEffect(() => {
     fetchSoldVehicles();
+    fetchReviews();
   }, []);
 
   // Auto-slide effect
@@ -54,6 +66,17 @@ export default function SuccessStoriesPage() {
       console.error('Error fetching sold vehicles:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchReviews = async () => {
+    try {
+      const res = await fetch('/api/reviews?active=true');
+      if (!res.ok) throw new Error('Failed to fetch reviews');
+      const data = await res.json();
+      setReviews(data.reviews || []);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
     }
   };
 
@@ -191,15 +214,6 @@ export default function SuccessStoriesPage() {
 
                           {/* Content Overlay */}
                           <div className="absolute bottom-0 left-0 right-0 p-5 pb-16 z-10">
-                            <div className="flex gap-2 mb-3">
-                              <Badge color="yellow" className="text-xs px-3 py-1.5">
-                                <Star className="w-3 h-3" /> Featured
-                              </Badge>
-                              <Badge color={vehicle.vehicleType === 'bike' ? 'blue' : 'green'} className="text-xs px-3 py-1.5">
-                                {vehicle.vehicleType === 'bike' ? 'Bike' : 'Car'}
-                              </Badge>
-                            </div>
-                            
                             <h3 className="text-2xl font-black text-white mb-2 leading-tight">
                               {vehicle.vehicleName}
                             </h3>
@@ -239,15 +253,6 @@ export default function SuccessStoriesPage() {
 
                           <div className="relative h-full flex flex-col justify-end p-8 md:p-10 z-10">
                             <div className="max-w-3xl">
-                              <div className="flex gap-2 mb-3">
-                                <Badge color="yellow" className="text-xs px-3 py-1">
-                                  <Star className="w-3 h-3" /> Featured
-                                </Badge>
-                                <Badge color={vehicle.vehicleType === 'bike' ? 'blue' : 'green'} className="text-xs px-3 py-1">
-                                  {vehicle.vehicleType === 'bike' ? 'Bike' : 'Car'}
-                                </Badge>
-                              </div>
-                              
                               <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 md:mb-4 leading-tight">
                                 {vehicle.vehicleName}
                               </h3>
@@ -325,60 +330,112 @@ export default function SuccessStoriesPage() {
         )}
 
         {/* Grid - Mobile Optimized */}
-        {regularVehicles.length > 0 && (
-          <div>
-            <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold mb-5 sm:mb-7 flex items-center gap-2 px-1">
-              <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-green-500 flex-shrink-0" />
-              All Stories
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 sm:gap-4 md:gap-5">
-              {regularVehicles.map((vehicle, index) => (
-                <div
-                  key={vehicle._id}
-                  className="animate-fade-in"
-                  style={{ animationDelay: `${index * 0.05}s` }}
-                >
-                  <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 group cursor-pointer transform active:scale-95 sm:hover:-translate-y-2">
-                  <div className="relative aspect-square bg-gray-100 overflow-hidden">
-                    <img
-                      src={vehicle.image}
-                      alt={vehicle.vehicleName}
-                      className="w-full h-full object-cover group-active:scale-110 sm:group-hover:scale-125 transition-transform duration-500"
-                    />
-                    <div className="absolute top-1.5 left-1.5 sm:top-2 sm:left-2">
-                      <Badge
-                        color={vehicle.vehicleType === 'bike' ? 'blue' : 'green'}
-                        className="text-[10px] sm:text-xs backdrop-blur-sm shadow-md px-1.5 py-0.5 sm:px-2 sm:py-1"
-                      >
-                        {vehicle.vehicleType === 'bike' ? '🏍️' : '🚗'}
-                      </Badge>
-                    </div>
-                    
-                    {vehicle.testimonial && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-2.5 sm:p-3">
-                        {vehicle.customerName && (
-                          <p className="text-white text-xs sm:text-sm font-semibold mb-1">
-                            {vehicle.customerName}
+        {/* Mobile-Optimized Customer Reviews - Auto-Scrolling */}
+        {reviews.length > 0 && (
+          <div className="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-0">
+            {/* Compact Mobile Header */}
+            <div className="text-center mb-6 sm:mb-8 md:mb-10">
+              <div className="inline-flex items-center gap-2 mb-2 sm:mb-3 px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-red-50 to-pink-50 rounded-full border border-red-100">
+                <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 fill-current animate-pulse" />
+                <span className="text-xs sm:text-sm font-semibold text-gray-700">Customer Reviews</span>
+              </div>
+              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent px-4">
+                What Our Customers Say
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500 mt-2 px-4">Auto-playing reviews • Touch to pause</p>
+            </div>
+            
+            {/* Mobile-First Auto-Scrolling Container */}
+            <div className="relative -mx-3 sm:mx-0">
+              {/* Subtle gradient overlays */}
+              <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
+              
+              <div className="overflow-hidden py-3 sm:py-4">
+                {/* Auto-scrolling container - continuous loop */}
+                <div className="flex gap-3 sm:gap-4 md:gap-5 animate-scroll-x-mobile hover:pause-animation active:pause-animation">
+                  {/* Duplicate reviews for seamless infinite loop */}
+                  {[...reviews, ...reviews, ...reviews].map((review, index) => (
+                    <div
+                      key={`${review._id}-${index}`}
+                      className="flex-shrink-0 w-[85vw] sm:w-[320px] md:w-[360px] lg:w-[400px] group"
+                    >
+                      {/* Compact Mobile Card */}
+                      <div className="relative bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full flex flex-col overflow-hidden">
+                        {/* Subtle decorative elements - hidden on very small screens */}
+                        <div className="hidden sm:block absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-2xl"></div>
+                        
+                        {/* Verified Badge - Compact */}
+                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
+                          <div className="px-2 py-1 sm:px-2.5 sm:py-1 bg-green-500/10 backdrop-blur-sm border border-green-500/20 rounded-full flex items-center gap-1">
+                            <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-600" strokeWidth={3} />
+                            <span className="text-[10px] sm:text-xs font-bold text-green-700">Verified</span>
+                          </div>
+                        </div>
+                        
+                        {/* Rating Stars - Prominent on mobile */}
+                        <div className="flex items-center gap-0.5 sm:gap-1 mb-3 sm:mb-4">
+                          {[...Array(5)].map((_, i) => (
+                            <Star 
+                              key={i} 
+                              className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                                i < review.rating 
+                                  ? 'text-yellow-400 fill-yellow-400' 
+                                  : 'text-gray-300'
+                              }`}
+                            />
+                          ))}
+                          <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-bold text-gray-700">{review.rating}.0</span>
+                        </div>
+                        
+                        {/* Testimonial - Readable on mobile */}
+                        <div className="flex-1 mb-4 sm:mb-5">
+                          <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium line-clamp-4 sm:line-clamp-none">
+                            "{review.testimonial}"
                           </p>
-                        )}
-                        <p className="text-white/90 text-[10px] sm:text-xs line-clamp-2 leading-tight">
-                          "{vehicle.testimonial}"
-                        </p>
+                        </div>
+                        
+                        {/* Customer Info - Optimized for mobile */}
+                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
+                          <div className="relative flex-shrink-0">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-md">
+                              {review.customerName ? review.customerName.charAt(0).toUpperCase() : 'C'}
+                            </div>
+                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                              <span className="text-[8px] text-white">✓</span>
+                            </div>
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="font-bold text-gray-900 text-sm sm:text-base truncate">
+                              {review.customerName || 'Happy Customer'}
+                            </p>
+                            <p className="text-xs text-gray-500 truncate flex items-center gap-1.5 mt-0.5">
+                              <span className="w-1 h-1 rounded-full bg-blue-500 flex-shrink-0"></span>
+                              <span>{review.vehicleName}</span>
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    )}
-                  </div>
-                  <div className="p-2 sm:p-2.5">
-                    <h3 className="font-bold text-xs sm:text-sm mb-1 line-clamp-1 leading-tight">
-                      {vehicle.vehicleName}
-                    </h3>
-                    <div className="flex items-center gap-1 text-[10px] sm:text-xs text-gray-500">
-                      <Calendar className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" />
-                      <span className="truncate">{formatDate(vehicle.soldDate)}</span>
                     </div>
-                  </div>
-                </Card>
+                  ))}
                 </div>
-              ))}
+              </div>
+            </div>
+            
+            {/* Trust Indicators - Mobile optimized */}
+            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-5 sm:mt-6 px-4">
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
+                <span className="text-green-500 text-base sm:text-lg">✓</span>
+                <span>100% Real</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
+                <span className="text-green-500 text-base sm:text-lg">✓</span>
+                <span>Verified Buyers</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
+                <span className="text-green-500 text-base sm:text-lg">✓</span>
+                <span>Trusted Reviews</span>
+              </div>
             </div>
           </div>
         )}

@@ -30,6 +30,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     { name: 'All Vehicles', href: '/admin/inventory', icon: Package },
     { name: 'Rentals', href: '/admin/rentals', icon: Calendar },
     { name: 'Success Stories', href: '/admin/sold-vehicles', icon: Users },
+    { name: 'Reviews', href: '/admin/reviews', icon: Users },
     { name: 'Reports', href: '/admin/reports', icon: BarChart3 },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
   ];

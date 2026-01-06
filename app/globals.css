@@ -232,6 +232,53 @@ body {
   animation: rotate-slow 20s linear infinite;
 }
 
+/* Auto-scrolling Testimonials */
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-x-mobile {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-66.666%);
+  }
+}
+
+.animate-scroll-x {
+  animation: scroll-x 20s linear infinite;
+}
+
+.animate-scroll-x-mobile {
+  animation: scroll-x-mobile 20s linear infinite;
+}
+
+@media (min-width: 640px) {
+  .animate-scroll-x-mobile {
+    animation: scroll-x-mobile 20s linear infinite;
+  }
+}
+
+@media (min-width: 768px) {
+  .animate-scroll-x-mobile {
+    animation: scroll-x-mobile 22s linear infinite;
+  }
+}
+
+.pause-animation:hover {
+  animation-play-state: paused;
+}
+
+.pause-animation:active {
+  animation-play-state: paused;
+}
+
 /* Hover Effects */
 .hover-lift {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -462,4 +509,28 @@ body {
 
 .animate-shimmer {
   animation: shimmer 2s infinite;
+}
+
+/* Hide Scrollbar - Mobile Optimized */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Smooth Touch Scrolling */
+.scrollbar-hide {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Line Clamp Utilities for Mobile */
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
