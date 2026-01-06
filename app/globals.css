@@ -261,13 +261,30 @@ body {
 
 @media (min-width: 640px) {
   .animate-scroll-x-mobile {
-    animation: scroll-x-mobile 15s linear infinite;
+    animation: scroll-x-mobile 13s linear infinite;
   }
 }
 
 @media (min-width: 768px) {
   .animate-scroll-x-mobile {
-    animation: scroll-x-mobile 15s linear infinite;
+    animation: scroll-x-mobile 11s linear infinite;
+  }
+}
+
+/* Faster version - Double speed */
+.animate-scroll-x-fast {
+  animation: scroll-x-mobile 7.5s linear infinite;
+}
+
+@media (min-width: 640px) {
+  .animate-scroll-x-fast {
+    animation: scroll-x-mobile 6.5s linear infinite;
+  }
+}
+
+@media (min-width: 768px) {
+  .animate-scroll-x-fast {
+    animation: scroll-x-mobile 5.5s linear infinite;
   }
 }
 
@@ -277,6 +294,22 @@ body {
 
 .pause-animation:active {
   animation-play-state: paused;
+}
+
+/* Allow manual scrolling */
+.manual-scroll {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.manual-scroll::-webkit-scrollbar {
+  height: 0;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: start;
 }
 
 /* Hover Effects */

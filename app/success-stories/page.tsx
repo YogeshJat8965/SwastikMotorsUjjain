@@ -345,15 +345,15 @@ export default function SuccessStoriesPage() {
               <p className="text-xs sm:text-sm text-gray-500 mt-2 px-4">Auto-playing reviews • Touch to pause</p>
             </div>
             
-            {/* Mobile-First Auto-Scrolling Container */}
+            {/* Mobile-First Auto-Scrolling Container - Manual Scroll Enabled */}
             <div className="relative -mx-3 sm:mx-0">
               {/* Subtle gradient overlays */}
               <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
               <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
               
-              <div className="overflow-hidden py-3 sm:py-4">
-                {/* Auto-scrolling container - continuous loop */}
-                <div className="flex gap-3 sm:gap-4 md:gap-5 animate-scroll-x-mobile hover:pause-animation active:pause-animation">
+              <div className="overflow-x-auto overflow-y-hidden scrollbar-hide py-3 sm:py-4 scroll-smooth">
+                {/* Auto-scrolling container with manual scroll support */}
+                <div className="flex gap-3 sm:gap-4 md:gap-5 animate-scroll-x-fast hover:pause-animation">
                   {/* Duplicate reviews for seamless infinite loop */}
                   {[...reviews, ...reviews, ...reviews].map((review, index) => (
                     <div
