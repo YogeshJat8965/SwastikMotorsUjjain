@@ -121,7 +121,7 @@ export default function FilterSidebar({
 
       {/* Sidebar */}
       <aside
-        className={`fixed lg:sticky lg:top-24 top-0 left-0 h-screen lg:h-auto w-80 bg-white shadow-xl lg:shadow-none z-50 transform transition-transform duration-300 overflow-y-auto ${
+        className={`fixed lg:sticky lg:top-32 top-20 md:top-24 left-0 h-screen lg:h-auto w-80 bg-white shadow-xl lg:shadow-none z-40 transform transition-transform duration-300 overflow-y-auto ${
           isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >

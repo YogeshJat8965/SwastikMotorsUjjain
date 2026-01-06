@@ -8,21 +8,23 @@ export default function Navbar() {
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi, I want to know more about your bikes/cars`;
 
   return (
-    <nav className="sticky top-0 z-50 bg-white shadow-md">
+    <nav className="sticky md:fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3">
-            <div className="relative w-12 h-12 flex-shrink-0">
+          <Link href="/" className="flex items-center gap-3 md:gap-4">
+            <div className="relative w-14 h-14 md:w-20 md:h-20 lg:w-24 lg:h-24 flex-shrink-0">
               <Image
-                src="/logo.png"
+                src="/1000152145-removebg-preview.png"
                 alt="Swastik Motors Logo"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hidden sm:block">Swastik Motors</span>
+            <span className="text-2xl md:text-3xl lg:text-4xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent hidden sm:block animate-gradient-text drop-shadow-sm leading-tight">
+              Swastik Motors
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
