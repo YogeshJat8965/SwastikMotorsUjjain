@@ -4,6 +4,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import NavigationProgress from "@/components/ui/NavigationProgress";
 import GoogleAnalytics from "@/components/GoogleAnalytics";
 import { Suspense } from "react";
+import { Analytics } from "@vercel/analytics/next"
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
@@ -65,6 +66,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <GoogleAnalytics />
+        <Analytics />
         <Suspense fallback={null}>
           <NavigationProgress />
         </Suspense>
