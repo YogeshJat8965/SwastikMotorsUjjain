@@ -252,22 +252,22 @@ body {
 }
 
 .animate-scroll-x {
-  animation: scroll-x 20s linear infinite;
+  animation: scroll-x 15s linear infinite;
 }
 
 .animate-scroll-x-mobile {
-  animation: scroll-x-mobile 20s linear infinite;
+  animation: scroll-x-mobile 15s linear infinite;
 }
 
 @media (min-width: 640px) {
   .animate-scroll-x-mobile {
-    animation: scroll-x-mobile 20s linear infinite;
+    animation: scroll-x-mobile 15s linear infinite;
   }
 }
 
 @media (min-width: 768px) {
   .animate-scroll-x-mobile {
-    animation: scroll-x-mobile 22s linear infinite;
+    animation: scroll-x-mobile 15s linear infinite;
   }
 }
 

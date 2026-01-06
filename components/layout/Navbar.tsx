@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky md:fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-3 sm:px-4">
         <div className="flex items-center justify-between h-20 md:h-24">
           {/* Logo and Brand Name */}
