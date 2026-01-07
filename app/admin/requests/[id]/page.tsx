@@ -1,4 +1,3 @@
-export const runtime = "edge";
 
 import AdminLayout from '@/components/admin/AdminLayout';
 import SubmissionDetail from '@/components/admin/SubmissionDetail';
