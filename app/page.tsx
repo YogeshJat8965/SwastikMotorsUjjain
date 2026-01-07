@@ -4,8 +4,8 @@ import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import VehicleCard from '@/components/ui/VehicleCard';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
+// Enable ISR with revalidation
+export const revalidate = 300; // Revalidate every 5 minutes
 
 // Fetch featured vehicles from API
 async function getFeaturedVehicles() {
@@ -16,7 +16,7 @@ async function getFeaturedVehicles() {
       || `${protocol}://localhost:3000`;
     
     const res = await fetch(`${baseUrl}/api/vehicles?category=all&limit=12&sort=latest`, {
-      cache: 'no-store',
+      next: { revalidate: 300 }, // Cache for 5 minutes
     });
 
     if (!res.ok) return [];

@@ -3,10 +3,25 @@ import { getVehicles, getAvailableBrands, getAvailableLocations } from '@/lib/qu
 import connectDB from '@/lib/mongodb';
 import Vehicle from '@/models/Vehicle';
 import { requireAdmin } from '@/lib/auth';
+import { apiCache } from '@/lib/cache';
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
+
+    // Create cache key from query params
+    const cacheKey = `vehicles:${searchParams.toString()}`;
+    
+    // Check cache first
+    const cached = apiCache.get(cacheKey);
+    if (cached) {
+      return NextResponse.json(cached, { 
+        status: 200,
+        headers: {
+          'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        },
+      });
+    }
 
     // Parse query parameters
     const filters = {
@@ -27,7 +42,15 @@ export async function GET(request: NextRequest) {
 
     const result = await getVehicles(filters);
 
-    return NextResponse.json(result, { status: 200 });
+    // Cache the result for 5 minutes
+    apiCache.set(cacheKey, result, 300);
+
+    return NextResponse.json(result, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+    });
   } catch (error: any) {
     console.error('❌ Vehicles API Error:', error);
     
