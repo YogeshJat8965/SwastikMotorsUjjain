@@ -30,10 +30,14 @@ async function connectDB(): Promise<typeof mongoose> {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false,
-      maxPoolSize: 10,
-      minPoolSize: 2,
+      maxPoolSize: 100, // Increased for 1000 concurrent users
+      minPoolSize: 10, // Maintain minimum connections
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
+      maxIdleTimeMS: 30000, // Close idle connections after 30s
+      retryWrites: true, // Retry failed writes
+      retryReads: true, // Retry failed reads
+      connectTimeoutMS: 10000, // Connection timeout
     };
 
     console.log('🔄 Attempting to connect to MongoDB...');

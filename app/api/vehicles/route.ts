@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getVehicles, getAvailableBrands, getAvailableLocations } from '@/lib/queries/vehicleQueries';
 import connectDB from '@/lib/mongodb';

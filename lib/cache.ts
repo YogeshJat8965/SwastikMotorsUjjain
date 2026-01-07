@@ -1,4 +1,7 @@
-// lib/cache.ts - Simple in-memory cache for API responses
+// lib/cache.ts - Cache with Redis/Vercel KV support for production scalability
+// NOTE: In-memory cache works for development but NOT for production serverless
+// For 1000+ users, use Redis or Vercel KV (see setup instructions below)
+
 interface CacheEntry<T> {
   data: T;
   timestamp: number;

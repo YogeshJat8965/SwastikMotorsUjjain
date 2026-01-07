@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/auth';
 import RequestsManagement from '@/components/admin/RequestsManagement';
