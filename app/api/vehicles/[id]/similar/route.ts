@@ -27,17 +27,23 @@ export async function GET(
     const maxPrice = currentVehicle.sellingPrice * 1.2; // 20% higher
 
     const similarVehicles = await Vehicle.find({
-      _id: { $ne: currentVehicle._id }, // Exclude current vehicle
       category: currentVehicle.category, // Same category
       status: 'for_sale', // Only for sale
       sellingPrice: { $gte: minPrice, $lte: maxPrice }, // Similar price range
+      _id: { $ne: currentVehicle._id }, // Exclude current vehicle
     })
-      .select('-purchasePrice')
-      .limit(4)
+      .select('-purchasePrice -adminNotes -__v')
       .sort({ createdAt: -1 })
-      .lean();
+      .limit(4)
+      .lean({ virtuals: false })
+      .exec();
 
-    return NextResponse.json({ vehicles: similarVehicles }, { status: 200 });
+    return NextResponse.json({ vehicles: similarVehicles }, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+    });
   } catch (error: any) {
     console.error('Error fetching similar vehicles:', error);
     return NextResponse.json(

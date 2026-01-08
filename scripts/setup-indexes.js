@@ -86,6 +86,18 @@ const setupIndexes = async () => {
       { name: 'idx_text_search', weights: { brand: 10, vehicleModel: 8, description: 1 } }
     );
 
+    // 13. COMPOUND INDEX - Similar vehicles query (CRITICAL for detail page)
+    await createIndexSafe(vehiclesCollection,
+      { category: 1, status: 1, sellingPrice: 1, createdAt: -1 },
+      { name: 'idx_similar_vehicles' }
+    );
+
+    // 14. _id lookup optimization (MongoDB already has this, but ensuring it exists)
+    await createIndexSafe(vehiclesCollection,
+      { _id: 1 },
+      { name: 'idx_id_lookup' }
+    );
+
     console.log('\n✅ All VEHICLES indexes created successfully!\n');
 
     // ==========================================

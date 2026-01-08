@@ -9,9 +9,8 @@ import StickyActionBar from '@/components/vehicle/StickyActionBar';
 import VehicleCard from '@/components/ui/VehicleCard';
 import Badge from '@/components/ui/Badge';
 
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
+// Enable ISR with 5 minute revalidation for better performance
+export const revalidate = 300; // Cache for 5 minutes
 
 interface Vehicle {
   _id: string;
@@ -43,7 +42,7 @@ async function getVehicle(id: string): Promise<Vehicle | null> {
       || `${protocol}://localhost:3000`;
     
     const res = await fetch(`${baseUrl}/api/vehicles/${id}`, {
-      cache: 'no-store',
+      next: { revalidate: 300 }, // Cache for 5 minutes
       headers: {
         'Content-Type': 'application/json',
       },
@@ -65,7 +64,7 @@ async function getSimilarVehicles(id: string) {
       ? `https://${process.env.VERCEL_URL}` 
       : 'http://localhost:3000');
     const res = await fetch(`${baseUrl}/api/vehicles/${id}/similar`, {
-      cache: 'no-store',
+      next: { revalidate: 300 }, // Cache for 5 minutes
     });
 
     if (!res.ok) return [];
@@ -124,17 +123,19 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 export default async function VehicleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const vehicle = await getVehicle(id);
+  
+  // Parallelize data fetching for better performance
+  const [vehicle, similarVehicles] = await Promise.all([
+    getVehicle(id),
+    getSimilarVehicles(id)
+  ]);
 
   if (!vehicle) {
     notFound();
   }
 
-  // Increment views (fire and forget)
+  // Increment views (fire and forget - no await)
   incrementViews(id);
-
-  // Get similar vehicles
-  const similarVehicles = await getSimilarVehicles(id);
 
   const title = `${vehicle.brand} ${vehicle.vehicleModel} ${vehicle.year}`;
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';

@@ -32,7 +32,12 @@ export async function GET(
       );
     }
 
-    return NextResponse.json(vehicle, { status: 200 });
+    return NextResponse.json(vehicle, { 
+      status: 200,
+      headers: {
+        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+      },
+    });
   } catch (error: any) {
     console.error('Error fetching vehicle:', error);
     return NextResponse.json(
