@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Instagram, MessageCircle, Mail, Phone } from 'lucide-react';
+import { Instagram, MessageCircle, Mail, Phone, Youtube } from 'lucide-react';
 
 export default function Footer() {
   return (
@@ -63,6 +63,17 @@ export default function Footer() {
                 >
                   <Instagram className="w-4 h-4" />
                   <span>Instagram: @{process.env.NEXT_PUBLIC_INSTAGRAM_HANDLE || 'yogeshjat100'}</span>
+                </a>
+              </li>
+              <li>
+                <a 
+                  href={process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL || 'https://www.youtube.com/@Swastik_motors_Ujjain'}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-white transition-colors flex items-center gap-2"
+                >
+                  <Youtube className="w-4 h-4" />
+                  <span>YouTube Channel</span>
                 </a>
               </li>
               <li className="flex items-center gap-2">
