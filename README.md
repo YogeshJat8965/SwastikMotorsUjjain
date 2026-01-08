@@ -34,7 +34,7 @@ A modern, mobile-first platform for buying, selling, and renting bikes and cars.
 
 5. **Homepage** ✅
    - Hero section with search bar
-   - Trust signals (35k Instagram followers, 3k WhatsApp members)
+   - Trust signals (37K Instagram followers, 3k WhatsApp members)
    - **Featured Vehicles** section (6 cards)
    - **Latest Bikes** section (12 cards)
    - **Latest Cars** section (12 cards)
@@ -71,7 +71,7 @@ Required variables:
 - `CLOUDINARY_API_SECRET` - Cloudinary API secret
 - `ADMIN_EMAIL` - Admin email for login
 - `ADMIN_PASSWORD_HASH` - Bcrypt hash of admin password (use `node scripts/hash-password.js yourpassword`)
-- `NEXT_PUBLIC_ADMIN_WHATSAPP` - WhatsApp number (format: 918965900973)
+- `NEXT_PUBLIC_ADMIN_WHATSAPP` - WhatsApp number (format: 917089311939)
 - `NEXT_PUBLIC_INSTAGRAM_HANDLE` - Instagram handle (e.g., yogeshjat100)
 - `NEXT_PUBLIC_SITE_URL` - Site URL (http://localhost:3000 for development)
 

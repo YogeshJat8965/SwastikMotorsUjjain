@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Instagram, MessageCircle, Shield, Search, Car, DollarSign, CheckCircle, TrendingUp, Users, Clock } from 'lucide-react';
+import { Instagram, MessageCircle, Shield, Search, Car, DollarSign, CheckCircle, TrendingUp, Users, Clock, Youtube } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import VehicleCard from '@/components/ui/VehicleCard';
@@ -43,7 +43,7 @@ async function getFeaturedVehicles() {
 }
 
 export default async function Home() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi, I want to know more about your bikes/cars`;
   
   const vehicles = await getFeaturedVehicles();
@@ -51,7 +51,7 @@ export default async function Home() {
   return (
     <div>
       {/* Hero Section - Modern Split Design */}
-      <section className="relative min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden">
+      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden" style={{ minHeight: 'auto' }}>
         {/* Animated Grid Background */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -69,56 +69,56 @@ export default async function Home() {
           <div className="absolute bottom-20 left-1/3 w-72 h-72 bg-cyan-500/20 rounded-full blur-3xl animate-float-slow"></div>
         </div>
 
-        <div className="container relative z-10 py-6 sm:py-12 md:py-16 lg:py-20">
+        <div className="container relative z-10 py-4 sm:py-12 md:py-12 lg:py-16">
           {/* Top Badge */}
-          <div className="flex justify-center mb-4 sm:mb-8 animate-fade-in-down">
-            <div className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
+          <div className="flex justify-center mb-3 sm:mb-8 animate-fade-in-down">
+            <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-2 sm:px-6 sm:py-3 bg-white/10 backdrop-blur-xl rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300 group cursor-pointer">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
               </span>
-              <span className="text-sm font-semibold">🔥 Trusted by 38,000+ Happy Customers</span>
+              <span className="text-xs sm:text-sm font-semibold">🔥 Trusted by 38,000+ Happy Customers</span>
             </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Content */}
-            <div className="space-y-4 sm:space-y-8 animate-fade-in-left">
+            <div className="space-y-5 sm:space-y-8 animate-fade-in-left">
               {/* Main Headline */}
               <div>
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 sm:mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black leading-tight mb-3 sm:mb-6">
                   <span className="block text-white">Find Your</span>
                   <span className="block bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient">
                     Dream Ride
                   </span>
                   <span className="block text-white">Today</span>
                 </h1>
-                <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                <p className="text-sm sm:text-xl md:text-2xl text-gray-300 leading-relaxed">
                   Buy, Sell & Rent bikes and cars with the most trusted marketplace
                 </p>
               </div>
 
               {/* Stats Cards */}
-              <div className="grid grid-cols-3 gap-4">
-                <div className="relative bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-2xl p-4 border border-blue-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4">
+                <div className="relative bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-blue-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   <div className="relative">
-                    <div className="text-3xl font-bold text-blue-300 animate-pulse-slow">35K+</div>
-                    <div className="text-xs text-gray-300 mt-1">Instagram</div>
+                    <div className="text-xl sm:text-3xl font-bold text-blue-300 animate-pulse-slow">37K+</div>
+                    <div className="text-[10px] sm:text-xs text-gray-300 mt-0.5 sm:mt-1">Instagram</div>
                   </div>
                 </div>
-                <div className="relative bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm rounded-2xl p-4 border border-green-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+                <div className="relative bg-gradient-to-br from-green-500/20 to-green-600/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-green-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 animation-delay-200"></div>
                   <div className="relative">
-                    <div className="text-3xl font-bold text-green-300 animate-pulse-slow">3K+</div>
-                    <div className="text-xs text-gray-300 mt-1">WhatsApp</div>
+                    <div className="text-xl sm:text-3xl font-bold text-green-300 animate-pulse-slow">8K+</div>
+                    <div className="text-[10px] sm:text-xs text-gray-300 mt-0.5 sm:mt-1">WhatsApp</div>
                   </div>
                 </div>
-                <div className="relative bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-2xl p-4 border border-yellow-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
+                <div className="relative bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 backdrop-blur-sm rounded-xl sm:rounded-2xl p-2.5 sm:p-4 border border-yellow-400/30 hover:scale-105 transition-transform duration-300 overflow-hidden group">
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 animation-delay-400"></div>
                   <div className="relative">
-                    <div className="text-3xl font-bold text-yellow-300 animate-pulse-slow">100%</div>
-                    <div className="text-xs text-gray-300 mt-1">Trusted</div>
+                    <div className="text-xl sm:text-3xl font-bold text-yellow-300 animate-pulse-slow">100%</div>
+                    <div className="text-[10px] sm:text-xs text-gray-300 mt-0.5 sm:mt-1">Trusted</div>
                   </div>
                 </div>
               </div>
@@ -147,38 +147,38 @@ export default async function Home() {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap gap-4">
-                <Link href="/buy" className="flex-1 min-w-[200px]">
-                  <button className="w-full px-8 py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-bold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 group">
-                    <Car className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                <Link href="/buy" className="flex-1">
+                  <button className="w-full px-6 py-3.5 sm:px-8 sm:py-5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-bold hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 sm:gap-3 group text-sm sm:text-base">
+                    <Car className="w-5 h-5 sm:w-6 sm:h-6 group-hover:rotate-12 transition-transform" />
                     <span>Browse Vehicles</span>
                   </button>
                 </Link>
-                <Link href="/sell-to-us" className="flex-1 min-w-[200px]">
-                  <button className="w-full px-8 py-5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3 group">
-                    <DollarSign className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                <Link href="/sell-to-us" className="flex-1">
+                  <button className="w-full px-6 py-3.5 sm:px-8 sm:py-5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 sm:gap-3 group text-sm sm:text-base">
+                    <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
                     <span>Sell Your Vehicle</span>
                   </button>
                 </Link>
               </div>
 
               {/* Quick Features */}
-              <div className="flex flex-wrap gap-6 text-sm">
-                <div className="flex items-center gap-2 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
-                    <CheckCircle className="w-5 h-5 text-green-400" />
+              <div className="flex flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm">
+                <div className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-green-500/20 flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                    <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
                   </div>
                   <span className="text-gray-300">Verified Vehicles</span>
                 </div>
-                <div className="flex items-center gap-2 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
-                    <Shield className="w-5 h-5 text-blue-400" />
+                <div className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                    <Shield className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                   </div>
                   <span className="text-gray-300">Secure Deals</span>
                 </div>
-                <div className="flex items-center gap-2 group cursor-pointer">
-                  <div className="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
-                    <Clock className="w-5 h-5 text-yellow-400" />
+                <div className="flex items-center gap-1.5 sm:gap-2 group cursor-pointer">
+                  <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-yellow-500/20 flex items-center justify-center group-hover:bg-yellow-500/30 transition-colors">
+                    <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                   </div>
                   <span className="text-gray-300">Fast Response</span>
                 </div>
@@ -255,10 +255,10 @@ export default async function Home() {
           </div>
 
           {/* Mobile WhatsApp Button */}
-          <div className="lg:hidden mt-8 animate-fade-in-up animation-delay-600">
+          <div className="lg:hidden mt-4 sm:mt-6 animate-fade-in-up animation-delay-600">
             <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-              <button className="w-full px-8 py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-3">
-                <MessageCircle className="w-6 h-6" />
+              <button className="w-full px-6 py-3.5 sm:px-8 sm:py-5 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl font-bold hover:from-green-600 hover:to-green-700 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
+                <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
                 <span>Chat on WhatsApp</span>
               </button>
             </a>
@@ -273,57 +273,57 @@ export default async function Home() {
         </div>
 
         {/* Scrolling Text Marquee */}
-        <div className="relative border-t border-white/10 bg-gradient-to-r from-blue-600/30 to-purple-600/30 backdrop-blur-sm overflow-hidden py-6">
+        <div className="relative border-t border-white/10 bg-gradient-to-r from-blue-600/30 to-purple-600/30 backdrop-blur-sm overflow-hidden py-3 sm:py-4 md:py-6">
           <div className="flex animate-scroll-left md:animate-scroll-left-slow whitespace-nowrap">
-            <div className="flex items-center gap-12 px-6">
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+            <div className="flex items-center gap-6 sm:gap-8 md:gap-12 px-4 sm:px-6">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 ⚡ Instant Verification
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🏆 Best Prices Guaranteed
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🚀 Quick Delivery
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 💯 100% Genuine Vehicles
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🔒 Secure Transactions
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 📱 24/7 Support
               </span>
               <span className="text-white/60">•</span>
             </div>
             {/* Duplicate for seamless loop */}
-            <div className="flex items-center gap-12 px-6">
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+            <div className="flex items-center gap-6 sm:gap-8 md:gap-12 px-4 sm:px-6">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 ⚡ Instant Verification
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🏆 Best Prices Guaranteed
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🚀 Quick Delivery
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 💯 100% Genuine Vehicles
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 🔒 Secure Transactions
               </span>
               <span className="text-white/60">•</span>
-              <span className="text-lg font-semibold text-white flex items-center gap-2">
+              <span className="text-xs sm:text-sm md:text-lg font-semibold text-white flex items-center gap-1.5 sm:gap-2">
                 📱 24/7 Support
               </span>
               <span className="text-white/60">•</span>
@@ -333,9 +333,9 @@ export default async function Home() {
       </section>
 
       {/* Featured Vehicles */}
-      <section className="py-16 bg-gray-50">
+      <section className="pt-6 sm:pt-12 md:pt-16 pb-8 sm:pb-12 md:pb-16 bg-gray-50" style={{ marginTop: '0px' }}>
         <div className="container">
-          <div className="flex items-center justify-between mb-8">
+          <div className="flex items-center justify-between mb-6 sm:mb-8">
             <h2 className="text-3xl font-bold">⭐ Featured Vehicles</h2>
             <Link href="/buy">
               <Button variant="outline" size="md">View All</Button>
@@ -384,7 +384,7 @@ export default async function Home() {
       </section>
 
       {/* Instagram CTA Section */}
-      <section className="relative py-10 md:py-14 overflow-hidden bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
+      <section className="relative py-10 md:py-14 overflow-hidden bg-gradient-to-br from-purple-600 via-pink-600 to-rose-600">
         {/* Animated grid background */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0" style={{
@@ -394,12 +394,12 @@ export default async function Home() {
         </div>
 
         {/* Floating orbs */}
-        <div className="absolute top-10 left-10 w-24 h-24 bg-purple-400/20 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute bottom-10 right-10 w-32 h-32 bg-pink-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute top-10 left-10 w-24 h-24 bg-white/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
 
         <div className="container relative z-10">
           <div className="max-w-5xl mx-auto">
-            <div className="bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-gray-200 p-5 md:p-10 hover:shadow-purple-200/50 transition-all duration-500 animate-fade-in-up">
+            <div className="bg-white/90 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-2xl border border-white/30 p-5 md:p-10 hover:shadow-white/50 transition-all duration-500 animate-fade-in-up">
               {/* Mobile-First Layout */}
               <div className="flex flex-col gap-5">
                 {/* Icon and Title - Stacked on Mobile, Inline on Desktop */}
@@ -416,7 +416,7 @@ export default async function Home() {
                       Follow Us on Instagram
                     </h2>
                     <p className="text-sm sm:text-base md:text-lg text-gray-700 font-semibold">
-                      Join <span className="text-purple-600 font-black text-lg md:text-xl">35,000+</span> followers • Response in <span className="text-pink-600 font-black">24 Hours</span>
+                      Join <span className="text-purple-600 font-black text-lg md:text-xl">37,000+</span> followers • Response in <span className="text-pink-600 font-black">24 Hours</span>
                     </p>
                   </div>
                 </div>
@@ -461,17 +461,17 @@ export default async function Home() {
             </div>
 
             {/* Trust indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 md:mt-6 text-xs md:text-sm text-gray-600 font-semibold">
+            <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-4 md:mt-6 text-xs md:text-sm text-white font-semibold">
               <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.5s' }}>
-                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span className="text-yellow-300 text-lg md:text-xl">✓</span> 
                 <span>Daily Updates</span>
               </div>
               <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span className="text-yellow-300 text-lg md:text-xl">✓</span> 
                 <span>Exclusive Deals</span>
               </div>
               <div className="flex items-center gap-2 animate-fade-in" style={{ animationDelay: '0.7s' }}>
-                <span className="text-green-500 text-lg md:text-xl">✓</span> 
+                <span className="text-yellow-300 text-lg md:text-xl">✓</span> 
                 <span>Behind Scenes</span>
               </div>
             </div>
@@ -566,6 +566,84 @@ export default async function Home() {
                 <span>Expert Team</span>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* YouTube Section - Redesigned */}
+      <section className="relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #dc2626 0%, #e11d48 50%, #ec4899 100%)', margin: 0, padding: '2.5rem 0 2.5rem 0', marginBottom: 0 }}>
+        {/* Dark overlay for better text contrast */}
+        <div className="absolute inset-0 bg-black/10"></div>
+        
+        {/* Animated background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+            backgroundSize: '30px 30px'
+          }}></div>
+        </div>
+
+        {/* Floating elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+
+        <div className="container relative z-10 px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            {/* YouTube Icon */}
+            <div className="inline-flex items-center justify-center mb-4 md:mb-6">
+              <div className="relative">
+                <div className="absolute inset-0 bg-white rounded-3xl blur-xl opacity-50 animate-pulse"></div>
+                <div className="relative bg-white p-3 md:p-6 rounded-3xl shadow-2xl">
+                  <Youtube className="w-10 h-10 md:w-16 md:h-16 text-red-600" />
+                </div>
+              </div>
+            </div>
+
+            {/* Heading */}
+            <h2 className="text-2xl sm:text-3xl md:text-5xl font-black mb-3 md:mb-4 leading-tight" style={{ color: '#ffffff', textShadow: '2px 2px 8px rgba(0,0,0,0.3)' }}>
+              Watch Us on YouTube
+            </h2>
+            <p className="text-base md:text-xl font-semibold mb-2 md:mb-3" style={{ color: '#ffffff', textShadow: '1px 1px 4px rgba(0,0,0,0.3)' }}>
+              <span className="font-black text-xl md:text-3xl" style={{ color: '#fde047', textShadow: '2px 2px 6px rgba(0,0,0,0.4)' }}>1k+</span> Subscribers
+            </p>
+            <p className="text-sm md:text-lg mb-6 md:mb-8" style={{ color: '#ffffff', textShadow: '1px 1px 4px rgba(0,0,0,0.3)' }}>
+              Daily bike reviews, live updates & expert tips
+            </p>
+
+            {/* Feature Pills */}
+            <div className="flex flex-wrap justify-center gap-2 md:gap-3 mb-6 md:mb-8">
+              <div className="bg-white/30 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full font-bold text-xs md:text-sm flex items-center gap-2 shadow-lg" style={{ color: '#ffffff' }}>
+                <span>🎬</span> Daily Videos
+              </div>
+              <div className="bg-white/30 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full font-bold text-xs md:text-sm flex items-center gap-2 shadow-lg" style={{ color: '#ffffff' }}>
+                <span>🏍️</span> Bike Reviews
+              </div>
+              <div className="bg-white/30 backdrop-blur-sm px-3 py-1.5 md:px-4 md:py-2 rounded-full font-bold text-xs md:text-sm flex items-center gap-2 shadow-lg" style={{ color: '#ffffff' }}>
+                <span>🔴</span> Live Updates
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <a
+              href={process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL || 'https://www.youtube.com/@Swastik_motors_Ujjain'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block group"
+            >
+              <div className="relative">
+                <div className="absolute inset-0 bg-white rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                <button className="relative bg-white px-6 py-3 md:px-10 md:py-5 rounded-2xl font-black text-base md:text-xl shadow-2xl transform group-hover:scale-105 active:scale-95 transition-all duration-300 flex items-center gap-3 md:gap-4" style={{ color: '#dc2626' }}>
+                  <Youtube className="w-5 h-5 md:w-7 md:h-7" style={{ color: '#dc2626' }} />
+                  <span>Subscribe Now</span>
+                  <span className="text-xl md:text-2xl group-hover:translate-x-1 transition-transform">→</span>
+                </button>
+              </div>
+            </a>
+
+            {/* Channel Name */}
+            <p className="mt-4 md:mt-6 font-semibold text-xs md:text-base" style={{ color: '#ffffff', textShadow: '1px 1px 4px rgba(0,0,0,0.3)', marginTop: '1rem', marginBottom: 0 }}>
+              @Swastik_motors_Ujjain
+            </p>
           </div>
         </div>
       </section>

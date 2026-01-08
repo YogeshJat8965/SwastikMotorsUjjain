@@ -17,8 +17,8 @@ const inter = Inter({
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export const metadata: Metadata = {
-  title: "Swastik Motors - Buy, Sell & Rent Bikes & Cars | 35k+ Instagram Followers",
-  description: "Your trusted partner for buying, selling, and renting bikes & cars. 35k+ Instagram followers, 3k+ WhatsApp members. Best prices on quality vehicles in India.",
+  title: "Swastik Motors - Buy, Sell & Rent Bikes & Cars | 37K+ Instagram Followers",
+  description: "Your trusted partner for buying, selling, and renting bikes & cars. 37K+ Instagram followers, 3k+ WhatsApp members. Best prices on quality vehicles in India.",
   keywords: "bikes, cars, buy bikes, sell bikes, rent bikes, used bikes, used cars, second hand bikes, second hand cars, bike rental, car rental, swastik motors, vehicle marketplace",
   authors: [{ name: "Swastik Motors" }],
   creator: "Swastik Motors",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName: 'Swastik Motors',
     title: 'Swastik Bikes - Buy, Sell & Rent Bikes & Cars',
-    description: 'Your trusted partner for buying, selling, and renting bikes & cars. 35k+ Instagram followers, 3k+ WhatsApp members.',
+    description: 'Your trusted partner for buying, selling, and renting bikes & cars. 37K+ Instagram followers, 3k+ WhatsApp members.',
     images: [
       {
         url: '/og-image.jpg',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Swastik Bikes - Buy, Sell & Rent Bikes & Cars',
-    description: 'Your trusted partner for buying, selling, and renting bikes & cars. 35k+ Instagram followers.',
+    description: 'Your trusted partner for buying, selling, and renting bikes & cars. 37K+ Instagram followers.',
     images: ['/og-image.jpg'],
   },
   robots: {

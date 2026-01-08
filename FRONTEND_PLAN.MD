@@ -125,7 +125,7 @@ Admin {
 
 **Hero Section:**
 - Search bar: "Find your dream bike/car"
-- Trust badges: "35k Instagram | 3k WhatsApp Members"
+- Trust badges: "37K Instagram | 3k WhatsApp Members"
 - Large sticky WhatsApp button
 
 **Sections:**
@@ -491,7 +491,7 @@ Each card shows:
 
 ### **Soft Launch:**
 - Share in 3 WhatsApp groups (3k members)
-- Instagram post + story (35k followers)
+- Instagram post + story (37K followers)
 - Link in Instagram bio
 - Monitor for bugs
 
@@ -546,7 +546,7 @@ Each card shows:
 ✅ Browse vehicles (no login)  
 ✅ Submit vehicle to sell (no login)  
 ✅ WhatsApp contact on every vehicle  
-✅ Trust signals (35k followers)  
+✅ Trust signals (37K followers)  
 ✅ Mobile-first (under 2s)  
 ✅ Simple admin dashboard  
 ✅ Rental booking system  

@@ -12,7 +12,7 @@
 - [ ] `/success-stories` shows 8 WhatsApp-style stories
 - [ ] Reviews section auto-scrolls with Hinglish content
 - [ ] **Test on mobile phone** (80% of users will be on mobile)
-- [ ] WhatsApp button opens with **918965900973**
+- [ ] WhatsApp button opens with **917089311939**
 - [ ] Instagram link works (yogeshjat100)
 
 ### 2. Admin Panel Check
@@ -58,7 +58,7 @@ Day 3 (Wednesday): Share to Group 2 if all good
 Dekhne ke liye:
 [Your Vercel URL]
 
-📞 Contact: 918965900973
+📞 Contact: 917089311939
 📍 Location: Ujjain
 ```
 

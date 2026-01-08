@@ -26,7 +26,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Navbar />
-      <main className="min-h-screen pt-20 pb-20 md:pt-24 md:pb-0">
+      <main className="min-h-screen pt-20 md:pt-24" style={{ paddingBottom: 0, marginBottom: 0 }}>
         {children}
       </main>
       <Footer />
