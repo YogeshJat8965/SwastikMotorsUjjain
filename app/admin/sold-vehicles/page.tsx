@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Trash2, Plus, Calendar, Car, DollarSign, Star, CheckCircle, Users, Edit2, X } from 'lucide-react';
+import { Trash2, Plus, Calendar, Car, IndianRupee, Star, CheckCircle, Users, Edit2, X } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import Input from '@/components/ui/Input';
@@ -427,7 +427,7 @@ export default function SoldVehiclesManagement() {
                   
                   {vehicle.price && (
                     <div className="flex items-center gap-2 text-green-600 mb-3">
-                      <DollarSign className="w-4 h-4" />
+                      <IndianRupee className="w-4 h-4" />
                       <span className="text-base font-bold">₹{vehicle.price.toLocaleString()}</span>
                     </div>
                   )}

@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import Button from '../ui/Button';
 
 export default function Navbar() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi, I want to know more about your bikes/cars`;
   const pathname = usePathname();
 

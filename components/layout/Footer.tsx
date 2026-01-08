@@ -67,7 +67,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                <span>Email: info@swastikbikes.com</span>
+                <span>Email: yogeshjat8965@gmail.com</span>
               </li>
             </ul>
           </div>

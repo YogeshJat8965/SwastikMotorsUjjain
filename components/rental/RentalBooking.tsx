@@ -94,7 +94,7 @@ export default function RentalBooking({ rental, isAvailable }: RentalBookingProp
     }
   };
 
-  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const rentalUrl = `${baseUrl}/rentals/${rental._id}`;
 

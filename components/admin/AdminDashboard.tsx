@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import {
   Car,
   Bell,
-  DollarSign,
+  IndianRupee,
   Plus,
   FileText,
   Calendar,
@@ -96,7 +96,7 @@ export default function AdminDashboard() {
     {
       title: 'Profit This Month',
       value: `₹${stats.profitThisMonth.toLocaleString('en-IN')}`,
-      icon: DollarSign,
+      icon: IndianRupee,
       color: 'bg-green-500',
       textColor: 'text-green-600',
       bgColor: 'bg-green-50',

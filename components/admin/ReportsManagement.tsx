@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, DollarSign, ShoppingCart, Calendar, Download, BarChart3 } from 'lucide-react';
+import { TrendingUp, IndianRupee, ShoppingCart, Calendar, Download, BarChart3 } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Spinner from '@/components/ui/Spinner';
 
@@ -123,7 +123,7 @@ export default function ReportsManagement() {
           {/* Total Revenue */}
           <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white shadow-lg">
             <div className="flex items-center justify-between mb-4">
-              <DollarSign className="w-8 h-8 opacity-80" />
+              <IndianRupee className="w-8 h-8 opacity-80" />
               <TrendingUp className="w-6 h-6 opacity-60" />
             </div>
             <p className="text-blue-100 text-sm mb-1">Total Revenue</p>

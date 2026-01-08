@@ -39,7 +39,7 @@ export default function VehicleCard({
   const [imageError, setImageError] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   
-  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   const whatsappMessage = encodeURIComponent(
     `Hi, I'm interested in ${title}\nPrice: ₹${price.toLocaleString('en-IN')}\nLocation: ${location}`
   );

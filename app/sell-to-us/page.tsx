@@ -90,14 +90,14 @@ export default function SellToUsPage() {
               <p className="text-gray-600 mb-4">Need immediate assistance?</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
-                  href="tel:+918965900973"
+                  href="tel:+917089311939"
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   <Phone className="w-5 h-5" />
                   <span>Call Us</span>
                 </a>
                 <a
-                  href={`https://wa.me/918965900973?text=${encodeURIComponent(`Hi, I submitted my vehicle with reference number ${referenceNumber}`)}`}
+                  href={`https://wa.me/917089311939?text=${encodeURIComponent(`Hi, I submitted my vehicle with reference number ${referenceNumber}`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"

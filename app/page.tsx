@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Instagram, MessageCircle, Shield, Search, Car, DollarSign, CheckCircle, TrendingUp, Users, Clock, Youtube } from 'lucide-react';
+import { Instagram, MessageCircle, Shield, Search, Car, IndianRupee, CheckCircle, TrendingUp, Users, Clock, Youtube } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import VehicleCard from '@/components/ui/VehicleCard';
@@ -156,7 +156,7 @@ export default async function Home() {
                 </Link>
                 <Link href="/sell-to-us" className="flex-1">
                   <button className="w-full px-6 py-3.5 sm:px-8 sm:py-5 bg-gradient-to-r from-orange-500 to-yellow-500 text-white rounded-xl font-bold hover:from-orange-600 hover:to-yellow-600 transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-2xl flex items-center justify-center gap-2 sm:gap-3 group text-sm sm:text-base">
-                    <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
+                    <IndianRupee className="w-5 h-5 sm:w-6 sm:h-6 group-hover:scale-110 transition-transform" />
                     <span>Sell Your Vehicle</span>
                   </button>
                 </Link>

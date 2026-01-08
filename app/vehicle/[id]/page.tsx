@@ -137,7 +137,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
   const similarVehicles = await getSimilarVehicles(id);
 
   const title = `${vehicle.brand} ${vehicle.vehicleModel} ${vehicle.year}`;
-  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '918965900973';
+  const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   
   // Construct the full vehicle URL for sharing
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
