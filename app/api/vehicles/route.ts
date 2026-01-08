@@ -43,13 +43,14 @@ export async function GET(request: NextRequest) {
 
     const result = await getVehicles(filters);
 
-    // Cache the result for 5 minutes
-    apiCache.set(cacheKey, result, 300);
+    // Cache the result for 10 minutes (increased from 5)
+    apiCache.set(cacheKey, result, 600);
 
     return NextResponse.json(result, { 
       status: 200,
       headers: {
-        'Cache-Control': 'public, s-maxage=300, stale-while-revalidate=600',
+        'Cache-Control': 'public, s-maxage=600, stale-while-revalidate=1200',
+        'CDN-Cache-Control': 'public, s-maxage=600',
       },
     });
   } catch (error: any) {

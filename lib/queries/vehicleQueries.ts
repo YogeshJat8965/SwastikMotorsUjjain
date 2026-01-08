@@ -124,15 +124,16 @@ export async function getVehicles(filters: VehicleFilters = {}): Promise<Vehicle
   // Calculate pagination
   const skip = (page - 1) * limit;
 
-  // Execute query
+  // Execute query with optimized projection
   const [vehicles, total] = await Promise.all([
     Vehicle.find(query)
       .sort(sortQuery)
       .skip(skip)
       .limit(limit)
-      .select('-purchasePrice') // Don't send purchase price to frontend
-      .lean(),
-    Vehicle.countDocuments(query),
+      .select('-purchasePrice -adminNotes -__v') // Exclude sensitive/unnecessary fields
+      .lean({ virtuals: false }) // Lean without virtuals for better performance
+      .exec(),
+    Vehicle.countDocuments(query).lean().exec(),
   ]);
 
   const totalPages = Math.ceil(total / limit);
