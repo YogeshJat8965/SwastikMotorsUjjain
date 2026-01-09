@@ -330,111 +330,196 @@ export default function SuccessStoriesPage() {
         )}
 
         {/* Grid - Mobile Optimized */}
-        {/* Mobile-Optimized Customer Reviews - Auto-Scrolling */}
+        {/* Modern Mobile-First Reviews - Vertical Tinder-Style Cards */}
         {reviews.length > 0 && (
           <div className="mb-8 sm:mb-12 md:mb-20 px-3 sm:px-0">
-            {/* Compact Mobile Header */}
-            <div className="text-center mb-6 sm:mb-8 md:mb-10">
-              <div className="inline-flex items-center gap-2 mb-2 sm:mb-3 px-3 py-1.5 sm:px-4 sm:py-2 bg-gradient-to-r from-red-50 to-pink-50 rounded-full border border-red-100">
-                <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-red-500 fill-current animate-pulse" />
-                <span className="text-xs sm:text-sm font-semibold text-gray-700">Customer Reviews</span>
+            {/* Eye-catching Header */}
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="inline-flex items-center gap-2 mb-3 px-4 py-2 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 rounded-full shadow-lg">
+                <Star className="w-5 h-5 text-white fill-white animate-pulse" />
+                <span className="text-sm font-bold text-green">4.9/5 Rating</span>
+                <Star className="w-5 h-5 text-white fill-white animate-pulse" />
               </div>
-              <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-gray-900 via-gray-700 to-gray-900 bg-clip-text text-transparent px-4">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-2">
                 What Our Customers Say
               </h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-2 px-4">Auto-playing reviews • Touch to pause</p>
+              <p className="text-sm text-gray-600">38,000+ Happy Customers Trust Us ❤️</p>
             </div>
             
-            {/* Mobile-First Auto-Scrolling Container - Manual Scroll Enabled */}
-            <div className="relative -mx-3 sm:mx-0">
-              {/* Subtle gradient overlays */}
-              <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
-              <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 md:w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
-              
-              <div className="overflow-x-auto overflow-y-hidden scrollbar-hide py-3 sm:py-4 scroll-smooth">
-                {/* Auto-scrolling container with manual scroll support */}
-                <div className="flex gap-3 sm:gap-4 md:gap-5 animate-scroll-x-fast hover:pause-animation">
-                  {/* Duplicate reviews for seamless infinite loop */}
-                  {[...reviews, ...reviews, ...reviews].map((review, index) => (
-                    <div
-                      key={`${review._id}-${index}`}
-                      className="flex-shrink-0 w-[85vw] sm:w-[320px] md:w-[360px] lg:w-[400px] group"
-                    >
-                      {/* Compact Mobile Card */}
-                      <div className="relative bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 md:p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 h-full flex flex-col overflow-hidden">
-                        {/* Subtle decorative elements - hidden on very small screens */}
-                        <div className="hidden sm:block absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full blur-2xl"></div>
-                        
-                        {/* Verified Badge - Compact */}
-                        <div className="absolute top-3 right-3 sm:top-4 sm:right-4">
-                          <div className="px-2 py-1 sm:px-2.5 sm:py-1 bg-green-500/10 backdrop-blur-sm border border-green-500/20 rounded-full flex items-center gap-1">
-                            <CheckCircle className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-green-600" strokeWidth={3} />
-                            <span className="text-[10px] sm:text-xs font-bold text-green-700">Verified</span>
+            {/* Mobile: Vertical Swipe Cards, Desktop: Horizontal Grid */}
+            <div className="lg:hidden space-y-4">
+              {reviews.slice(0, 6).map((review, index) => (
+                <div
+                  key={review._id}
+                  className="relative animate-fade-in-up"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
+                  {/* Modern Card with Gradient Border */}
+                  <div className="relative bg-white rounded-3xl p-6 shadow-xl border-2 border-transparent bg-clip-padding"
+                       style={{
+                         background: 'linear-gradient(white, white) padding-box, linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box'
+                       }}>
+                    
+                    {/* Top Section - User Info */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        {/* Animated Avatar */}
+                        <div className="relative">
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-md opacity-75 animate-pulse"></div>
+                          <div className="relative w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-xl shadow-lg">
+                            {review.customerName ? review.customerName.charAt(0).toUpperCase() : 'C'}
+                          </div>
+                          {/* Verified Badge */}
+                          <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-3 border-white flex items-center justify-center shadow-md">
+                            <CheckCircle className="w-4 h-4 text-white" strokeWidth={3} />
                           </div>
                         </div>
                         
-                        {/* Rating Stars - Prominent on mobile */}
-                        <div className="flex items-center gap-0.5 sm:gap-1 mb-3 sm:mb-4">
+                        <div>
+                          <h3 className="font-bold text-gray-900 text-lg">
+                            {review.customerName || 'Happy Customer'}
+                          </h3>
+                          <p className="text-sm text-gray-500 flex items-center gap-1.5">
+                            <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                            {review.vehicleName}
+                          </p>
+                        </div>
+                      </div>
+                      
+                      {/* Rating Badge */}
+                      <div className="flex items-center gap-1 bg-yellow-400 px-3 py-1.5 rounded-full shadow-md">
+                        <Star className="w-4 h-4 text-white fill-white" />
+                        <span className="text-sm font-bold text-white">{review.rating}.0</span>
+                      </div>
+                    </div>
+                    
+                    {/* Review Text */}
+                    <div className="mb-4">
+                      <p className="text-gray-700 leading-relaxed text-base font-medium">
+                        "{review.testimonial}"
+                      </p>
+                    </div>
+                    
+                    {/* Bottom - Star Rating */}
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                      <div className="flex gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star 
+                            key={i} 
+                            className={`w-5 h-5 transition-all duration-300 ${
+                              i < review.rating 
+                                ? 'text-yellow-400 fill-yellow-400 scale-110' 
+                                : 'text-gray-300'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Verified Text */}
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-green-600">
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Verified Purchase</span>
+                      </div>
+                    </div>
+                    
+                    {/* Decorative gradient blob */}
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl -z-10"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Desktop: Horizontal Scrolling Grid */}
+            <div className="hidden lg:block">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {reviews.map((review, index) => (
+                  <div
+                    key={review._id}
+                    className="relative animate-fade-in-up"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="relative bg-white rounded-3xl p-6 shadow-xl border-2 border-transparent bg-clip-padding h-full"
+                         style={{
+                           background: 'linear-gradient(white, white) padding-box, linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) border-box'
+                         }}>
+                      
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 rounded-full blur-md opacity-75 animate-pulse"></div>
+                            <div className="relative w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                              {review.customerName ? review.customerName.charAt(0).toUpperCase() : 'C'}
+                            </div>
+                            <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
+                              <CheckCircle className="w-3 h-3 text-white" strokeWidth={3} />
+                            </div>
+                          </div>
+                          
+                          <div>
+                            <h3 className="font-bold text-gray-900">
+                              {review.customerName || 'Happy Customer'}
+                            </h3>
+                            <p className="text-xs text-gray-500 flex items-center gap-1.5">
+                              <span className="w-1 h-1 rounded-full bg-blue-500"></span>
+                              {review.vehicleName}
+                            </p>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-center gap-1 bg-yellow-400 px-2.5 py-1 rounded-full shadow-md">
+                          <Star className="w-3 h-3 text-white fill-white" />
+                          <span className="text-xs font-bold text-white">{review.rating}.0</span>
+                        </div>
+                      </div>
+                      
+                      <div className="mb-4">
+                        <p className="text-gray-700 leading-relaxed text-sm">
+                          "{review.testimonial}"
+                        </p>
+                      </div>
+                      
+                      <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                        <div className="flex gap-1">
                           {[...Array(5)].map((_, i) => (
                             <Star 
                               key={i} 
-                              className={`w-4 h-4 sm:w-5 sm:h-5 ${
+                              className={`w-4 h-4 ${
                                 i < review.rating 
                                   ? 'text-yellow-400 fill-yellow-400' 
                                   : 'text-gray-300'
                               }`}
                             />
                           ))}
-                          <span className="ml-1 sm:ml-2 text-xs sm:text-sm font-bold text-gray-700">{review.rating}.0</span>
                         </div>
                         
-                        {/* Testimonial - Readable on mobile */}
-                        <div className="flex-1 mb-4 sm:mb-5">
-                          <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium line-clamp-4 sm:line-clamp-none">
-                            "{review.testimonial}"
-                          </p>
-                        </div>
-                        
-                        {/* Customer Info - Optimized for mobile */}
-                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                          <div className="relative flex-shrink-0">
-                            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center text-white font-bold text-sm sm:text-base shadow-md">
-                              {review.customerName ? review.customerName.charAt(0).toUpperCase() : 'C'}
-                            </div>
-                            <div className="absolute -bottom-0.5 -right-0.5 w-4 h-4 bg-green-500 rounded-full border-2 border-white flex items-center justify-center">
-                              <span className="text-[8px] text-white">✓</span>
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <p className="font-bold text-gray-900 text-sm sm:text-base truncate">
-                              {review.customerName || 'Happy Customer'}
-                            </p>
-                            <p className="text-xs text-gray-500 truncate flex items-center gap-1.5 mt-0.5">
-                              <span className="w-1 h-1 rounded-full bg-blue-500 flex-shrink-0"></span>
-                              <span>{review.vehicleName}</span>
-                            </p>
-                          </div>
+                        <div className="flex items-center gap-1 text-xs font-semibold text-green-600">
+                          <CheckCircle className="w-3 h-3" />
+                          <span>Verified</span>
                         </div>
                       </div>
+                      
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-2xl -z-10"></div>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ))}
               </div>
             </div>
             
-            {/* Trust Indicators - Mobile optimized */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-5 sm:mt-6 px-4">
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
-                <span className="text-green-500 text-base sm:text-lg">✓</span>
-                <span>100% Real</span>
+            {/* Trust Stats */}
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 px-4">
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-1">38K+</div>
+                <div className="text-xs text-gray-600 font-semibold">Happy Customers</div>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
-                <span className="text-green-500 text-base sm:text-lg">✓</span>
-                <span>Verified Buyers</span>
+              <div className="w-px h-10 bg-gray-300"></div>
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-1">4.9★</div>
+                <div className="text-xs text-gray-600 font-semibold">Average Rating</div>
               </div>
-              <div className="flex items-center gap-1.5 text-xs sm:text-sm text-gray-600 font-semibold">
-                <span className="text-green-500 text-base sm:text-lg">✓</span>
-                <span>Trusted Reviews</span>
+              <div className="w-px h-10 bg-gray-300"></div>
+              <div className="flex flex-col items-center">
+                <div className="text-3xl font-black bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent mb-1">100%</div>
+                <div className="text-xs text-gray-600 font-semibold">Verified Reviews</div>
               </div>
             </div>
           </div>
