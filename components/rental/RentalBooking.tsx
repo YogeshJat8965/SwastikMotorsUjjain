@@ -95,7 +95,7 @@ export default function RentalBooking({ rental, isAvailable }: RentalBookingProp
   };
 
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://swastik-motors-ujjain-lwh6.vercel.app';
   const rentalUrl = `${baseUrl}/rentals/${rental._id}`;
 
   // Create WhatsApp message based on whether dates are selected

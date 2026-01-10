@@ -140,9 +140,9 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
   const title = `${vehicle.brand} ${vehicle.vehicleModel} ${vehicle.year}`;
   const whatsappNumber = process.env.NEXT_PUBLIC_ADMIN_WHATSAPP || '917089311939';
   
-  // Construct the full vehicle URL for sharing
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const vehicleUrl = `${baseUrl}/vehicle/${id}`;
+  // Construct the full vehicle URL for sharing - use NEXT_PUBLIC_SITE_URL
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://swastik-motors-ujjain-lwh6.vercel.app';
+  const vehicleUrl = `${siteUrl}/vehicle/${id}`;
   
   const whatsappMessage = encodeURIComponent(
     `Hi, I'm interested in ${title}\n\nPrice: ₹${vehicle.sellingPrice.toLocaleString('en-IN')}\nYear: ${vehicle.year}\nKilometers: ${vehicle.kilometers.toLocaleString('en-IN')} km\nLocation: ${[vehicle.city, vehicle.state].filter(Boolean).join(', ')}\n\nLink: ${vehicleUrl}`
