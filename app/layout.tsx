@@ -14,7 +14,7 @@ const inter = Inter({
   variable: '--font-inter',
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://swastik-motors-ujjain-lwh6.vercel.app';
 
 export const metadata: Metadata = {
   title: "Swastik Motors - Buy, Sell & Rent Bikes & Cars | 37K+ Instagram Followers",

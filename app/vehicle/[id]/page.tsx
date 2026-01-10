@@ -36,10 +36,9 @@ interface Vehicle {
 async function getVehicle(id: string): Promise<Vehicle | null> {
   try {
     // For server-side rendering, use absolute URL
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
       || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
-      || `${protocol}://localhost:3000`;
+      || 'https://swastik-motors-ujjain-lwh6.vercel.app';
     
     const res = await fetch(`${baseUrl}/api/vehicles/${id}`, {
       next: { revalidate: 300 }, // Cache for 5 minutes
@@ -62,7 +61,7 @@ async function getSimilarVehicles(id: string) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000');
+      : 'https://swastik-motors-ujjain-lwh6.vercel.app');
     const res = await fetch(`${baseUrl}/api/vehicles/${id}/similar`, {
       next: { revalidate: 300 }, // Cache for 5 minutes
     });
@@ -80,7 +79,7 @@ async function incrementViews(id: string) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL 
       ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000');
+      : 'https://swastik-motors-ujjain-lwh6.vercel.app');
     await fetch(`${baseUrl}/api/vehicles/${id}/view`, {
       method: 'POST',
       cache: 'no-store',
@@ -221,6 +220,7 @@ export default async function VehicleDetailPage({ params }: { params: Promise<{ 
                 title={title}
                 price={vehicle.sellingPrice}
                 whatsappLink={whatsappLink}
+                vehicleUrl={vehicleUrl}
               />
             </div>
           </div>

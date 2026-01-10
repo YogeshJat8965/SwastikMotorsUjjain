@@ -44,10 +44,9 @@ interface Rental {
 async function getRental(id: string): Promise<Rental | null> {
   try {
     // For server-side rendering, use absolute URL
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
       || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
-      || `${protocol}://localhost:3000`;
+      || 'https://swastik-motors-ujjain-lwh6.vercel.app';
     
     const res = await fetch(`${baseUrl}/api/rentals/${id}`, {
       cache: 'no-store',

@@ -10,10 +10,9 @@ export const revalidate = 300; // Revalidate every 5 minutes
 // Fetch featured vehicles from API
 async function getFeaturedVehicles() {
   try {
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL 
       || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
-      || `${protocol}://localhost:3000`;
+      || 'https://swastik-motors-ujjain-lwh6.vercel.app';
     
     const res = await fetch(`${baseUrl}/api/vehicles?category=all&limit=12&sort=latest`, {
       next: { revalidate: 300 }, // Cache for 5 minutes

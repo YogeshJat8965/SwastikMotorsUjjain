@@ -8,17 +8,20 @@ interface StickyActionBarProps {
   title: string;
   price: number;
   whatsappLink: string;
+  vehicleUrl: string;
 }
 
 export default function StickyActionBar({
   title,
   price,
   whatsappLink,
+  vehicleUrl,
 }: StickyActionBarProps) {
   const [copied, setCopied] = useState(false);
 
   const handleShare = async () => {
-    const url = window.location.href;
+    // Use the provided vehicleUrl instead of window.location.href
+    const url = vehicleUrl;
 
     // Try native share first (mobile)
     if (navigator.share) {
