@@ -26,6 +26,7 @@ export default function SoldVehiclesManagement() {
   const [soldVehicles, setSoldVehicles] = useState<SoldVehicle[]>([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     vehicleName: '',
     vehicleType: 'bike' as 'bike' | 'car',
@@ -68,8 +69,14 @@ export default function SoldVehiclesManagement() {
     setError('');
 
     try {
-      const res = await fetch('/api/admin/sold-vehicles', {
-        method: 'POST',
+      const url = editingId 
+        ? `/api/admin/sold-vehicles/${editingId}`
+        : '/api/admin/sold-vehicles';
+      
+      const method = editingId ? 'PUT' : 'POST';
+      
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
@@ -79,11 +86,12 @@ export default function SoldVehiclesManagement() {
 
       if (!res.ok) {
         const data = await res.json();
-        throw new Error(data.error || 'Failed to create entry');
+        throw new Error(data.error || `Failed to ${editingId ? 'update' : 'create'} entry`);
       }
 
       await fetchSoldVehicles();
       setShowForm(false);
+      setEditingId(null);
       setFormData({
         vehicleName: '',
         vehicleType: 'bike',
@@ -99,6 +107,36 @@ export default function SoldVehiclesManagement() {
     } finally {
       setSubmitting(false);
     }
+  };
+
+  const handleEdit = (vehicle: SoldVehicle) => {
+    setEditingId(vehicle._id);
+    setFormData({
+      vehicleName: vehicle.vehicleName,
+      vehicleType: vehicle.vehicleType,
+      customerName: vehicle.customerName || '',
+      image: vehicle.image,
+      soldDate: new Date(vehicle.soldDate).toISOString().split('T')[0],
+      testimonial: vehicle.testimonial || '',
+      price: vehicle.price?.toString() || '',
+      featured: vehicle.featured,
+    });
+    setShowForm(true);
+  };
+
+  const handleCancelEdit = () => {
+    setShowForm(false);
+    setEditingId(null);
+    setFormData({
+      vehicleName: '',
+      vehicleType: 'bike',
+      customerName: '',
+      image: '',
+      soldDate: new Date().toISOString().split('T')[0],
+      testimonial: '',
+      price: '',
+      featured: false,
+    });
   };
 
   const handleDelete = async (id: string) => {
@@ -180,7 +218,14 @@ export default function SoldVehiclesManagement() {
               variant="primary"
               size="lg"
               icon={<Plus className="w-5 h-5" />}
-              onClick={() => setShowForm(!showForm)}
+              onClick={() => {
+                if (showForm && !editingId) {
+                  setShowForm(false);
+                } else {
+                  handleCancelEdit();
+                  setShowForm(!showForm);
+                }
+              }}
               className="w-full sm:w-auto shadow-lg hover:shadow-xl transition-all"
             >
               {showForm ? 'Cancel' : 'Add New Story'}
@@ -245,13 +290,15 @@ export default function SoldVehiclesManagement() {
           </div>
         </div>
 
-        {/* Add Form */}
+        {/* Add/Edit Form */}
         {showForm && (
           <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8 border border-gray-200 animate-fade-in">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Add New Success Story</h2>
+              <h2 className="text-2xl font-bold text-gray-900">
+                {editingId ? 'Edit Success Story' : 'Add New Success Story'}
+              </h2>
               <button
-                onClick={() => setShowForm(false)}
+                onClick={handleCancelEdit}
                 className="text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <X className="w-6 h-6" />
@@ -354,13 +401,16 @@ export default function SoldVehiclesManagement() {
                   disabled={submitting}
                   className="flex-1 shadow-lg hover:shadow-xl"
                 >
-                  {submitting ? 'Adding Story...' : '✨ Add Success Story'}
+                  {submitting 
+                    ? (editingId ? 'Updating...' : 'Adding Story...') 
+                    : (editingId ? '✏️ Update Story' : '✨ Add Success Story')
+                  }
                 </Button>
                 <Button 
                   type="button" 
                   variant="outline" 
                   size="lg"
-                  onClick={() => setShowForm(false)}
+                  onClick={handleCancelEdit}
                   className="flex-1"
                 >
                   Cancel
@@ -440,6 +490,15 @@ export default function SoldVehiclesManagement() {
                   
                   {/* Action Buttons */}
                   <div className="flex gap-2 pt-3 border-t border-gray-100">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleEdit(vehicle)}
+                      className="flex-1 font-semibold text-blue-600 hover:bg-blue-50 border-blue-300 hover:border-blue-400"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                      Edit
+                    </Button>
                     <Button
                       variant={vehicle.featured ? "primary" : "outline"}
                       size="sm"
